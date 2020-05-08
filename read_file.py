@@ -7,7 +7,7 @@ import gzip
 import re
 
 class Read_error(Exception):
-	pass
+    pass
 
 class BioSeq:
     def __init__(self, id, desc, seq):
@@ -17,7 +17,32 @@ class BioSeq:
     def hgvsMod(self, hgvs=''):
         # Return a bioseq object after modification based on
         # hgvs annotation
-        return BioSeq(id,desc,seq)
+        return self.seq
+
+    def info(self):
+        return {
+            'id':self.id,
+            'desc':self.desc
+        }
+
+    def sequence(self):
+        return self.sequence
+
+class GFF_entry:
+    def __init__(self, line):
+        content = line.split('\t')
+        self.seqid = content[0]
+        self.source = content[1]
+        self.type = content[2]
+        self.beg = int(content[3])
+        self.end = int(content[4])
+        self.score = content[5]
+        self.strand = content[6]
+        self.phase = content[7]
+        if len(content) == 9:
+            self.attr = content[8]
+        else:
+            self.attr = ''
 
 class FASTA:
     def __init__(self, file):
@@ -27,6 +52,7 @@ class FASTA:
         else:
             self._fas = open(self.filename, 'r')
         self.entries = []
+        self.itr_mark = 0
         self.sta_coords = {}
         while (True):
             line = self._fas.readline()
@@ -38,69 +64,95 @@ class FASTA:
                     raise Read_error('duplicate id: ' + id)
                 else: self.entries.append(id)
                 self.sta_coords[id] = self._fas.tell() - len(line)
-        self._fas.close()
         if len(self.entries) == 0:
             raise Read_error('You sure this is FASTA?')
 
-    def test(self):
-        return(self.entries)
+    def get(self, id):
+        self._fas.seek(self.sta_coords[id])
+        header = self._fas.readline()
+        desc = header.split(id)[1].rstrip('\n')
+        seq = []
+        while(True):
+            line = self._fas.readline()
+            if line[0:1] == '>': break
+            if line == '': break
+            line = line.replace(' ', '')
+            seq.append(line.strip())
+        seq = ''.join(seq)
+        return BioSeq(id, desc, seq)
 
-    # def sequence(self, id):
-    #     self._fas.seek(self.dict[id]['pos'], os.SEEK_SET)
-    #     descibtion = self._fas.readline()
-    #     seq = []
-    #     while(True):
-    #         pos = self._fas.tell()
-    #         if pos == self.end:
-    #             break
-    #         else:
-    #             line = self._fas.readline()
-    #             content = line.split()
-    #             if(len(content) == 0):
-    #                 continue
-    #             elif(len(content) == 1):
-    #                 seq.append(content[0])
-    #             elif(len(content) > 1):
-    #                 break
-    #     seq = ''.join(seq)
-    #     return seq
-    # def describe(self, id):
-    #     self._fas.seek(self.dict[id]['pos'], os.SEEK_SET)
-    #     descibtion = self._fas.readline()
-    #     return descibtion
-    # def num(self, id):
-    #     return self.dict[id]['num']
-    # def dict(self):
-    #     return self.dict
-    # def close(self):
-    #     self._fas.close()
+    def __iter__(self):
+        return self
 
-def gff_read(file):
-    """Readin *.gff file entirely
-    return a dictionary"""
-    dict = {}
-    for line in file:
-        content = line.split("\t")
-        seq_name = content[0]
-        src = content[1]
-        feature = content[2]
-        start = int(content[3])
-        end = int(content[4])
-        score = content[5]
-        strand = content[6]
-        phase = content[7]
-        atr = content[8]
-        if src not in dict:
-            dict[src] = {}
-        if seq_name not in dict[src]:
-            dict[src][seq_name] = {}
-        if strand not in dict[src][seq_name]:
-            dict[src][seq_name][strand] = {}
-        if feature not in dict[src][seq_name][strand]:
-            dict[src][seq_name][strand][feature] = []
-        info = [start, end, score, phase, atr]
-        dict[src][seq_name][strand][feature].append(info)
-    return dict
+    def __next__(self):
+        if self.itr_mark == len(self.entries):
+            raise StopIteration
+        else:
+            id = self.entries[self.itr_mark]
+            self.itr_mark += 1
+            return FASTA.get(self, id)
+
+    def close(self):
+        self._fas.close()
+
+# May need to revise based on expect input format
+class GFF:
+    def __init__(self, file):
+        self.filename = file
+        if re.search(r'\.gz$', self.filename):
+            self._gff = gzip.open(file)
+        else:
+            self._gff = open(self.filename, 'r')
+        self.seqids = []
+        self.itr_mark = 0
+        self.sta_coords = {}
+        while (True):
+            line = self._gff.readline()
+            if line[0:1]=='#': continue
+            if line == '': break
+            content = line.split("\t")
+            if len(content) < 8: raise Read_error('Bad GFF Format')
+            id = content[0]
+            coord = self._gff.tell() - len(line) - 1
+            if id not in self.seqids:
+                self.seqids.append(id)
+                self.sta_coords[id] = [coord]
+            else:
+                self.sta_coords[id].append(coord)
+        if len(self.seqids) == 0:
+            raise Read_error('You sure this is GFF?')
+
+    def get(self, id):
+        info = []
+        for coord in self.sta_coords[id]:
+            self._gff.seek(coord)
+            entry = self._gff.readline()
+            info.append(GFF_entry(entry))
+        return info
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.itr_mark == len(self.seqids):
+            raise StopIteration
+        else:
+            id = self.seqids[self.itr_mark]
+            self.itr_mark += 1
+            return GFF.get(self, id)
+
+    def close(self):
+        self._gff.close()
 
 
-print(FASTA('data/foo.fa').test())
+
+# Test Code
+testF = FASTA('data/foo.fa')
+for entry in testF:
+    print(entry.info())
+testF.close()
+testG = GFF('data/foo.gff3')
+for src in testG:
+    for entry in src:
+        print(entry.seqid)
+testG.close()
