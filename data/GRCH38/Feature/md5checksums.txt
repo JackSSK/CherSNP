@@ -1,0 +1,1 @@
+17a5bba01d6af11a17822dd661ce4d7f  GCF_000001405.26_GRCh38_genomic.gff.gz

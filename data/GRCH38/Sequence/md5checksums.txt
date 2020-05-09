@@ -1,0 +1,1 @@
+3d03cc56a6a65413b8abc5a3239d78cd  GCF_000001405.26_GRCh38_genomic.fna.gz
