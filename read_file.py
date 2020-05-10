@@ -19,15 +19,6 @@ class BioSeq:
         # hgvs annotation
         return self.seq
 
-    def info(self):
-        return {
-            'id':self.id,
-            'desc':self.desc
-        }
-
-    def sequence(self):
-        return self.sequence
-
 class GFF_entry:
     def __init__(self, line):
         content = line.split('\t')
@@ -39,6 +30,9 @@ class GFF_entry:
         self.score = content[5]
         self.strand = content[6]
         self.phase = content[7]
+        self.id = ''
+        self.pid = []
+        self.cid = []
         if len(content) == 9:
             self.attr = content[8]
         else:
@@ -143,16 +137,3 @@ class GFF:
 
     def close(self):
         self._gff.close()
-
-
-
-# Test Code
-testF = FASTA('data/foo.fa')
-for entry in testF:
-    print(entry.info())
-testF.close()
-testG = GFF('data/foo.gff3')
-for src in testG:
-    for entry in src:
-        print(entry.seqid)
-testG.close()

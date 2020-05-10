@@ -1,6 +1,11 @@
 # CherSNP
 Predict Effect of SNPs without having internet access nor large cache data
 
+Find CDS within Sequence
+SVM train to find splite sites?
+Would depend on Sci-kit
+
+
 Some useful URL:
 https://triticeaetoolbox.org/wheat/tutorials/Tutorial_Variant_Effect.pdf
 
