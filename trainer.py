@@ -3,6 +3,7 @@ import re
 import argparse
 from sklearn import svm
 import read_file as read
+import seq_tools as seqt
 # import feature as fea
 
 class ID_error(Exception):
@@ -89,9 +90,21 @@ class Trainer:
                 beg = self.gff[entry.id][trans]['beg']
                 end = self.gff[entry.id][trans]['end']
                 strand = self.gff[entry.id][trans]['strand']
-                cds = self.gff[entry.id][trans]['cds']
                 seq = entry.seq[beg-1:end]
-                print(seq)
+                coord = []
+                cds_contest = []
+                for ele in self.gff[entry.id][trans]['cds']:
+                    temp = [int(ele[0])-beg, int(ele[1])-beg]
+                    coord.append(temp)
+                if strand == '+':
+                    coord = sorted(coord, key=lambda x: x[0])
+                elif strand == '-':
+                    coord = sorted(coord, key=lambda x: -x[0])
+                    for ele in coord:
+                        outseq = seqt.complementary(seq[ele[0]-4:ele[0]+6])
+                        inseq = seqt.complementary(seq[ele[1]-5:ele[1]+5])
+                        cds_contest.append([inseq, outseq])
+                print(cds_contest)
         fas_read.close()
 
 
