@@ -98,6 +98,10 @@ class Trainer:
                     coord.append(temp)
                 if strand == '+':
                     coord = sorted(coord, key=lambda x: x[0])
+                    for ele in coord:
+                        inseq = seqt.complementary(seq[ele[0]-4:ele[0]+6])
+                        outseq = seqt.complementary(seq[ele[1]-5:ele[1]+5])
+                        cds_contest.append([inseq, outseq])
                 elif strand == '-':
                     coord = sorted(coord, key=lambda x: -x[0])
                     for ele in coord:
