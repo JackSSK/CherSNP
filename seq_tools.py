@@ -38,6 +38,3 @@ def generate(k=1, type='list', pseudo=0):
         for key in table:
             dict[key] = pseudo
         return dict
-
-
-print(generate(2,'dict'))
