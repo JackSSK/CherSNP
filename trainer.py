@@ -7,25 +7,14 @@ import read_file as read
 import seq_tools as seqt
 # import feature as fea
 
-class ID_error(Exception):
-    pass
-
-parser = argparse.ArgumentParser(description='Just for test now')
-parser.add_argument('--fasta', required=True, type=str,
-    metavar='<path>', help='path to fasta file')
-parser.add_argument('--gff', required=True, type=str,
-    metavar='<path>', help='path to GFF3 file')
-arg = parser.parse_args()
-seq_file = arg.fasta
-gff_file = arg.gff
-
-
 # X = [[1,1,1], [2,2,2]]
 # y = [0,1]
 # clf = svm.SVC()
 # clf.fit(X,y)
-#
 # print(clf.predict([[2,2,1]]))
+
+class ID_error(Exception):
+    pass
 
 class Trainer:
     def __init__(self, seq_file, gff_file):
@@ -128,6 +117,3 @@ class Trainer:
 
                 print(coord, cds_contest, init, ent_cds, ext_cds, ter)
         fas_read.close()
-
-
-Trainer(seq_file, gff_file)

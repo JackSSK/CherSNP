@@ -2,8 +2,6 @@
 General tools
 """
 
-
-
 def complementary(seq):
     ans = []
     for i in seq[::-1].upper():
