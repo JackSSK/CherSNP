@@ -1,5 +1,6 @@
 # CherSNP
-Predict Effect of SNPs without having internet access nor large cache data
+Predict Effect of SNPs based on HGVS annotation and DNA sequence (or transcript sequence)
+without having internet access nor large cache data
 
 Find CDS within Sequence
 SVM train to find splite sites?
