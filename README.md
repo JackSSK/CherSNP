@@ -1,48 +1,40 @@
-# CherSNP
-Predict Effect of SNPs based on HGVS annotation and DNA sequence (or transcript sequence)
-without having internet access nor large cache data
-
-Find CDS within Sequence
-SVM train to find splite sites?
-Would depend on Sci-kit
+Jack Yu's thesis project proposal
 
 
-Some useful URL:
-https://triticeaetoolbox.org/wheat/tutorials/Tutorial_Variant_Effect.pdf
 
-About 0,1 based
-https://www.biostars.org/p/84686/
-BED is 0-based, VCF is 1-based, GFF is 1-based
+Introduction:
+ 	When I was doing an internship in a small research institution focus on building Autism related gene database few months ago, I participated in developing programs for standardize genomic variant annotations and put them into new variant database. One part I was asked to do is predicting the effects of variants and residue changes (change in protein level) for which only have allele change annotations (change in DNA/RNA level).  
+	Firstly, I was suggested to use a R package, VariantAnnotation, to implement; however, due to the very restricted prediction output types (only synonymous or non-synonymous) which do not meet the nomenclature standard of database, we eventually chose to use Ensembl’s Variant Effect Predictor (VEP) instead. Even though VEP certainly can give very decent prediction, I think there are still some inconvenient aspects of using it in a scenario of predicting effect of large amount of variants in few genes:
+	1. If we use VEP in online mode, the running time for prediction was kind of unacceptable.
+	2. If we use VEP in offline mode, the running time is indeed much shorter, but we needed to downloaded 25+ Gb datasets for GRCh37 and GRCh38 reference genomes.
+	After I checked for SnpEff and ANNOVAR which I think could be considered as alternative choices of VEP, I found similar inconveniences also exist in them. Therefore, I am wondering whether I could develop a human variant effect predictor in a different approach which would neither require need users to connect with online database nor download large datasets.
 
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4128822/
-Some ideas for training
 
-There would be 4 seperate classifier under 2 major type:
-	Type-in: (Aoko)
-		1 Start of cds, should have initial codon down stream
-		2 End of intron, go back to exon
 
-	Type-out: (Alice)
-		1 End of exon, going in to intron
-		2 End ot all cds, should have terminal signal upstream
+Method:
+	As a result of not asking users to download large datasets, the predictor would need users to provide reference sequences along with variant annotations at least. Thus, the minimum input needed should be a FASTA file which have reference sequences and a GFF/BED file which has annotations in HGVS format [1]. Ideally, user also includes CDS features in the GFF/BED, but this might be hard for users to do and I would not make it mandatory.
 
-	Aoko takes 20 bp upstream and 6 bp downstream:
-		1 	should have 5'UTR containing protein binding sites (GC rich expected?)
-			Start codon should some how looks like AUG/ATG
-			What codon comes after start codon might also be a good stuff?
-		2	End of intron has CT(Y)rich region for splice
-			Intron usually ends with AG also should have something in exon more ofenly
+	Here is my imagination on prediction making process so far:
+	1. Process GFF/BED file first and then save variant information in arrays based on reference sequences. If CDS annotations are available, also save them.
+	2. Process sequences in FASTA one by one. If CDS annotations are available, use so. Otherwise, use trained classifiers to label out the CDSs. Then, label out 5’UTR, 3’UTR, 	introns, splice acceptors, and splice donors according to CDS coordinates. Also, stimulate translation and save the result.
+	3. For each variant of the reference sequence, check the position of variant and adjacent base pairs and then make prediction based on translation stimulating manner. The predicted effect should be in nomenclature same with MISO. [2]
 
-	Alice takes 6 bp upstream and 4 bp downstream:
-		1	Intron tends to start with GU and also something in exon for splicing purpose
-		2	Terminal codons are also pretty constrained, +4 bp downstream context and codon 		before terminal codon would be helpful?
+	And here is my imagination on classifier training:
+	1. In total, there should be 4 types of classifiers which can determine 4 types of changes:
+		5’ UTR → CDS (Type UC)
+		CDS → Intron (Type CI)
+		Intron → CDS (Type IC)
+		CDS → 3’UTR (Type CU)
 
-	What dimention classifier would have?
-		Aoko1: GC ratio in upstream, start codon, second codon
-		Aoko2: CT ration in upstream, end of intron, 4bp downstream context
-		Alice1: n bp upsteam, start of intron, 2bp downstream
-		Alice2: -2 codon, terminal codon, 4bp downstream context
+	2. Even though so far I am planning to Support Vector Machine (SVM) to train for all 4 types of classifiers, different classifiers would be train with different features.
+		Type UC, I would use GC ratio in a selective region before the cutting edge and 	possibility of having the first codon after cutting edge (because the TF binding sites before 	would have a high GC ratio and start codon should be AUG or something close)
+		Type CI, I would use the possibility of having the 2 bps before the cut and 2bps after the 	cut and 4 bps further. (The consensus sequence would be GG/GURAGU, but probably the GU 	feature immediately after cut is more stronger?)
+		Type IC, I would use CT ratio in a selective ratio before the cutting edge and possibility 	of having last 2 bp before cutting edge. (intron usually end with AG and have CT rich region 	slightly before)
+		Type CU, I would just use the possibility of having the last codon as terminal codon.
 
-	How to train?
-		Again, make a dictionary of motif frequency for both splice site and non splice sites.
-		Compare frequecy difference within 2 dictionaries, try to find the "smallest big probability of motif which can determine 2 types of sequence", and set these values for SVM kernel (Linear?) or use RBF and polynomial on scikit?
+By now, I imagine the predictor will eventually be a python package and may relay on Scikit-learn for SVM features.
+
+
+Reference:
+[1] https://varnomen.hgvs.org/
+[2] http://www.sequenceontology.org/browser/current_release/term/SO:0001819
