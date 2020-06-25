@@ -1,3 +1,6 @@
+import json
+
+
 """
 General tools
 """
@@ -36,3 +39,15 @@ def generate(k=1, type='list', pseudo=0):
         for key in table:
             dict[key] = pseudo
         return dict
+
+
+def encode_json(data, out='temp_json.js' ):
+	with open(out,'w+')as report:
+		json.dump(data,report,indent=4)
+	report.close()
+
+def decode_json(file):
+	with open(file)as json_file:
+		data = json.load(json_file)
+	json_file.close()
+	return data
