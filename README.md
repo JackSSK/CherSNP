@@ -38,3 +38,4 @@ By now, I imagine the predictor will eventually be a python package and may rela
 Reference:
 [1] https://varnomen.hgvs.org/
 [2] http://www.sequenceontology.org/browser/current_release/term/SO:0001819
+For prediction type: https://m.ensembl.org/info/genome/variation/prediction/predicted_data.html
