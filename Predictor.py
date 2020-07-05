@@ -9,9 +9,12 @@ class ID_error(Exception):
 
 class Predicter:
     def __init__(self, seq_file, gff_file):
-        # self.gff = gffer.Process(gff_file).gff
+        self.gff = gffer.Process(gff_file).gff
         # Test with json sample
-        self.gff = seqt.decode_json('temp_json.js')
+        # self.gff = seqt.decode_json('temp_json.js')
+
+        # There should be something to make sure HGVS annotations are integrated
+
         self.results = {}
         self._processFAS(seq_file)
 
@@ -23,15 +26,14 @@ class Predicter:
                 end = self.gff[entry.id][record]['end']
                 strand = self.gff[entry.id][record]['strand']
                 type = self.gff[entry.id][record]['type']
+                hgvs = self.gff[entry.id][record]['hgvs']
 
-                if type == 'Gene'
-                    or (type == 'transcript' 
-                    and self.gff[entry.id][record]['parent'] == 'None'):
+                if type == 'Gene' and hgvs is not None:
                     seq = entry.seq[beg-1:end]
-                    self.gff[entry.id][record]['seq'] = seq
 
-                elif type == 'transcript':
-                    parent = self.gff[entry.id][record]['parent']
+
+                elif type == 'transcript' and hgvs is not None:
+                    seq = entry.seq[beg-1:end]
 
                     coord = []
                     cds_contest = []

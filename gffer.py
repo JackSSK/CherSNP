@@ -49,7 +49,7 @@ class Process:
                     # Parent of mRNA is not mandatory
                     if re.search(r'Parent=',entry.attr):
                         parent = entry.attr.split('Parent=')[1].split(';')[0]
-                    else: parent = 'None'
+                    else: parent = None
 
                     if re.search(r'ID=',entry.attr):
                         id = entry.attr.split('ID=')[1].split(';')[0]
