@@ -10,6 +10,7 @@ class Process:
     def __init__(self, file):
         self.gff = {}
         self._allway(file)
+        # For test
         seqt.encode_json(self.gff)
 
     def _allway(self, file):
@@ -23,12 +24,20 @@ class Process:
                 if entry.type =='gene':
                     if re.search(r'ID=',entry.attr):
                         id = entry.attr.split('ID=')[1].split(';')[0]
+
+                        #If HGVS is already annotated in gff
+                        if re.search(r'HGVS=',entry.attr):
+                            hgvs = entry.attr.split('HGVS=')[1].split(';')[0]
+                        else:
+                            hgvs = None
+
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
                                 'type':'Gene',
                                 'beg':int(entry.beg),
                                 'end':int(entry.end),
                                 'strand':entry.strand,
+                                'hgvs':hgvs
                             }
                         else:
                             raise ID_error('mRNA read in twice')
@@ -44,6 +53,13 @@ class Process:
 
                     if re.search(r'ID=',entry.attr):
                         id = entry.attr.split('ID=')[1].split(';')[0]
+
+                        #If HGVS is already annotated in gff
+                        if re.search(r'HGVS=',entry.attr):
+                            hgvs = entry.attr.split('HGVS=')[1].split(';')[0]
+                        else:
+                            hgvs = None
+
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
                                 'type':'transcript',
@@ -51,6 +67,7 @@ class Process:
                                 'beg':int(entry.beg),
                                 'end':int(entry.end),
                                 'strand':entry.strand,
+                                'hgvs':hgvs,
                                 'cds':[],
                             }
                         else:
