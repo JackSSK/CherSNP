@@ -3,8 +3,12 @@ import re
 import read_file as read
 import seq_tools as seqt
 import gffer
+import hgvser
 
 class ID_error(Exception):
+    pass
+
+class Type_error(Exception):
     pass
 
 class Predicter:
@@ -24,50 +28,30 @@ class Predicter:
             for record in self.gff[entry.id]:
                 beg = self.gff[entry.id][record]['beg']
                 end = self.gff[entry.id][record]['end']
-                strand = self.gff[entry.id][record]['strand']
+                # strand = self.gff[entry.id][record]['strand']
                 type = self.gff[entry.id][record]['type']
                 hgvs = self.gff[entry.id][record]['hgvs']
 
-                if type == 'Gene' and hgvs is not None:
+                if type == 'Gene' and len(hgvs)>0:
                     seq = entry.seq[beg-1:end]
 
 
-                elif type == 'transcript' and hgvs is not None:
+                elif type == 'transcript' and len(hgvs)>0:
                     seq = entry.seq[beg-1:end]
 
-                    coord = []
-                    cds_contest = []
-                    init = []
-                    ter = []
-                    ent_cds = []
-                    ext_cds = []
-                    for ele in self.gff[entry.id][record]['cds']:
-                        temp = [int(ele[0])-beg, int(ele[1])-beg]
-                        coord.append(temp)
-                    if strand == '+':
-                        coord = sorted(coord, key=lambda x: x[0])
-                        init.append(coord[0][0])
-                        ter.append(coord[-1][1])
-                        for ele in coord:
-                            enter = ele[0]
-                            exit = ele[1]
-                            if enter != init[0]: ent_cds.append(enter)
-                            if exit != ter[0]: ext_cds.append(exit)
-                            inseq = seqt.complementary(seq[enter-4:enter+6])
-                            outseq = seqt.complementary(seq[exit-5:exit+5])
-                            cds_contest.append([inseq, outseq])
-                    elif strand == '-':
-                        coord = sorted(coord, key=lambda x: -x[0])
-                        init.append(coord[0][1])
-                        ter.append(coord[-1][0])
-                        for ele in coord:
-                            enter = ele[1]
-                            exit = ele[0]
-                            if enter != init[0]: ent_cds.append(enter)
-                            if exit != ter[0]: ext_cds.append(exit)
-                            outseq = seqt.complementary(seq[exit-4:exit+6])
-                            inseq = seqt.complementary(seq[enter-5:enter+5])
-                            cds_contest.append([inseq, outseq])
-
-                    print(coord, cds_contest, init, ent_cds, ext_cds, ter)
-        fas_read.close()
+    # In this level check for whether the consequence would be:
+    # exon_variant: UTR variant, coding_sequence_variant
+    # intron_variant:
+    def _trans_1st_classify(trans, hgvs):
+        beg = trans['beg']
+        end = trans['end']
+        strand = trans['end']
+        anno = hgvser.HGVS(hgvs)
+        prefix = anno.prefix
+        if anno.type != 'Substitution':
+            raise Type_error('HGVS in 1st trans clssifier is not substitution')
+        if prefix != 'RNA':
+            raise Type_error('HGVS in 1st trans classifier is not r')
+        pos = anno.info.pos
+        ref = anno.info.ref
+        alt = anno.info.alt

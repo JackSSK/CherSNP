@@ -24,12 +24,11 @@ class Process:
                 if entry.type =='gene':
                     if re.search(r'ID=',entry.attr):
                         id = entry.attr.split('ID=')[1].split(';')[0]
+                        hgvs = []
 
                         #If HGVS is already annotated in gff
                         if re.search(r'HGVS=',entry.attr):
-                            hgvs = entry.attr.split('HGVS=')[1].split(';')[0]
-                        else:
-                            hgvs = None
+                            hgvs.append(entry.attr.split('HGVS=')[1].split(';')[0])
 
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
@@ -53,12 +52,11 @@ class Process:
 
                     if re.search(r'ID=',entry.attr):
                         id = entry.attr.split('ID=')[1].split(';')[0]
+                        hgvs = []
 
                         #If HGVS is already annotated in gff
                         if re.search(r'HGVS=',entry.attr):
-                            hgvs = entry.attr.split('HGVS=')[1].split(';')[0]
-                        else:
-                            hgvs = None
+                            hgvs.append(entry.attr.split('HGVS=')[1].split(';')[0])
 
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {

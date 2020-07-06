@@ -5,7 +5,9 @@
             "beg": 20286227,
             "end": 20305951,
             "strand": "-",
-            "hgvs": null
+            "hgvs": [
+                "c.339C>G"
+            ]
         },
         "rna-NM_138376.3": {
             "type": "transcript",
@@ -13,7 +15,9 @@
             "beg": 20286227,
             "end": 20305951,
             "strand": "-",
-            "hgvs": null,
+            "hgvs": [
+                "r.339C>G"
+            ],
             "cds": [
                 [
                     20305887,
