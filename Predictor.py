@@ -8,6 +8,9 @@ import hgvser
 class ID_error(Exception):
     pass
 
+class VariantPos_error(Exception):
+    pass
+
 class Type_error(Exception):
     pass
 
@@ -42,7 +45,7 @@ class Predicter:
     # In this level check for whether the consequence would be:
     # exon_variant: UTR variant, coding_sequence_variant
     # intron_variant:
-    def _trans_1st_classify(trans, hgvs):
+    def _trans_1st_classify(trans, transid, hgvs):
         beg = trans['beg']
         end = trans['end']
         strand = trans['end']
@@ -55,3 +58,6 @@ class Predicter:
         pos = anno.info.pos
         ref = anno.info.ref
         alt = anno.info.alt
+
+        if pos < beg or pos > end:
+            raise VariantPos_error('Variant ' + hgvs + ' is not in trans ' + transid)

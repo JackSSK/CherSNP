@@ -25,6 +25,7 @@ class Trainer:
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
+                print(trans)
                 if self.gff[entry.id][trans]['type'] == 'transcript':
                     beg = self.gff[entry.id][trans]['beg']
                     end = self.gff[entry.id][trans]['end']
