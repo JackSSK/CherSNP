@@ -20,12 +20,12 @@ class Trainer:
     def __init__(self, seq_file, gff_file):
         self.gff = gffer.Process(gff_file).gff
         self._processFAS(seq_file)
+        self.sta_summary = seqt.generate(3,'dict')
 
     def _processFAS(self, seq_file):
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
-                print(trans)
                 if self.gff[entry.id][trans]['type'] == 'transcript':
                     beg = self.gff[entry.id][trans]['beg']
                     end = self.gff[entry.id][trans]['end']
@@ -65,5 +65,5 @@ class Trainer:
                             inseq = seqt.complementary(seq[enter-5:enter+5])
                             cds_contest.append([inseq, outseq])
 
-                    print(coord, cds_contest, init, ent_cds, ext_cds, ter)
+                    print(trans,'\n', coord, cds_contest, init, ent_cds, ext_cds, ter)
         fas_read.close()

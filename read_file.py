@@ -108,6 +108,11 @@ class GFF:
             if len(content) < 8: raise Read_error('Bad GFF Format')
             id = content[0]
             coord = self._gff.tell() - len(line) - 1
+
+            # Sometime coord == -1 for some reason I don't know
+            # Probably just not being standard format
+            # print(self._gff.tell(), len(line))
+
             if id not in self.seqids:
                 self.seqids.append(id)
                 self.sta_coords[id] = [coord]

@@ -32,7 +32,7 @@ There would be 4 seperate classifier under 2 major type:
 			Start codon should some how looks like AUG/ATG
 			What codon comes after start codon might also be a good stuff?
 		2	End of intron has CT(Y)rich region for splice
-			Intron usually ends with AG also should have something in exon more ofenly
+			Intron usually ends with AG also should have something in exon more oftenly
 
 	Alice takes 6 bp upstream and 4 bp downstream:
 		1	Intron tends to start with GU and also something in exon for splicing purpose
@@ -40,10 +40,15 @@ There would be 4 seperate classifier under 2 major type:
 
 	What dimention classifier would have?
 		Aoko1: GC ratio in upstream, start codon, second codon
-		Aoko2: CT ration in upstream, end of intron, 4bp downstream context
+		Aoko2: CT ratio in upstream, end of intron, 4bp downstream context
 		Alice1: n bp upsteam, start of intron, 2bp downstream
 		Alice2: -2 codon, terminal codon, 4bp downstream context
 
 	How to train?
 		Again, make a dictionary of motif frequency for both splice site and non splice sites.
 		Compare frequecy difference within 2 dictionaries, try to find the "smallest big probability of motif which can determine 2 types of sequence", and set these values for SVM kernel (Linear?) or use RBF and polynomial on scikit?
+
+		Some problem...:
+			1. In GRCh38, some predicted transcripts only have 1 CDS and nothing else
+				which would break the training method
+				Probably just skip all XM_***?

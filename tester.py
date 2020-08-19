@@ -1,6 +1,7 @@
 import trainer as train
 import argparse
 import hgvser
+import seq_tools as tool
 
 parser = argparse.ArgumentParser(description='Just for test now')
 parser.add_argument('--fasta', required=True, type=str,
@@ -13,5 +14,6 @@ gff_file = arg.gff
 
 train.Trainer(seq_file, gff_file)
 
-test = hgvser.HGVS('c.123A>T')
-print(test.type, test.prefix, test.info.alt, test.info.ref, test.info.pos)
+
+# test = hgvser.HGVS('c.123A>T')
+# print(test.type, test.prefix, test.info.alt, test.info.ref, test.info.pos)
