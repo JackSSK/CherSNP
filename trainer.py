@@ -32,7 +32,7 @@ class Trainer:
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.observ = self._observer(seq_file)
-        # Process in observations and get classifiers 
+        # Process in observations and get classifiers
 
     def _observer(self, seq_file):
         #Initiating dicts for stroing correct observations
@@ -150,16 +150,17 @@ class Trainer:
 
     # This is to store observations of how transcript Ended
     # Stuffs and End Codon
-    def _update_aaEnd(self, contest, sufix=True):
-        wrong1 = contest[:-2]
-        wrong2 = contest[2:]
-        correct = contest[1:-1]
-
-        end_codon = contest[4:7]
-        last = contest[1:4]
-        try:
-            self.aaEnd[end_codon]+=1
-            self.aaL[last]+=1
-        except Exception as e:
-            raise Read_error('What the Hell is ' +
-                end_codon + ' or ' + last)
+    # Need to change to sth like _update_init
+    # def _update_aaEnd(self, contest, sufix=True):
+    #     wrong1 = contest[:-2]
+    #     wrong2 = contest[2:]
+    #     correct = contest[1:-1]
+    #
+    #     end_codon = contest[4:7]
+    #     last = contest[1:4]
+    #     try:
+    #         self.aaEnd[end_codon]+=1
+    #         self.aaL[last]+=1
+    #     except Exception as e:
+    #         raise Read_error('What the Hell is ' +
+    #             end_codon + ' or ' + last)
