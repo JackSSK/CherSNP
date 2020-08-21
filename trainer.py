@@ -32,8 +32,7 @@ class Trainer:
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.observ = self._observer(seq_file)
-
-
+        # Process in observations and get classifiers 
 
     def _observer(self, seq_file):
         #Initiating dicts for stroing correct observations

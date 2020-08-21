@@ -11,7 +11,7 @@ class Process:
         self.gff = {}
         self._allway(file)
         # For test
-        seqt.encode_json(self.gff)
+        # seqt.encode_json(self.gff)
 
     def _allway(self, file):
         gff_read = read.GFF(file)
