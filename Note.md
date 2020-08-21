@@ -18,6 +18,9 @@ BED is 0-based, VCF is 1-based, GFF is 1-based
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4128822/
 Some ideas for training
 
+https://www.nature.com/articles/s41587-019-0164-5
+CUG and GUG start codon...
+
 There would be 4 seperate classifier under 2 major type:
 	Type-in: (Aoko)
 		1 Start of cds, should have initial codon down stream
@@ -27,8 +30,9 @@ There would be 4 seperate classifier under 2 major type:
 		1 End of exon, going in to intron
 		2 End ot all cds, should have terminal signal upstream
 
-	Aoko takes 20 bp upstream and 6 bp downstream:
-		1 	should have 5'UTR containing protein binding sites (GC rich expected?)
+	Aoko takes few bp upstream and 6 bp downstream:
+		1 Based on Kozak consensus sequence concept, bp around start codon would
+			be somehow conserved
 			Start codon should some how looks like AUG/ATG
 			What codon comes after start codon might also be a good stuff?
 		2	End of intron has CT(Y)rich region for splice

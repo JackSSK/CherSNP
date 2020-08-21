@@ -18,20 +18,63 @@ class Read_error(Exception):
 class ID_error(Exception):
     pass
 
+class Initiate_Site:
+    def __init__(self,seq):
+        self.pre = seq[:4]
+        self.start = seq[4:7]
+        self.first = seq[7:]
+    def out(self):
+        return [self.pre, self.start, self.first]
+
 class Trainer:
     def __init__(self, seq_file, gff_file):
-        #Initiating dicts for stroing codon observations
-        self.aaSta = seqt.generate(k=3, type='dict')
-        self.aaEnd = seqt.generate(k=3, type='dict')
-        self.aa1 = seqt.generate(k=3, type='dict')
-        self.aaL = seqt.generate(k=3, type='dict')
-        #Process in GFF file
+        # Process in GFF file
         self.gff = gffer.Process(gff_file).gff
-        self._processWiFAS(seq_file)
+        # Get observations and correspond dictionary
+        self.dict, self.observ = self._observer(seq_file)
 
 
 
-    def _processWiFAS(self, seq_file):
+    def _observer(self, seq_file):
+        #Initiating dicts for stroing correct observations
+        dict = {
+            "init":{
+                "pre":seqt.generate(k=4, type='dict'),
+                "start":seqt.generate(k=3, type='dict'),
+                "aa1":seqt.generate(k=3, type='dict')
+            },
+            "term":{
+                "last":seqt.generate(k=3, type='dict'),
+                "stop":seqt.generate(k=3, type='dict'),
+                "suf":seqt.generate(k=4, type='dict'),
+            },
+            "entCDS":{
+
+            },
+            "outCDS":{
+
+            }
+        }
+
+        observ = {
+            "init":{
+                "correct":[],
+                "wrong":[]
+            },
+            "term":{
+                "correct":[],
+                "wrong":[]
+            },
+            "entCDS":{
+                "correct":[],
+                "wrong":[]
+            },
+            "outCDS":{
+                "correct":[],
+                "wrong":[]
+            }
+        }
+
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
@@ -57,15 +100,14 @@ class Trainer:
                         for ele in coord:
                             enter = ele[0]
                             exit = ele[1]
-
-                            inseq = seq[enter-4:enter+6]
-                            outseq = seq[exit-5:exit+5]
+                            inseq = seq[enter-5:enter+7]
+                            outseq = seq[exit-6:exit+6]
                             cds_contest.append([inseq, outseq])
 
                             if enter != init: ent_cds.append(enter)
-                            else: self._update_aaSta(inseq)
+                            else: self._update_init(dict,observ,inseq)
                             if exit != ter: ext_cds.append(exit)
-                            else: self._update_aaEnd(outseq)
+                            # else: self._update_aaEnd(outseq)
 
                     elif strand == '-':
                         coord = sorted(coord, key=lambda x: -x[0])
@@ -74,37 +116,48 @@ class Trainer:
                         for ele in coord:
                             enter = ele[1]
                             exit = ele[0]
-
-                            outseq = seqt.complementary(seq[exit-4:exit+6])
-                            inseq = seqt.complementary(seq[enter-5:enter+5])
+                            outseq = seqt.complementary(seq[exit-5:exit+7])
+                            inseq = seqt.complementary(seq[enter-6:enter+6])
                             cds_contest.append([inseq, outseq])
 
                             if enter != init: ent_cds.append(enter)
-                            else: self._update_aaSta(inseq)
+                            else: self._update_init(dict,observ,inseq)
                             if exit != ter: ext_cds.append(exit)
-                            else: self._update_aaEnd(outseq)
+                            # else: self._update_aaEnd(outseq)
 
-                    print(trans,'\n', coord, cds_contest, init, ent_cds, ext_cds, ter)
+                    # print(trans,'\n', coord, cds_contest, init, ent_cds, ext_cds, ter)
         fas_read.close()
+        return dict, observ
 
     # This is to store observations of how transcript initiated
     # Stuffs and Start Codon
-    def _update_aaSta(self, contest, prefix=True):
+    # Now wrong cases are gained by shift 1bp,
+    # Maybe shift 3bp instead of 1?
+    def _update_init(self, dict, observ, contest, prefix=True):
         if prefix:
-            start_codon = contest[4:7]
-            first = contest[7:]
-        try:
-            self.aaSta[start_codon]+=1
-            self.aa1[first]+=1
-        except Exception as e:
-            raise Read_error('What the Hell is ' +
-                start_codon + ' or ' + first)
+            wrong1 = Initiate_Site(contest[:-2])
+            wrong2 = Initiate_Site(contest[2:])
+            correct = Initiate_Site(contest[1:-1])
+            observ["init"]["correct"].append(correct.out())
+            observ["init"]["wrong"].append(wrong1.out())
+            observ["init"]["wrong"].append(wrong2.out())
+            try:
+                dict["init"]["start"][correct.start]+=1
+                dict["init"]["aa1"][correct.first]+=1
+                dict["init"]["pre"][correct.pre]+=1
+            except Exception as e:
+                raise Read_error('What the Hell is ' +
+                    correct.start + ' or ' + correct.first)
 
     # This is to store observations of how transcript Ended
     # Stuffs and End Codon
     def _update_aaEnd(self, contest, sufix=True):
-        end_codon = contest[3:6]
-        last = contest[:3]
+        wrong1 = contest[:-2]
+        wrong2 = contest[2:]
+        correct = contest[1:-1]
+
+        end_codon = contest[4:7]
+        last = contest[1:4]
         try:
             self.aaEnd[end_codon]+=1
             self.aaL[last]+=1
