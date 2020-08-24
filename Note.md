@@ -21,6 +21,9 @@ Some ideas for training
 https://www.nature.com/articles/s41587-019-0164-5
 CUG and GUG start codon...
 
+The consensus sequence for an intron (in IUPAC nucleic acid notation) is: G-G-[cut]-G-U-R-A-G-U (donor site) ... intron sequence ... Y-U-R-A-C (branch sequence 20-50 nucleotides upstream of acceptor site) ... Y-rich-N-C-A-G-[cut]-G (acceptor site).
+"Molecular Biology of the Cell". 2012 Journal Citation Reports. Web of Science (Science ed.). Thomson Reuters. 2013.
+
 There would be 4 seperate classifier under 2 major type:
 	Type-in: (Aoko)
 		1 Start of cds, should have initial codon down stream
@@ -33,7 +36,7 @@ There would be 4 seperate classifier under 2 major type:
 	Aoko takes few bp upstream and 6 bp downstream:
 		1 Based on Kozak consensus sequence concept, bp around start codon would
 			be somehow conserved
-			Start codon should some how looks like AUG/ATG
+			Start codon should looks like AUG/ATG
 			What codon comes after start codon might also be a good stuff?
 		2	End of intron has CT(Y)rich region for splice
 			Intron usually ends with AG also should have something in exon more oftenly
@@ -43,9 +46,9 @@ There would be 4 seperate classifier under 2 major type:
 		2	Terminal codons are also pretty constrained, +4 bp downstream context and codon 		before terminal codon would be helpful?
 
 	What dimention classifier would have?
-		Aoko1: GC ratio in upstream, start codon, second codon
-		Aoko2: CT ratio in upstream, end of intron, 4bp downstream context
-		Alice1: n bp upsteam, start of intron, 2bp downstream
+		Aoko1: GC ratio in upstream(?), start codon, second codon
+		Aoko2: CT ratio in upstream, end of intron, 1bp downstream context
+		Alice1: n bp upsteam, start of intron, 4bp downstream
 		Alice2: -2 codon, terminal codon, 4bp downstream context
 
 	How to train?

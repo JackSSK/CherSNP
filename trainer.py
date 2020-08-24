@@ -5,6 +5,7 @@ from sklearn import svm
 import read_file as read
 import seq_tools as seqt
 import gffer
+import feature
 # import feature as fea
 # Nothing here
 # X = [[1,1,1], [2,2,2]]
@@ -18,20 +19,13 @@ class Read_error(Exception):
 class ID_error(Exception):
     pass
 
-class Initiate_Site:
-    def __init__(self,seq):
-        self.pre = seq[:4]
-        self.start = seq[4:7]
-        self.first = seq[7:]
-    def out(self):
-        return [self.pre, self.start, self.first]
-
 class Trainer:
     def __init__(self, seq_file, gff_file):
         # Process in GFF file
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.observ = self._observer(seq_file)
+        # seqt.encode_json([self.dict, self.observ])
         # Process in observations and get classifiers
 
     def _observer(self, seq_file):
@@ -48,10 +42,13 @@ class Trainer:
                 "suf":seqt.generate(k=4, type='dict'),
             },
             "entCDS":{
-
+                "end2":seqt.generate(k=2, type='dict'),
+                "first1":seqt.generate(k=1, type='dict'),
             },
             "outCDS":{
-
+                "pre2":seqt.generate(k=2, type='dict'),
+                "first2":seqt.generate(k=2, type='dict'),
+                "next4":seqt.generate(k=4, type='dict'),
             }
         }
 
@@ -83,11 +80,8 @@ class Trainer:
                     strand = self.gff[entry.id][trans]['strand']
                     seq = entry.seq[beg-1:end]
                     coord = []
-                    cds_contest = []
                     init = 0
                     ter = 0
-                    ent_cds = []
-                    ext_cds = []
                     for ele in self.gff[entry.id][trans]['cds']:
                         temp = [int(ele[0])-beg, int(ele[1])-beg]
                         coord.append(temp)
@@ -97,34 +91,40 @@ class Trainer:
                         init = coord[0][0]
                         ter = coord[-1][1]
                         for ele in coord:
-                            enter = ele[0]
-                            exit = ele[1]
-                            inseq = seq[enter-5:enter+7]
-                            outseq = seq[exit-6:exit+6]
-                            cds_contest.append([inseq, outseq])
-
-                            if enter != init: ent_cds.append(enter)
-                            else: self._update_init(dict,observ,inseq)
-                            if exit != ter: ext_cds.append(exit)
-                            # else: self._update_aaEnd(outseq)
+                            inseq = ""
+                            outseq = ""
+                            if ele[0] != init:
+                                inseq = seq[ele[0]-15:ele[0]+3]
+                                self._update_entCDS(dict,observ,inseq)
+                            else:
+                                inseq = seq[ele[0]-5:ele[0]+7]
+                                self._update_init(dict,observ,inseq)
+                            if ele[1] != ter:
+                                outseq = seq[ele[1]-2:ele[1]+8]
+                                self._update_outCDS(dict,observ,outseq)
+                            # else:
+                            #     outseq = seq[ele[1]-6:ele[1]+6]
+                            #     self._update_aaEnd(outseq)
 
                     elif strand == '-':
                         coord = sorted(coord, key=lambda x: -x[0])
                         init = coord[0][1]
                         ter = coord[-1][0]
                         for ele in coord:
-                            enter = ele[1]
-                            exit = ele[0]
-                            outseq = seqt.complementary(seq[exit-5:exit+7])
-                            inseq = seqt.complementary(seq[enter-6:enter+6])
-                            cds_contest.append([inseq, outseq])
-
-                            if enter != init: ent_cds.append(enter)
-                            else: self._update_init(dict,observ,inseq)
-                            if exit != ter: ext_cds.append(exit)
-                            # else: self._update_aaEnd(outseq)
-
-                    # print(trans,'\n', coord, cds_contest, init, ent_cds, ext_cds, ter)
+                            inseq = ""
+                            outseq = ""
+                            if ele[1] != init:
+                                inseq = seqt.complementary(seq[ele[1]-2:ele[1]+16])
+                                self._update_entCDS(dict,observ,inseq)
+                            else:
+                                inseq = seqt.complementary(seq[ele[1]-6:ele[1]+6])
+                                self._update_init(dict,observ,inseq)
+                            if ele[0] != ter:
+                                outseq = seqt.complementary(seq[ele[0]-7:ele[0]+3])
+                                self._update_outCDS(dict,observ,outseq)
+                            # else:
+                            #     outseq = seqt.complementary(seq[ele[0]-5:ele[0]+7])
+                            #     self._update_aaEnd(outseq)
         fas_read.close()
         return dict, observ
 
@@ -134,9 +134,9 @@ class Trainer:
     # Maybe shift 3bp instead of 1?
     def _update_init(self, dict, observ, contest, prefix=True):
         if prefix:
-            wrong1 = Initiate_Site(contest[:-2])
-            wrong2 = Initiate_Site(contest[2:])
-            correct = Initiate_Site(contest[1:-1])
+            wrong1 = feature.Initiate_Site(contest[:-2])
+            wrong2 = feature.Initiate_Site(contest[2:])
+            correct = feature.Initiate_Site(contest[1:-1])
             observ["init"]["correct"].append(correct.out())
             observ["init"]["wrong"].append(wrong1.out())
             observ["init"]["wrong"].append(wrong2.out())
@@ -147,6 +147,34 @@ class Trainer:
             except Exception as e:
                 raise Read_error('What the Hell is ' +
                     correct.start + ' or ' + correct.first)
+
+    def _update_entCDS(self, dict, observ, contest):
+        wrong1 = feature.Enter_CDS(contest[:-2])
+        wrong2 = feature.Enter_CDS(contest[2:])
+        correct = feature.Enter_CDS(contest[1:-1])
+        observ["entCDS"]["correct"].append(correct.out())
+        observ["entCDS"]["wrong"].append(wrong1.out())
+        observ["entCDS"]["wrong"].append(wrong2.out())
+        try:
+            dict["entCDS"]["end2"][correct.end2]+=1
+            dict["entCDS"]["first1"][correct.first1]+=1
+        except Exception as e:
+            raise Read_error('What the Hell is ' +
+                correct.end2 + ' or ' + correct.first1)
+
+    def _update_outCDS(self, dict, observ, contest):
+        wrong1 = feature.Out_CDS(contest[:-2])
+        wrong2 = feature.Out_CDS(contest[2:])
+        correct = feature.Out_CDS(contest[1:-1])
+        observ["outCDS"]["correct"].append(correct.out())
+        observ["outCDS"]["wrong"].append(wrong1.out())
+        observ["outCDS"]["wrong"].append(wrong2.out())
+        try:
+            dict["outCDS"]["pre2"][correct.pre2]+=1
+            dict["outCDS"]["first2"][correct.first2]+=1
+            dict["outCDS"]["next4"][correct.next4]+=1
+        except Exception as e:
+            raise Read_error(correct.pre2, correct.first2, correct.next4)
 
     # This is to store observations of how transcript Ended
     # Stuffs and End Codon
