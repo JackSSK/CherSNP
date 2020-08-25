@@ -25,7 +25,9 @@ class Trainer:
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.observ = self._observer(seq_file)
-        # seqt.encode_json([self.dict, self.observ])
+        # Test purpose
+        seqt.encode_json([self.dict, self.observ])
+
         # Process in observations and get classifiers
 
     def _observer(self, seq_file):
@@ -128,8 +130,7 @@ class Trainer:
         fas_read.close()
         return dict, observ
 
-    # This is to store observations of how transcript initiated
-    # Stuffs and Start Codon
+    # Things below are to store observations and update correspond dict
     # Now wrong cases are gained by shift 1bp,
     # Maybe shift 3bp instead of 1?
     def _update_init(self, dict, observ, contest, prefix=True):

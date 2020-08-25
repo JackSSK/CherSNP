@@ -33,6 +33,14 @@ class Out_CDS:
     def out(self):
         return [self.pre2, self.first2, self.next4]
 
+class Term_Site:
+    def __init__(self,seq):
+        self.pre = seq[:4]
+        self.term = seq[4:7]
+        self.first = seq[7:]
+    def out(self):
+        return [self.pre, self.start, self.first]
+
 # class Feature:
 #     def __init__(self, seq_src, type, beg, end, strand,
 #     src = '.', score = '.', phase = '.', id = None, pid = None):
