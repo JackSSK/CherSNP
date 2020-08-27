@@ -393,7 +393,7 @@
             }
         },
         "term": {
-            "last": {
+            "last1": {
                 "AAA": 0,
                 "AAC": 0,
                 "AAG": 0,
@@ -424,14 +424,14 @@
                 "CGT": 0,
                 "CTA": 0,
                 "CTC": 0,
-                "CTG": 0,
+                "CTG": 2,
                 "CTT": 0,
-                "GAA": 0,
+                "GAA": 1,
                 "GAC": 0,
                 "GAG": 0,
                 "GAT": 0,
                 "GCA": 0,
-                "GCC": 0,
+                "GCC": 1,
                 "GCG": 0,
                 "GCT": 0,
                 "GGA": 0,
@@ -516,7 +516,7 @@
                 "TCC": 0,
                 "TCG": 0,
                 "TCT": 0,
-                "TGA": 0,
+                "TGA": 4,
                 "TGC": 0,
                 "TGG": 0,
                 "TGT": 0,
@@ -525,8 +525,8 @@
                 "TTG": 0,
                 "TTT": 0
             },
-            "suf": {
-                "AAAA": 0,
+            "next4": {
+                "AAAA": 1,
                 "AAAC": 0,
                 "AAAG": 0,
                 "AAAT": 0,
@@ -595,7 +595,7 @@
                 "CAAG": 0,
                 "CAAT": 0,
                 "CACA": 0,
-                "CACC": 0,
+                "CACC": 2,
                 "CACG": 0,
                 "CACT": 0,
                 "CAGA": 0,
@@ -621,7 +621,7 @@
                 "CCTA": 0,
                 "CCTC": 0,
                 "CCTG": 0,
-                "CCTT": 0,
+                "CCTT": 1,
                 "CGAA": 0,
                 "CGAC": 0,
                 "CGAG": 0,
@@ -1175,8 +1175,70 @@
             ]
         },
         "term": {
-            "correct": [],
-            "wrong": []
+            "correct": [
+                [
+                    "GAA",
+                    "TGA",
+                    "CCTT"
+                ],
+                [
+                    "GCC",
+                    "TGA",
+                    "AAAA"
+                ],
+                [
+                    "CTG",
+                    "TGA",
+                    "CACC"
+                ],
+                [
+                    "CTG",
+                    "TGA",
+                    "CACC"
+                ]
+            ],
+            "wrong": [
+                [
+                    "TGA",
+                    "ATG",
+                    "ACCT"
+                ],
+                [
+                    "AAT",
+                    "GAC",
+                    "CTTT"
+                ],
+                [
+                    "AGC",
+                    "CTG",
+                    "AAAA"
+                ],
+                [
+                    "CCT",
+                    "GAA",
+                    "AAAG"
+                ],
+                [
+                    "ACT",
+                    "GTG",
+                    "ACAC"
+                ],
+                [
+                    "TGT",
+                    "GAC",
+                    "ACCA"
+                ],
+                [
+                    "ACT",
+                    "GTG",
+                    "ACAC"
+                ],
+                [
+                    "TGT",
+                    "GAC",
+                    "ACCA"
+                ]
+            ]
         },
         "entCDS": {
             "correct": [

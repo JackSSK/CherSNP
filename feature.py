@@ -35,11 +35,11 @@ class Out_CDS:
 
 class Term_Site:
     def __init__(self,seq):
-        self.pre = seq[:4]
-        self.term = seq[4:7]
-        self.first = seq[7:]
+        self.last1= seq[:3]
+        self.stop = seq[3:6]
+        self.next4 = seq[6:]
     def out(self):
-        return [self.pre, self.start, self.first]
+        return [self.last1, self.stop, self.next4]
 
 # class Feature:
 #     def __init__(self, seq_src, type, beg, end, strand,

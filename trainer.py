@@ -25,7 +25,7 @@ class Trainer:
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.observ = self._observer(seq_file)
-        # seqt.encode_json([self.dict, self.observ])
+        seqt.encode_json([self.dict, self.observ])
         # Process in observations and get classifiers
 
     def _observer(self, seq_file):
@@ -37,9 +37,9 @@ class Trainer:
                 "aa1":seqt.generate(k=3, type='dict')
             },
             "term":{
-                "last":seqt.generate(k=3, type='dict'),
+                "last1":seqt.generate(k=3, type='dict'),
                 "stop":seqt.generate(k=3, type='dict'),
-                "suf":seqt.generate(k=4, type='dict'),
+                "next4":seqt.generate(k=4, type='dict'),
             },
             "entCDS":{
                 "end2":seqt.generate(k=2, type='dict'),
@@ -102,9 +102,9 @@ class Trainer:
                             if ele[1] != ter:
                                 outseq = seq[ele[1]-2:ele[1]+8]
                                 self._update_outCDS(dict,observ,outseq)
-                            # else:
-                            #     outseq = seq[ele[1]-6:ele[1]+6]
-                            #     self._update_aaEnd(outseq)
+                            else:
+                                outseq = seq[ele[1]-6:ele[1]+6]
+                                self._update_term(dict, observ, outseq)
 
                     elif strand == '-':
                         coord = sorted(coord, key=lambda x: -x[0])
@@ -122,9 +122,9 @@ class Trainer:
                             if ele[0] != ter:
                                 outseq = seqt.complementary(seq[ele[0]-7:ele[0]+3])
                                 self._update_outCDS(dict,observ,outseq)
-                            # else:
-                            #     outseq = seqt.complementary(seq[ele[0]-5:ele[0]+7])
-                            #     self._update_aaEnd(outseq)
+                            else:
+                                outseq = seqt.complementary(seq[ele[0]-5:ele[0]+7])
+                                self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ
 
@@ -176,19 +176,17 @@ class Trainer:
         except Exception as e:
             raise Read_error(correct.pre2, correct.first2, correct.next4)
 
-    # This is to store observations of how transcript Ended
-    # Stuffs and End Codon
-    # Need to change to sth like _update_init
-    # def _update_aaEnd(self, contest, sufix=True):
-    #     wrong1 = contest[:-2]
-    #     wrong2 = contest[2:]
-    #     correct = contest[1:-1]
-    #
-    #     end_codon = contest[4:7]
-    #     last = contest[1:4]
-    #     try:
-    #         self.aaEnd[end_codon]+=1
-    #         self.aaL[last]+=1
-    #     except Exception as e:
-    #         raise Read_error('What the Hell is ' +
-    #             end_codon + ' or ' + last)
+    def _update_term(self, dict, observ, contest, suffix=True):
+        if suffix:
+            wrong1 = feature.Term_Site(contest[:-2])
+            wrong2 = feature.Term_Site(contest[2:])
+            correct = feature.Term_Site(contest[1:-1])
+            observ["term"]["correct"].append(correct.out())
+            observ["term"]["wrong"].append(wrong1.out())
+            observ["term"]["wrong"].append(wrong2.out())
+            try:
+                dict["term"]["last1"][correct.last1]+=1
+                dict["term"]["stop"][correct.stop]+=1
+                dict["term"]["next4"][correct.next4]+=1
+            except Exception as e:
+                raise Read_error(correct.last1, correct.stop, correct.next4)
