@@ -2,6 +2,8 @@
 Classes for features within sequences
 """
 
+import math
+
 class Initiate_Site:
     def __init__(self,seq):
         self.pre = seq[:4]
@@ -23,7 +25,7 @@ class Enter_CDS:
         for ele in seq:
             if ele == 'C' or ele == 'T' or ele == 'Y':
                 count += 1
-        return count/total
+        return math.log(count/total)
 
 class Out_CDS:
     def __init__(self,seq):

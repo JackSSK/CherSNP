@@ -1,7 +1,7 @@
 import os
 import re
 import read_file as read
-import seq_tools as seqt
+import gen_tools as tool
 
 class ID_error(Exception):
     pass
@@ -11,7 +11,7 @@ class Process:
         self.gff = {}
         self._allway(file)
         # For test
-        # seqt.encode_json(self.gff)
+        # tool.encode_json(self.gff)
 
     def _allway(self, file):
         gff_read = read.GFF(file)
