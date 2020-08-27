@@ -1,0 +1,6 @@
+
+*.fasta
+data/GRCH38/Feature/md5checksums.txt
+data/GRCH38/Feature/README.txt
+data/GRCH38/Sequence/GCF_000001405.26_GRCh38_genomic.fna.gz
+data/GRCH38/Sequence/md5checksums.txt
