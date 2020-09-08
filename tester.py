@@ -1,7 +1,7 @@
 import observer as obs
 import argparse
 import hgvser
-import gen_tools as tool
+import trainer as train
 
 parser = argparse.ArgumentParser(description='Just for test now')
 parser.add_argument('--fasta', required=True, type=str,
@@ -12,8 +12,7 @@ arg = parser.parse_args()
 seq_file = arg.fasta
 gff_file = arg.gff
 
-obs.Observer(seq_file, gff_file)
-
+train.Trainer(seq_file, gff_file)
 
 # test = hgvser.HGVS('c.123A>T')
 # print(test.type, test.prefix, test.info.alt, test.info.ref, test.info.pos)

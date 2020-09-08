@@ -28,7 +28,8 @@ class Process:
 
                         #If HGVS is already annotated in gff
                         if re.search(r'HGVS=',entry.attr):
-                            hgvs.append(entry.attr.split('HGVS=')[1].split(';')[0])
+                            var = entry.attr.split('HGVS=')[1].split(';')[0]
+                            hgvs.append(var)
 
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
@@ -56,7 +57,8 @@ class Process:
 
                         #If HGVS is already annotated in gff
                         if re.search(r'HGVS=',entry.attr):
-                            hgvs.append(entry.attr.split('HGVS=')[1].split(';')[0])
+                            var = entry.attr.split('HGVS=')[1].split(';')[0]
+                            hgvs.append(var)
 
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
@@ -77,8 +79,13 @@ class Process:
                 elif entry.type == 'CDS':
                     if re.search(r'Parent=',entry.attr):
                         pid = entry.attr.split('Parent=')[1].split(';')[0]
+                        # Assuming CDS has to be a feature of a transcript
+                        if re.search('gene', pid):
+                            continue
                         if pid not in self.gff[entry.seqid]:
-                            unlink_cds.append([entry.seqid, pid, int(entry.beg), int(entry.end)])
+                            unlink_cds.append([entry.seqid, pid,
+                                int(entry.beg),
+                                int(entry.end)])
                         else:
                             ele = [int(entry.beg), int(entry.end)]
                             if ele not in self.gff[entry.seqid][pid]['cds']:

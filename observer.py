@@ -7,7 +7,7 @@ And correspond dict to translate input seq to numbers
 import os
 import re
 import read_file as read
-import gen_tools as tool
+import gen_tools as t
 import gffer
 import feature
 import math
@@ -23,34 +23,31 @@ class Observer:
         # Process in GFF file
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
-        self.dict, self.observ = self._observe(seq_file)
+        self.dict, self.subj = self._observe(seq_file)
         self.dict = self._prepare_dict(self.dict)
-        self.observ = self._obs_to_numb(self.observ)
-
-        tool.encode_json([self.dict, self.observ])
-
+        self.subj = self._obs_to_numb(self.subj)
 
     def _observe(self, seq_file):
         #Initiating dicts for stroing correct observations
         dict = {
             "init":{
-                "pre":tool.generate(k=4, type='dict'),
-                "start":tool.generate(k=3, type='dict'),
-                "aa1":tool.generate(k=3, type='dict')
+                "pre":t.generate(k=4, type='dict'),
+                "start":t.generate(k=3, type='dict'),
+                "aa1":t.generate(k=3, type='dict')
             },
             "term":{
-                "last1":tool.generate(k=3, type='dict'),
-                "stop":tool.generate(k=3, type='dict'),
-                "next4":tool.generate(k=4, type='dict'),
+                "last1":t.generate(k=3, type='dict'),
+                "stop":t.generate(k=3, type='dict'),
+                "next4":t.generate(k=4, type='dict'),
             },
             "entCDS":{
-                "end2":tool.generate(k=2, type='dict'),
-                "first1":tool.generate(k=1, type='dict'),
+                "end2":t.generate(k=2, type='dict'),
+                "first1":t.generate(k=1, type='dict'),
             },
             "outCDS":{
-                "pre2":tool.generate(k=2, type='dict'),
-                "first2":tool.generate(k=2, type='dict'),
-                "next4":tool.generate(k=4, type='dict'),
+                "pre2":t.generate(k=2, type='dict'),
+                "first2":t.generate(k=2, type='dict'),
+                "next4":t.generate(k=4, type='dict'),
             }
         }
 
@@ -76,23 +73,26 @@ class Observer:
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
-                if self.gff[entry.id][trans]['type'] == 'transcript':
-                    beg = self.gff[entry.id][trans]['beg']
-                    end = self.gff[entry.id][trans]['end']
-                    strand = self.gff[entry.id][trans]['strand']
+                if self.gff[entry.id][trans]["type"] == "transcript":
+                    beg = self.gff[entry.id][trans]["beg"]
+                    end = self.gff[entry.id][trans]["end"]
+                    strand = self.gff[entry.id][trans]["strand"]
                     seq = entry.seq[beg-1:end]
                     coord = []
                     init = 0
                     ter = 0
-                    for ele in self.gff[entry.id][trans]['cds']:
+                    for ele in self.gff[entry.id][trans]["cds"]:
                         temp = [int(ele[0])-beg, int(ele[1])-beg]
                         coord.append(temp)
 
-                    if strand == '+':
+                    if strand == "+":
                         coord = sorted(coord, key=lambda x: x[0])
                         init = coord[0][0]
                         ter = coord[-1][1]
                         for ele in coord:
+
+                            # Is 5'UTR guranteed or not...
+
                             inseq = ""
                             outseq = ""
                             if ele[0] != init:
@@ -100,12 +100,14 @@ class Observer:
                                 self._update_entCDS(dict,observ,inseq)
                             else:
                                 inseq = seq[ele[0]-5:ele[0]+7]
+                                if len(inseq) < 12: continue
                                 self._update_init(dict,observ,inseq)
                             if ele[1] != ter:
                                 outseq = seq[ele[1]-2:ele[1]+8]
                                 self._update_outCDS(dict,observ,outseq)
                             else:
                                 outseq = seq[ele[1]-6:ele[1]+6]
+                                if len(outseq) < 12: continue
                                 self._update_term(dict, observ, outseq)
 
                     elif strand == '-':
@@ -116,16 +118,18 @@ class Observer:
                             inseq = ""
                             outseq = ""
                             if ele[1] != init:
-                                inseq = tool.complementary(seq[ele[1]-2:ele[1]+16])
+                                inseq = t.complementary(seq[ele[1]-2:ele[1]+16])
                                 self._update_entCDS(dict,observ,inseq)
                             else:
-                                inseq = tool.complementary(seq[ele[1]-6:ele[1]+6])
+                                inseq = t.complementary(seq[ele[1]-6:ele[1]+6])
+                                if len(inseq) < 12: continue
                                 self._update_init(dict,observ,inseq)
                             if ele[0] != ter:
-                                outseq = tool.complementary(seq[ele[0]-7:ele[0]+3])
+                                outseq = t.complementary(seq[ele[0]-7:ele[0]+3])
                                 self._update_outCDS(dict,observ,outseq)
                             else:
-                                outseq = tool.complementary(seq[ele[0]-5:ele[0]+7])
+                                outseq = t.complementary(seq[ele[0]-5:ele[0]+7])
+                                if len(outseq) < 12: continue
                                 self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ
@@ -147,6 +151,7 @@ class Observer:
                 dict["init"]["aa1"][correct.first]+=1
                 dict["init"]["pre"][correct.pre]+=1
             except Exception as e:
+                print(contest)
                 raise Read_error('What the Hell is ' +
                     correct.start + ' or ' + correct.first)
 
@@ -193,6 +198,8 @@ class Observer:
             except Exception as e:
                 raise Read_error(correct.last1, correct.stop, correct.next4)
 
+    # This function will remove elements with 0 observations
+    # Also, change # of observations to log(#observed / total observation)
     def _prepare_dict(self,dict):
         for type in dict:
             for sub in dict[type]:
@@ -210,6 +217,26 @@ class Observer:
                     del dict[type][sub][ele]
         return dict
 
+    # Change observations from chars to doubles by using converted self.dict
     def _obs_to_numb(self,obs):
-        print('tmr..')
+        for part in obs:
+            if part == "init": names = ["pre", "start", "aa1"]
+            elif part == "term": names = ["last1", "stop", "next4"]
+            elif part == "outCDS": names = ["pre2", "first2", "next4"]
+            elif part == "entCDS": names = ["DONE", "end2", "first1"]
+            for sector in obs[part]:
+                temp1 = []
+                for term in obs[part][sector]:
+                    if len(term) != len(names): print("error in _obs_to_numb")
+                    temp2 = []
+                    for i in range(len(term)):
+                        ele = term[i]
+                        if names[i] == "DONE":ele = ele
+                        elif ele in self.dict[part][names[i]]:
+                            ele = self.dict[part][names[i]][ele]
+                        else:
+                            ele = -math.inf
+                        temp2.append(ele)
+                    temp1.append(temp2)
+                obs[part][sector] = temp1
         return obs

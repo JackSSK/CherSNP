@@ -1,3 +1,4 @@
+##Test
 NC_000014.9	BestRefSeq	CDS	20296390	20296446	.	-	0	ID=cds-NP_612385.2;Parent=rna-NM_138376.3;Dbxref=CCDS:CCDS9546.1,Ensembl:ENSP00000258821.3,GeneID:91875,Genbank:NP_612385.2,HGNC:HGNC:19274;Name=NP_612385.2;gbkey=CDS;gene=TTC5;product=tetratricopeptide repeat protein 5;protein_id=NP_612385.2;tag=MANE Select
 NC_000014.9	BestRefSeq	CDS	20295708	20295854	.	-	0	ID=cds-NP_612385.2;Parent=rna-NM_138376.3;Dbxref=CCDS:CCDS9546.1,Ensembl:ENSP00000258821.3,GeneID:91875,Genbank:NP_612385.2,HGNC:HGNC:19274;Name=NP_612385.2;gbkey=CDS;gene=TTC5;product=tetratricopeptide repeat protein 5;protein_id=NP_612385.2;tag=MANE Select
 NC_000014.9	BestRefSeq	CDS	20295312	20295526	.	-	0	ID=cds-NP_612385.2;Parent=rna-NM_138376.3;Dbxref=CCDS:CCDS9546.1,Ensembl:ENSP00000258821.3,GeneID:91875,Genbank:NP_612385.2,HGNC:HGNC:19274;Name=NP_612385.2;gbkey=CDS;gene=TTC5;product=tetratricopeptide repeat protein 5;protein_id=NP_612385.2;tag=MANE Select

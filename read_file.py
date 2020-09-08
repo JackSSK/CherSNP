@@ -105,13 +105,16 @@ class GFF:
             if line[0:1]=='#': continue
             if line == '': break
             content = line.split("\t")
-            if len(content) < 8: raise Read_error('Bad GFF Format')
+            if len(content) < 8:
+                raise Read_error('Bad GFF Format')
             id = content[0]
-            coord = self._gff.tell() - len(line) - 1
 
-            # Sometime coord == -1 for some reason I don't know
-            # Probably just not being standard format
-            # print(self._gff.tell(), len(line))
+            # Something goes wrong here when test with TTC%.gff or Chr14.gff
+            # -1 work with TTC5, and no - 1 wokrs with Chr14
+
+            coord = self._gff.tell() - len(line)
+
+
 
             if id not in self.seqids:
                 self.seqids.append(id)
