@@ -3,7 +3,7 @@ Classes for preprocess data for learning part
 Will have observations stored in a dict
 And correspond dict to translate input seq to numbers
 """
-
+import sys
 import os
 import re
 import read_file as read
@@ -235,7 +235,7 @@ class Observer:
                         elif ele in self.dict[part][names[i]]:
                             ele = self.dict[part][names[i]][ele]
                         else:
-                            ele = -math.inf
+                            ele = sys.float_info.min
                         temp2.append(ele)
                     temp1.append(temp2)
                 obs[part][sector] = temp1
