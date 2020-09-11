@@ -55,7 +55,7 @@ class Classifiers:
         self.term = joblib.load(filenames[1])
         self.entCDS = joblib.load(filenames[2])
         self.outCDS = joblib.load(filenames[3])
-        self.dict = t.encode_json(filenames[4])
+        self.dict = t.decode_json(filenames[4])
 
 # This class is to train out SVM classifiers using sklearn package
 class Trainer:
