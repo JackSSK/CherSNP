@@ -96,18 +96,18 @@ class Observer:
                             inseq = ""
                             outseq = ""
                             if ele[0] != init:
-                                inseq = seq[ele[0]-15:ele[0]+3]
+                                inseq = seq[ele[0]-17:ele[0]+5]
                                 self._update_entCDS(dict,observ,inseq)
                             else:
-                                inseq = seq[ele[0]-5:ele[0]+7]
-                                if len(inseq) < 12: continue
+                                inseq = seq[ele[0]-7:ele[0]+9]
+                                if len(inseq) < 16: continue
                                 self._update_init(dict,observ,inseq)
                             if ele[1] != ter:
-                                outseq = seq[ele[1]-2:ele[1]+8]
+                                outseq = seq[ele[1]-4:ele[1]+10]
                                 self._update_outCDS(dict,observ,outseq)
                             else:
-                                outseq = seq[ele[1]-6:ele[1]+6]
-                                if len(outseq) < 12: continue
+                                outseq = seq[ele[1]-8:ele[1]+8]
+                                if len(outseq) < 16: continue
                                 self._update_term(dict, observ, outseq)
 
                     elif strand == '-':
@@ -118,18 +118,18 @@ class Observer:
                             inseq = ""
                             outseq = ""
                             if ele[1] != init:
-                                inseq = t.complementary(seq[ele[1]-2:ele[1]+16])
+                                inseq = t.complementary(seq[ele[1]-4:ele[1]+18])
                                 self._update_entCDS(dict,observ,inseq)
                             else:
-                                inseq = t.complementary(seq[ele[1]-6:ele[1]+6])
-                                if len(inseq) < 12: continue
+                                inseq = t.complementary(seq[ele[1]-8:ele[1]+8])
+                                if len(inseq) < 16: continue
                                 self._update_init(dict,observ,inseq)
                             if ele[0] != ter:
-                                outseq = t.complementary(seq[ele[0]-7:ele[0]+3])
+                                outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
                                 self._update_outCDS(dict,observ,outseq)
                             else:
-                                outseq = t.complementary(seq[ele[0]-5:ele[0]+7])
-                                if len(outseq) < 12: continue
+                                outseq = t.complementary(seq[ele[0]-7:ele[0]+9])
+                                if len(outseq) < 16: continue
                                 self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ
@@ -137,12 +137,12 @@ class Observer:
     # This is to store observations of how transcript initiated
     # Stuffs and Start Codon
     # Now wrong cases are gained by shift 1bp,
-    # Maybe shift 3bp instead of 1?
+    # Maybe shift 3bp instead of 1? Yes it is better wth 3bp
     def _update_init(self, dict, observ, contest, prefix=True):
         if prefix:
-            wrong1 = feature.Initiate_Site(contest[:-2])
-            wrong2 = feature.Initiate_Site(contest[2:])
-            correct = feature.Initiate_Site(contest[1:-1])
+            wrong1 = feature.Initiate_Site(contest[:-6])
+            wrong2 = feature.Initiate_Site(contest[6:])
+            correct = feature.Initiate_Site(contest[3:-3])
             observ["init"]["correct"].append(correct.out())
             observ["init"]["wrong"].append(wrong1.out())
             observ["init"]["wrong"].append(wrong2.out())
@@ -156,9 +156,9 @@ class Observer:
                     correct.start + ' or ' + correct.first)
 
     def _update_entCDS(self, dict, observ, contest):
-        wrong1 = feature.Enter_CDS(contest[:-2])
-        wrong2 = feature.Enter_CDS(contest[2:])
-        correct = feature.Enter_CDS(contest[1:-1])
+        wrong1 = feature.Enter_CDS(contest[:-6])
+        wrong2 = feature.Enter_CDS(contest[6:])
+        correct = feature.Enter_CDS(contest[3:-3])
         observ["entCDS"]["correct"].append(correct.out())
         observ["entCDS"]["wrong"].append(wrong1.out())
         observ["entCDS"]["wrong"].append(wrong2.out())
@@ -170,9 +170,9 @@ class Observer:
                 correct.end2 + ' or ' + correct.first1)
 
     def _update_outCDS(self, dict, observ, contest):
-        wrong1 = feature.Out_CDS(contest[:-2])
-        wrong2 = feature.Out_CDS(contest[2:])
-        correct = feature.Out_CDS(contest[1:-1])
+        wrong1 = feature.Out_CDS(contest[:-6])
+        wrong2 = feature.Out_CDS(contest[6:])
+        correct = feature.Out_CDS(contest[3:-3])
         observ["outCDS"]["correct"].append(correct.out())
         observ["outCDS"]["wrong"].append(wrong1.out())
         observ["outCDS"]["wrong"].append(wrong2.out())
@@ -185,9 +185,9 @@ class Observer:
 
     def _update_term(self, dict, observ, contest, suffix=True):
         if suffix:
-            wrong1 = feature.Term_Site(contest[:-2])
-            wrong2 = feature.Term_Site(contest[2:])
-            correct = feature.Term_Site(contest[1:-1])
+            wrong1 = feature.Term_Site(contest[:-6])
+            wrong2 = feature.Term_Site(contest[6:])
+            correct = feature.Term_Site(contest[3:-3])
             observ["term"]["correct"].append(correct.out())
             observ["term"]["wrong"].append(wrong1.out())
             observ["term"]["wrong"].append(wrong2.out())
