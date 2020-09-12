@@ -40,7 +40,7 @@ class Classifiers:
                 'default/Katyusha.pkl',
                 'default/Erika.pkl',
                 'default/Nadeshiko.pkl',
-                'default/Mary.pkl',
+                'default/Juliet.pkl',
                 'default/Jeanne.js'
             ]
             self._load(filenames)
@@ -87,7 +87,7 @@ class Trainer:
                 'default/Katyusha.pkl',
                 'default/Erika.pkl',
                 'default/Nadeshiko.pkl',
-                'default/Mary.pkl',
+                'default/Juliet.pkl',
                 'default/Jeanne.js'
             ]
 
