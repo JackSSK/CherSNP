@@ -80,7 +80,8 @@ class Trainer:
             self.observ.dict)
 
         if len(filenames) != 5:
-            print('Warning: Invalid filenames, Will use default filenames')
+            print('Filenames for trainer are '
+                + filenames + ' will use default filenames')
             filenames = "None"
         if filenames == "None":
             filenames = [
