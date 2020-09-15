@@ -20,12 +20,18 @@ class ID_error(Exception):
 
 class Observer:
     def __init__(self, seq_file, gff_file):
+        # Test to see how many init / term don't have contest
+        self.init_count = 0
+        self.term_count = 0
         # Process in GFF file
         self.gff = gffer.Process(gff_file).gff
         # Get observations and correspond dictionary
         self.dict, self.subj = self._observe(seq_file)
         self.dict = self._prepare_dict(self.dict)
         self.subj = self._obs_to_numb(self.subj)
+
+        # print(self.init_count, self.term_count)
+
 
     def _observe(self, seq_file):
         #Initiating dicts for stroing correct observations
@@ -100,14 +106,18 @@ class Observer:
                                 self._update_entCDS(dict,observ,inseq)
                             else:
                                 inseq = seq[ele[0]-7:ele[0]+9]
-                                if len(inseq) < 16: continue
+                                if len(inseq) < 16:
+                                    self.init_count += 1
+                                    continue
                                 self._update_init(dict,observ,inseq)
                             if ele[1] != ter:
                                 outseq = seq[ele[1]-4:ele[1]+10]
                                 self._update_outCDS(dict,observ,outseq)
                             else:
                                 outseq = seq[ele[1]-8:ele[1]+8]
-                                if len(outseq) < 16: continue
+                                if len(outseq) < 16:
+                                    self.term_count += 1
+                                    continue
                                 self._update_term(dict, observ, outseq)
 
                     elif strand == '-':
@@ -122,14 +132,18 @@ class Observer:
                                 self._update_entCDS(dict,observ,inseq)
                             else:
                                 inseq = t.complementary(seq[ele[1]-8:ele[1]+8])
-                                if len(inseq) < 16: continue
+                                if len(inseq) < 16:
+                                    self.init_count += 1
+                                    continue
                                 self._update_init(dict,observ,inseq)
                             if ele[0] != ter:
                                 outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
                                 self._update_outCDS(dict,observ,outseq)
                             else:
                                 outseq = t.complementary(seq[ele[0]-7:ele[0]+9])
-                                if len(outseq) < 16: continue
+                                if len(outseq) < 16:
+                                    self.term_count += 1
+                                    continue
                                 self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ

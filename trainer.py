@@ -16,7 +16,7 @@ class Format_error(Exception):
 # This class is for loading Classifiers from files or Trainer directly
 class Classifiers:
     def __init__(self, init = None, term = None, entCDS = None, outCDS = None,
-        dict = None, filenames = "None"):
+        dict = None, filenames = "Default"):
         # Initialization
         self.init = 0
         self.term = 0
@@ -35,6 +35,7 @@ class Classifiers:
             except:
                 raise Format_error("Incorrect Classifiers format")
 
+        # Loading from default files
         elif filenames == "Default":
             filenames = [
                 'default/Katyusha.pkl',
@@ -45,9 +46,10 @@ class Classifiers:
             ]
             self._load(filenames)
 
+        # Loading from other files
         else:
             if len(filenames) != 5:
-                raise Format_error("Incorrect Classifiers load file format")
+                raise Format_error("Predict: Incorrect Classifiers load file format")
             self._load(filenames)
 
     def _load(self, filenames):
@@ -79,7 +81,7 @@ class Trainer:
         self.clfs = Classifiers(init_clf, term_clf, entCDS_clf, outCDS_clf,
             self.observ.dict)
 
-        if len(filenames) != 5:
+        if len(filenames) != 5 and filenames != 'None':
             print('Filenames for trainer are '
                 + filenames + ' will use default filenames')
             filenames = "None"
