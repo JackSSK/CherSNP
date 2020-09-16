@@ -68,4 +68,5 @@ class Processor:
             elif pred[0] == 1:
                 pos += 4
                 mark += 'uuuu'
+                print(fea.start, obs)
                 return pos, mark
