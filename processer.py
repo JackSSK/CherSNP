@@ -33,7 +33,7 @@ class Processor:
                         status = 1
                 elif isinstance(status, int):
                     # Test now
-                    print(mark, enter, entry.seq)
+                    # print(mark, enter, entry.seq)
                     status = 'term'
 
     # Process while not findin initial site

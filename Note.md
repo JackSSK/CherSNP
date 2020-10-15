@@ -22,7 +22,7 @@ https://www.nature.com/articles/s41587-019-0164-5
 CUG and GUG start codon...
 
 The consensus sequence for an intron (in IUPAC nucleic acid notation) is: G-G-[cut]-G-U-R-A-G-U (donor site) ... intron sequence ... Y-U-R-A-C (branch sequence 20-50 nucleotides upstream of acceptor site) ... Y-rich-N-C-A-G-[cut]-G (acceptor site).
-"Molecular Biology of the Cell". 2012 Journal Citation Reports. Web of Science (Science ed.). Thomson Reuters. 2013.
+
 
 There would be 4 seperate classifier under 2 major type:
 	Type-in: (Aoko)

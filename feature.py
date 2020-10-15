@@ -21,6 +21,7 @@ class Enter_CDS:
         return [self.Yratio, self.end2, self.first1]
     def _calYratio(self,seq):
         total = len(seq)
+        print(total)
         count = 0
         for ele in seq:
             if ele == 'C' or ele == 'T' or ele == 'Y':
@@ -42,18 +43,3 @@ class Term_Site:
         self.next4 = seq[6:]
     def out(self):
         return [self.last1, self.stop, self.next4]
-
-# class Feature:
-#     def __init__(self, seq_src, type, beg, end, strand,
-#     src = '.', score = '.', phase = '.', id = None, pid = None):
-#     self.seq_src =
-#     self.type =
-#     self.beg =
-#     self.end =
-#     self.strand =
-#     self.src = src
-#     self.score = score
-#     self.phase = phase
-#     self.id = id
-#     self.pid = []
-#     self.cid= []
