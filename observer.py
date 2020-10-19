@@ -251,6 +251,11 @@ class Observer:
                         else:
                             ele = sys.float_info.min
                         temp2.append(ele)
-                    temp1.append(temp2)
+                    # Stop make observations never appeared as positive sample
+                    # as negative sample
+                    if sys.float_info.min in temp2:
+                        continue
+                    else:
+                        temp1.append(temp2)
                 obs[part][sector] = temp1
         return obs

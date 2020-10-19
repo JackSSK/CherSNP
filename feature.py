@@ -3,6 +3,7 @@ Classes for features within sequences
 """
 
 import math
+import sys
 
 class Initiate_Site:
     def __init__(self,seq):
@@ -21,12 +22,13 @@ class Enter_CDS:
         return [self.Yratio, self.end2, self.first1]
     def _calYratio(self,seq):
         total = len(seq)
-        print(total)
         count = 0
         for ele in seq:
             if ele == 'C' or ele == 'T' or ele == 'Y':
                 count += 1
-        return math.log(count/total)
+        if count != 0:
+            return math.log(count/total)
+        else: return sys.float_info.min
 
 class Out_CDS:
     def __init__(self,seq):
