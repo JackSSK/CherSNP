@@ -42,6 +42,8 @@ Method:
   Then, the SNP annotations will be decoded and applied to list of candidates. The associated effects will be gain through stimulating translation process with each candidate's features positions. The nomenclatures of predicted effects will be consisting with MISO[2], which is consisting with VEP's nomenclatures.
 
 
+Prerequest:
+  Sklean package, can be installed with: pip install -U scikit-learn
 
 Reference:
 [1] https://varnomen.hgvs.org/

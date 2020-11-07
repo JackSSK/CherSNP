@@ -11,6 +11,7 @@ import gen_tools as t
 import gffer
 import feature
 import math
+import warnings as w
 
 class Read_error(Exception):
     pass
@@ -79,7 +80,9 @@ class Observer:
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
-                if self.gff[entry.id][trans]["type"] == "transcript":
+                if self.gff[entry.id][trans]["type"] == "mRNA":
+                    if re.search(r'X',self.gff[entry.id][trans]["name"]):
+                        continue
                     beg = self.gff[entry.id][trans]["beg"]
                     end = self.gff[entry.id][trans]["end"]
                     strand = self.gff[entry.id][trans]["strand"]
@@ -87,7 +90,10 @@ class Observer:
                     coord = []
                     init = 0
                     ter = 0
+
                     for ele in self.gff[entry.id][trans]["cds"]:
+                        if ele[0] == ele[1]:
+                            w.warn("Warning: "+ trans+ " has 1bp long cds")
                         temp = [int(ele[0])-beg, int(ele[1])-beg]
                         coord.append(temp)
 
@@ -135,6 +141,8 @@ class Observer:
                                 if len(inseq) < 16:
                                     self.init_count += 1
                                     continue
+                                if inseq[7:10] != 'ATG':
+                                    print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
                                 self._update_init(dict,observ,inseq)
                             if ele[0] != ter:
                                 outseq = t.complementary(seq[ele[0]-9:ele[0]+5])

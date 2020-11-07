@@ -21,3 +21,13 @@ The consensus sequence for an intron (in IUPAC nucleic acid notation) is: G-G-[c
 			1. In GRCh38, some predicted transcripts only have 1 CDS and nothing else
 				which would break the training method
 				Probably just skip all XM_***?
+
+https://www.sciencedirect.com/science/article/pii/S0022283697909517?via%3Dihub
+
+python3 tester.py --fasta data/foo.fasta --dict default/Jeanne.js --init default/Katyusha.pkl --term default/Erika.pkl --entCDS default/Nadeshiko.pkl --outCDS default/Juliet.pkl
+
+# One nucelotiude start codon
+NM_001110358.1 AGT [[2522, 2522], [359, 990]]
+NM_001110360.1 AGT [[2447, 2447], [359, 990]]
+NM_001110361.1 AGT [[2522, 2522], [359, 990]]
+NM_001110359.1 AGT [[2447, 2447], [359, 990]]

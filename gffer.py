@@ -55,6 +55,8 @@ class Process:
                         id = entry.attr.split('ID=')[1].split(';')[0]
                         hgvs = []
 
+                        name = entry.attr.split('Name=')[1].split(';')[0]
+
                         #If HGVS is already annotated in gff
                         if re.search(r'HGVS=',entry.attr):
                             var = entry.attr.split('HGVS=')[1].split(';')[0]
@@ -62,12 +64,13 @@ class Process:
 
                         if id not in self.gff[entry.seqid]:
                             self.gff[entry.seqid][id] = {
-                                'type':'transcript',
+                                'type':'mRNA',
                                 'parent':parent,
                                 'beg':int(entry.beg),
                                 'end':int(entry.end),
                                 'strand':entry.strand,
                                 'hgvs':hgvs,
+                                'name':name,
                                 'cds':[],
                             }
                         else:
@@ -82,6 +85,8 @@ class Process:
                         # Assuming CDS has to be a feature of a transcript
                         if re.search('gene', pid):
                             continue
+                        # if int(entry.beg) == int(entry.end):
+                        #     continue
                         if pid not in self.gff[entry.seqid]:
                             unlink_cds.append([entry.seqid, pid,
                                 int(entry.beg),

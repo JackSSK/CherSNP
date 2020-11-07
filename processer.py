@@ -14,13 +14,16 @@ class Processor:
         # Process sequence 1 by 1
         for entry in fas_read:
             temp = self._doEntry(entry)
-            print(entry.seq[10:20], temp)
+            # print(entry.seq[10:20], temp)
         fas_read.close()
 
     # Process each entry
     def _doEntry(self, entry):
-        answers = []
+        init = []
         pos = 0
+        outCDS = []
+        entCDS = []
+        term = []
         while pos < len(entry.seq):
             # Get sequence in current posistion and processed
             seq_len10 = entry.seq[pos: pos+10]
@@ -32,23 +35,27 @@ class Processor:
 
             # Check predicions
             if self._isInit(seq_len10) == 1:
-                record = {
-                    "init":pos+4,
-                    "introns":[],
-                    "term":sys.float_info.max,
-                }
-
+                # record = {
+                #     "init":pos+4,
+                #     "introns":[],
+                #     "term":[],
+                # }
+                # answers.append(record)
+                init.append([seq_len10[4:7],pos+4])
             if self._isTerm(seq_len10) == 1:
-                print(pos)
+                term.append(pos+3)
 
             if self._isOutCDS(seq_len8) == 1:
-                print('do', seq_len8, pos)
+                # print('do', seq_len8, pos)
+                outCDS.append([seq_len8, pos])
 
             if len(seq_len16) == 16 and self._isEntCDS(seq_len16) == 1:
-                print('as', seq_len16, pos)
+                # print('as', seq_len16, pos)
+                entCDS.append([seq_len16, pos])
 
             pos += 1
-        return answers
+        print(init)
+        # return answers
 
     # Check whether a potential init site exist or not
     def _isInit(self, seq):

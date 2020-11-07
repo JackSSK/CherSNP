@@ -16,7 +16,7 @@ class Format_error(Exception):
 # This class is for loading Classifiers from files or Trainer directly
 class Classifiers:
     def __init__(self, init = None, term = None, entCDS = None, outCDS = None,
-        dict = None, filenames = "Default"):
+        dict = None, filenames = "None"):
         # Initialization
         self.init = 0
         self.term = 0
@@ -34,17 +34,6 @@ class Classifiers:
                 self.dict = dict
             except:
                 raise Format_error("Incorrect Classifiers format")
-
-        # Loading from default files
-        elif filenames == "Default":
-            filenames = [
-                'default/Katyusha.pkl',
-                'default/Erika.pkl',
-                'default/Nadeshiko.pkl',
-                'default/Juliet.pkl',
-                'default/Jeanne.js'
-            ]
-            self._load(filenames)
 
         # Loading from other files
         else:
@@ -81,11 +70,8 @@ class Trainer:
         self.clfs = Classifiers(init_clf, term_clf, entCDS_clf, outCDS_clf,
             self.observ.dict)
 
-        if len(filenames) != 5 and filenames != 'None':
-            print('Filenames for trainer are '
-                + filenames + ' will use default filenames')
-            filenames = "None"
         if filenames == "None":
+            print("Trainer: One or more filename missing, using default")
             filenames = [
                 'default/Katyusha.pkl',
                 'default/Erika.pkl',
