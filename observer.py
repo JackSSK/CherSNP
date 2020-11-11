@@ -91,11 +91,16 @@ class Observer:
                     init = 0
                     ter = 0
 
+                    qualify = True
                     for ele in self.gff[entry.id][trans]["cds"]:
-                        if ele[0] == ele[1]:
-                            w.warn("Warning: "+ trans+ " has 1bp long cds")
+                        if abs(ele[0] - ele[1]) < 3:
+                            w.warn("Warning: "+ trans+ " has cds less than 3bp")
+                            qualify = False
+                            break
                         temp = [int(ele[0])-beg, int(ele[1])-beg]
                         coord.append(temp)
+
+                    if not qualify: continue
 
                     if strand == "+":
                         coord = sorted(coord, key=lambda x: x[0])
@@ -108,7 +113,7 @@ class Observer:
                             inseq = ""
                             outseq = ""
                             if ele[0] != init:
-                                inseq = seq[ele[0]-17:ele[0]+5]
+                                inseq = seq[ele[0]-18:ele[0]+4]
                                 self._update_entCDS(dict,observ,inseq)
                             else:
                                 inseq = seq[ele[0]-7:ele[0]+9]
@@ -124,6 +129,9 @@ class Observer:
                                 if len(outseq) < 16:
                                     self.term_count += 1
                                     continue
+                                # Let's see who has the weird stop codon
+                                # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
+                                #     print(self.gff[entry.id][trans]["name"], coord)
                                 self._update_term(dict, observ, outseq)
 
                     elif strand == '-':
@@ -134,15 +142,16 @@ class Observer:
                             inseq = ""
                             outseq = ""
                             if ele[1] != init:
-                                inseq = t.complementary(seq[ele[1]-4:ele[1]+18])
+                                inseq = t.complementary(seq[ele[1]-3:ele[1]+19])
                                 self._update_entCDS(dict,observ,inseq)
                             else:
                                 inseq = t.complementary(seq[ele[1]-8:ele[1]+8])
                                 if len(inseq) < 16:
                                     self.init_count += 1
                                     continue
-                                if inseq[7:10] != 'ATG':
-                                    print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
+                                # Let's see who has the weird start codon
+                                # if inseq[7:10] != 'ATG':
+                                #     print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
                                 self._update_init(dict,observ,inseq)
                             if ele[0] != ter:
                                 outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
@@ -152,6 +161,9 @@ class Observer:
                                 if len(outseq) < 16:
                                     self.term_count += 1
                                     continue
+                                # Let's see who has the weird stop codon
+                                # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
+                                #     print(outseq[3:-3][3:6])
                                 self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ
@@ -259,11 +271,14 @@ class Observer:
                         else:
                             ele = sys.float_info.min
                         temp2.append(ele)
+                    ###### Nope, should still include them! #####
                     # Stop make observations never appeared as positive sample
                     # as negative sample
-                    if sys.float_info.min in temp2:
-                        continue
-                    else:
-                        temp1.append(temp2)
+                    # if sys.float_info.min in temp2:
+                    #     continue
+                    # else:
+                    #     temp1.append(temp2)
+                    ###############################################
+                    temp1.append(temp2)
                 obs[part][sector] = temp1
         return obs

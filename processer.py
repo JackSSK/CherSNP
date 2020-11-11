@@ -13,6 +13,7 @@ class Processor:
         fas_read = read.FASTA(seq_file)
         # Process sequence 1 by 1
         for entry in fas_read:
+            print("Processing" + entry.id)
             temp = self._doEntry(entry)
             # print(entry.seq[10:20], temp)
         fas_read.close()
@@ -54,7 +55,7 @@ class Processor:
                 entCDS.append([seq_len16, pos])
 
             pos += 1
-        print(init)
+        print(init, term, entCDS, outCDS)
         # return answers
 
     # Check whether a potential init site exist or not
