@@ -106,9 +106,10 @@ class Process:
             pid = cds[1]
             ele = [cds[2], cds[3]]
             try:
-                if ele not in self.gff[seqid][pid]['cds']:
-                    self.gff[seqid][pid]['cds'].append(ele)
-                else:
-                    raise ID_error('CDS already exist')
+                if pid in self.gff[seqid]:
+                    if ele not in self.gff[seqid][pid]['cds']:
+                        self.gff[seqid][pid]['cds'].append(ele)
+                    else:
+                        raise ID_error('CDS already exist')
             except:
                 raise ID_error('Cannot load unlink CDS')

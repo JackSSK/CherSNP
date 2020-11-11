@@ -13,7 +13,7 @@ class Processor:
         fas_read = read.FASTA(seq_file)
         # Process sequence 1 by 1
         for entry in fas_read:
-            print("Processing" + entry.id)
+            print("Processing " + entry.id)
             temp = self._doEntry(entry)
             # print(entry.seq[10:20], temp)
         fas_read.close()
@@ -34,28 +34,35 @@ class Processor:
             # stop when not enough length
             if len(seq_len10) < 10: break
 
-            # Check predicions
-            if self._isInit(seq_len10) == 1:
-                # record = {
-                #     "init":pos+4,
-                #     "introns":[],
-                #     "term":[],
-                # }
-                # answers.append(record)
-                init.append([seq_len10[4:7],pos+4])
-            if self._isTerm(seq_len10) == 1:
-                term.append(pos+3)
-
-            if self._isOutCDS(seq_len8) == 1:
-                # print('do', seq_len8, pos)
-                outCDS.append([seq_len8, pos])
-
-            if len(seq_len16) == 16 and self._isEntCDS(seq_len16) == 1:
-                # print('as', seq_len16, pos)
-                entCDS.append([seq_len16, pos])
+            # Make predicions
+            init_result = self._isInit(seq_len10)
+            term_result = self._isTerm(seq_len10)
+            outCDS_result = self._isOutCDS(seq_len8)
+            entCDS_result = self._isEntCDS(seq_len16)
+            # Check predictions
+            if init_result[0] == 1:
+                score = init_result[1]
+                init.append([pos+4, score])
+            if term_result[0] == 1:
+                score = term_result[1]
+                term.append([pos+6, score])
+            if outCDS_result[0] == 1:
+                outCDS.append([pos+2, score])
+            if len(seq_len16) == 16 and entCDS_result[0] == 1:
+                entCDS.append([pos+15, score])
 
             pos += 1
-        print(init, term, entCDS, outCDS)
+        # Sort positions based on scores in decreasing order
+        init = sorted(init, key = lambda x: x[1],
+            reverse=True)[:int(len(init)/4)]
+        term = sorted(term, key = lambda x: x[1],
+            reverse=True)[:int(len(term)/4)]
+        entCDS = sorted(entCDS, key = lambda x: x[1],
+            reverse=True)[:int(len(entCDS)/4)]
+        outCDS = sorted(outCDS, key = lambda x: x[1],
+            reverse=True)[:int(len(outCDS)/4)]
+        print(len(init), "\n", init, "\n",
+            len(term), "\n", term, "\n", len(entCDS), len(outCDS),)
         # return answers
 
     # Check whether a potential init site exist or not
@@ -65,15 +72,15 @@ class Processor:
         # Get according numbs from dict
         if fea.pre in self.clfs.dict["init"]["pre"]:
             pre = self.clfs.dict["init"]["pre"][fea.pre]
-        else: return False
+        else: return [False]
 
         if fea.start in self.clfs.dict["init"]["start"]:
             start = self.clfs.dict["init"]["start"][fea.start]
-        else: return False
+        else: return [False]
 
         if fea.first in self.clfs.dict["init"]["aa1"]:
             first = self.clfs.dict["init"]["aa1"][fea.first]
-        else: return False
+        else: return [False]
 
         obs = [pre, start, first]
 
@@ -84,8 +91,8 @@ class Processor:
             pred = [0]
 
         # Check predicions
-        if pred[0] == 1: return True
-        else: return False
+        if pred[0] == 1: return [True,sum(obs)]
+        else: return [False]
 
     # Check whether a potential term site exist or not
     def _isTerm(self, seq):
@@ -94,15 +101,15 @@ class Processor:
         # Get according numbs from dict
         if fea.last1 in self.clfs.dict["term"]["last1"]:
             last1 = self.clfs.dict["term"]["last1"][fea.last1]
-        else: return False
+        else: return [False]
 
         if fea.stop in self.clfs.dict["term"]["stop"]:
             stop = self.clfs.dict["term"]["stop"][fea.stop]
-        else: return False
+        else: return [False]
 
         if fea.next4 in self.clfs.dict["term"]["next4"]:
             next4 = self.clfs.dict["term"]["next4"][fea.next4]
-        else: return False
+        else: return [False]
 
         obs = [last1, stop, next4]
 
@@ -113,8 +120,8 @@ class Processor:
             pred = [0]
 
         # Check predicions
-        if pred[0] == 1: return True
-        else: return False
+        if pred[0] == 1: return [True,sum(obs)]
+        else: return [False]
 
     # Check whether a potential donor site exist or not
     def _isOutCDS(self, seq):
@@ -123,15 +130,15 @@ class Processor:
         # Get according numbs from dict
         if fea.pre2 in self.clfs.dict["outCDS"]["pre2"]:
             pre2 = self.clfs.dict["outCDS"]["pre2"][fea.pre2]
-        else: return False
+        else: return [False]
 
         if fea.first2 in self.clfs.dict["outCDS"]["first2"]:
             first2 = self.clfs.dict["outCDS"]["first2"][fea.first2]
-        else: return False
+        else: return [False]
 
         if fea.next4 in self.clfs.dict["outCDS"]["next4"]:
             next4 = self.clfs.dict["outCDS"]["next4"][fea.next4]
-        else: return False
+        else: return [False]
 
         obs = [pre2, first2, next4]
 
@@ -142,8 +149,8 @@ class Processor:
             pred = [0]
 
         # Check predicions
-        if pred[0] == 1: return True
-        else: return False
+        if pred[0] == 1: return [True,sum(obs)]
+        else: return [False]
 
     # Check whether a potential acceptor site exist or not
     def _isEntCDS(self, seq):
@@ -152,11 +159,11 @@ class Processor:
         # Get according numbs from dict
         if fea.end2 in self.clfs.dict["entCDS"]["end2"]:
             end2 = self.clfs.dict["entCDS"]["end2"][fea.end2]
-        else: return False
+        else: return [False]
 
         if fea.first1 in self.clfs.dict["entCDS"]["first1"]:
             first1 = self.clfs.dict["entCDS"]["first1"][fea.first1]
-        else: return False
+        else: return [False]
 
         obs = [fea.Yratio, end2, first1]
 
@@ -167,5 +174,5 @@ class Processor:
             pred = [0]
 
         # Check predicions
-        if pred[0] == 1: return True
-        else: return False
+        if pred[0] == 1: return [True,sum(obs)]
+        else: return [False]

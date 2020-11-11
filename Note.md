@@ -24,6 +24,8 @@ The consensus sequence for an intron (in IUPAC nucleic acid notation) is: G-G-[c
 
 https://www.sciencedirect.com/science/article/pii/S0022283697909517?via%3Dihub
 
+http://genesdev.cshlp.org/content/31/17/1717.full
+
 python3 tester.py --fasta data/foo.fasta --dict default/Jeanne.js --init default/Katyusha.pkl --term default/Erika.pkl --entCDS default/Nadeshiko.pkl --outCDS default/Juliet.pkl
 
 # One nucelotiude start codon

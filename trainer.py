@@ -69,25 +69,31 @@ class Classifiers:
 # This class is to train out SVM classifiers using sklearn package
 class Trainer:
     def __init__(self, seq_file, gff_file, save = True, filenames = "None"):
+        print("Trace On!")
         self.observ = obs.Observer(seq_file, gff_file)
         # test to see dictionary and observations in a JSON file
         # t.encode_json([self.observ.dict, self.observ.subj])
-
+        print(" I am the bone of my swords")
         # init part
         init_clf = self._fit("init")
 
+        print(" Steel is my body, and fire is my blood")
         # term part
         term_clf = self._fit("term")
 
+        print(" I haved created over thousands blades")
         # entCDS part
         entCDS_clf = self._fit("entCDS")
 
+        print(" Unknown to death, nor known to life")
         # outCDS part
         outCDS_clf = self._fit("outCDS")
 
+        print(" Have withstood pain to creat many weapons")
         self.clfs = Classifiers(init_clf, term_clf, entCDS_clf, outCDS_clf,
             self.observ.dict)
 
+        print(" Yet, those hands will never hold anything")
         if filenames == "None":
             print("Trainer: One or more filename missing, using default")
             filenames = [
@@ -102,7 +108,7 @@ class Trainer:
 
         if save:
             self._save()
-
+        print(" So as I pray, Unlimited Blade Works!")
     # This function is to build classifier
     def _fit(self, name):
         clf = svm.SVC(kernel='rbf')
