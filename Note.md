@@ -33,3 +33,17 @@ NM_001110358.1 AGT [[2522, 2522], [359, 990]]
 NM_001110360.1 AGT [[2447, 2447], [359, 990]]
 NM_001110361.1 AGT [[2522, 2522], [359, 990]]
 NM_001110359.1 AGT [[2447, 2447], [359, 990]]
+
+Introduction in short:
+
+My project is aiming to come out a program which can predict the effects of SNPs within given transcription sequence like Ensemble's VEP could do but neither require users to download large data cliche nor continuously interact with server.
+
+To achieve this goal, unlike VEP and other widely known prediction's method of finding appropriate reference sequences and then using documented annotations, my program would apply SVM technique to determine important sites within the given sequence and use predicted positions of the sites to generate correspond annotations. After that, my program will stimulate translation process to eventually predict the effects on residue level.
+
+So far, I have developed prototype methods to train classifiers to identify candidate start sites, stop site, donor site, and accepter site which can help my program to identify possible CDSs within the input sequence. Then, correspond score of each candidates will be calculated and candidates with score no less than first quantile will be considered as high quality candidates.
+
+By now, I am still tying to find out the best threshold to get high quality candidates.
+
+Once the high quality candidates acquired, my program would check out the possible combinations of start sites, stop sites, and introns, generate possible CDS patterns, and then eliminate which does not make senese biologically, (e.g. multiple stop codon in reading frame, CDS total length not in order of 3...)
+
+With validated CDS pattern, my program will start stimulating translation process and determine correspond residue changes of given SNPs and output prediction in SO terminology which consist with what VEP would output.
