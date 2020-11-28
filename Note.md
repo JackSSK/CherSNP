@@ -47,3 +47,11 @@ By now, I am still tying to find out the best threshold to get high quality cand
 Once the high quality candidates acquired, my program would check out the possible combinations of start sites, stop sites, and introns, generate possible CDS patterns, and then eliminate which does not make senese biologically, (e.g. multiple stop codon in reading frame, CDS total length not in order of 3...)
 
 With validated CDS pattern, my program will start stimulating translation process and determine correspond residue changes of given SNPs and output prediction in SO terminology which consist with what VEP would output.
+
+Since last update, the basic framework has been set up with agreement from both professor Lessick and Professor Yun:
+
+When training SVM classifiers, either sequences labeled predicated (e.g. have name start with "X") or sequences having CDS region with length less than 3 will be disregarded. 4 classifiers will be trained to out to identify start site, donor site, acceptor site, and stop site accordingly.
+
+After classifiers are trained out and identified potential sites within query sequences, potential transcript patterns will be calculated out through testing every combinations of annotations and the patterns which do not make sense with transcription manner (e.g. Overall coding sequence is not in factor of 3 and in frame stop codon appears before stop site) will be disregarded. With potential transcript patterns, translation process will be stimulated and the effect of SNP will be predicted based on whether or how the translation process would be interrupted.
+
+With suggestion from Professor Yun, the niche of my project will focus more on predicting effects of variants in sequences which do not have generally faithful annotations. Based on this idea, my program will be later tested with Cov19 variants and at this moment I am still studying about how variants could affect the normal function of virus. and maybe also bacteria later depends on time available.
