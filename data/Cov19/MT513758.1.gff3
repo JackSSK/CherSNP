@@ -1,0 +1,60 @@
+##sequence-region MT513758.1 1 29875
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=2697049
+MT513758.1	Genbank	region	1	29875	.	+	.	ID=MT513758.1:1..29875;Dbxref=taxon:2697049;collection-date=2020-04-23;country=Morocco;gb-acronym=SARS-CoV-2;gbkey=Src;isolate=SARS-CoV-2/human/MAR/OUA677_19/2020;isolation-source=Naso-pharyngeal swab;mol_type=genomic RNA;nat-host=Homo sapiens
+MT513758.1	Genbank	gene	261	21550	.	+	.	ID=gene-ORF1ab;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	261	13463	.	+	0	ID=cds-QKD20858.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:QKD20858.1;Name=QKD20858.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=QKD20858.1
+MT513758.1	Genbank	CDS	13463	21550	.	+	0	ID=cds-QKD20858.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:QKD20858.1;Name=QKD20858.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=QKD20858.1
+MT513758.1	Genbank	mature_protein_region_of_CDS	261	800	.	+	.	ID=id-QKD20858.1:1..180;Parent=cds-QKD20858.1;gbkey=Prot;product=leader protein
+MT513758.1	Genbank	mature_protein_region_of_CDS	801	2714	.	+	.	ID=id-QKD20858.1:181..818;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp2
+MT513758.1	Genbank	mature_protein_region_of_CDS	2715	8549	.	+	.	ID=id-QKD20858.1:819..2763;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp3
+MT513758.1	Genbank	mature_protein_region_of_CDS	8550	10049	.	+	.	ID=id-QKD20858.1:2764..3263;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp4
+MT513758.1	Genbank	mature_protein_region_of_CDS	10050	10967	.	+	.	ID=id-QKD20858.1:3264..3569;Parent=cds-QKD20858.1;gbkey=Prot;product=3C-like proteinase
+MT513758.1	Genbank	mature_protein_region_of_CDS	10968	11837	.	+	.	ID=id-QKD20858.1:3570..3859;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp6
+MT513758.1	Genbank	mature_protein_region_of_CDS	11838	12086	.	+	.	ID=id-QKD20858.1:3860..3942;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp7
+MT513758.1	Genbank	mature_protein_region_of_CDS	12087	12680	.	+	.	ID=id-QKD20858.1:3943..4140;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp8
+MT513758.1	Genbank	mature_protein_region_of_CDS	12681	13019	.	+	.	ID=id-QKD20858.1:4141..4253;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp9
+MT513758.1	Genbank	mature_protein_region_of_CDS	13020	13436	.	+	.	ID=id-QKD20858.1:4254..4392;Parent=cds-QKD20858.1;gbkey=Prot;product=nsp10
+MT513758.1	Genbank	mature_protein_region_of_CDS	13437	13463	.	+	.	ID=id-QKD20858.1:4393..5324;Parent=cds-QKD20858.1;gbkey=Prot;product=RNA-dependent RNA polymerase
+MT513758.1	Genbank	mature_protein_region_of_CDS	13463	16231	.	+	.	ID=id-QKD20858.1:4393..5324;Parent=cds-QKD20858.1;gbkey=Prot;product=RNA-dependent RNA polymerase
+MT513758.1	Genbank	mature_protein_region_of_CDS	16232	18034	.	+	.	ID=id-QKD20858.1:5325..5925;Parent=cds-QKD20858.1;gbkey=Prot;product=helicase
+MT513758.1	Genbank	mature_protein_region_of_CDS	18035	19615	.	+	.	ID=id-QKD20858.1:5926..6452;Parent=cds-QKD20858.1;gbkey=Prot;product=3'-to-5' exonuclease
+MT513758.1	Genbank	mature_protein_region_of_CDS	19616	20653	.	+	.	ID=id-QKD20858.1:6453..6798;Parent=cds-QKD20858.1;gbkey=Prot;product=endoRNAse
+MT513758.1	Genbank	mature_protein_region_of_CDS	20654	21547	.	+	.	ID=id-QKD20858.1:6799..7096;Parent=cds-QKD20858.1;gbkey=Prot;product=2'-O-ribose methyltransferase
+MT513758.1	Genbank	CDS	261	13478	.	+	0	ID=cds-QKD20859.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:QKD20859.1;Name=QKD20859.1;gbkey=CDS;gene=ORF1ab;product=ORF1a polyprotein;protein_id=QKD20859.1
+MT513758.1	Genbank	mature_protein_region_of_CDS	261	800	.	+	.	ID=id-QKD20859.1:1..180;Parent=cds-QKD20859.1;gbkey=Prot;product=leader protein
+MT513758.1	Genbank	mature_protein_region_of_CDS	801	2714	.	+	.	ID=id-QKD20859.1:181..818;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp2
+MT513758.1	Genbank	mature_protein_region_of_CDS	2715	8549	.	+	.	ID=id-QKD20859.1:819..2763;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp3
+MT513758.1	Genbank	mature_protein_region_of_CDS	8550	10049	.	+	.	ID=id-QKD20859.1:2764..3263;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp4
+MT513758.1	Genbank	mature_protein_region_of_CDS	10050	10967	.	+	.	ID=id-QKD20859.1:3264..3569;Parent=cds-QKD20859.1;gbkey=Prot;product=3C-like proteinase
+MT513758.1	Genbank	mature_protein_region_of_CDS	10968	11837	.	+	.	ID=id-QKD20859.1:3570..3859;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp6
+MT513758.1	Genbank	mature_protein_region_of_CDS	11838	12086	.	+	.	ID=id-QKD20859.1:3860..3942;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp7
+MT513758.1	Genbank	mature_protein_region_of_CDS	12087	12680	.	+	.	ID=id-QKD20859.1:3943..4140;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp8
+MT513758.1	Genbank	mature_protein_region_of_CDS	12681	13019	.	+	.	ID=id-QKD20859.1:4141..4253;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp9
+MT513758.1	Genbank	mature_protein_region_of_CDS	13020	13436	.	+	.	ID=id-QKD20859.1:4254..4392;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp10
+MT513758.1	Genbank	mature_protein_region_of_CDS	13437	13475	.	+	.	ID=id-QKD20859.1:4393..4405;Parent=cds-QKD20859.1;gbkey=Prot;product=nsp11
+MT513758.1	Genbank	stem_loop	13471	13498	.	+	.	ID=id-ORF1ab;Note=Coronavirus frameshifting stimulation element stem-loop 1;gbkey=stem_loop;gene=ORF1ab
+MT513758.1	Genbank	stem_loop	13483	13537	.	+	.	ID=id-ORF1ab-2;Note=Coronavirus frameshifting stimulation element stem-loop 2;gbkey=stem_loop;gene=ORF1ab
+MT513758.1	Genbank	gene	21558	25379	.	+	.	ID=gene-S;Name=S;gbkey=Gene;gene=S;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	21558	25379	.	+	0	ID=cds-QKD20860.1;Parent=gene-S;Dbxref=NCBI_GP:QKD20860.1;Name=QKD20860.1;gbkey=CDS;gene=S;product=surface glycoprotein;protein_id=QKD20860.1
+MT513758.1	Genbank	gene	25388	26215	.	+	.	ID=gene-ORF3a;Name=ORF3a;gbkey=Gene;gene=ORF3a;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	25388	26215	.	+	0	ID=cds-QKD20861.1;Parent=gene-ORF3a;Dbxref=NCBI_GP:QKD20861.1;Name=QKD20861.1;gbkey=CDS;gene=ORF3a;product=ORF3a protein;protein_id=QKD20861.1
+MT513758.1	Genbank	gene	26240	26467	.	+	.	ID=gene-E;Name=E;gbkey=Gene;gene=E;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	26240	26467	.	+	0	ID=cds-QKD20862.1;Parent=gene-E;Dbxref=NCBI_GP:QKD20862.1;Name=QKD20862.1;gbkey=CDS;gene=E;product=envelope protein;protein_id=QKD20862.1
+MT513758.1	Genbank	gene	26518	27186	.	+	.	ID=gene-M;Name=M;gbkey=Gene;gene=M;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	26518	27186	.	+	0	ID=cds-QKD20863.1;Parent=gene-M;Dbxref=NCBI_GP:QKD20863.1;Name=QKD20863.1;gbkey=CDS;gene=M;product=membrane glycoprotein;protein_id=QKD20863.1
+MT513758.1	Genbank	gene	27197	27382	.	+	.	ID=gene-ORF6;Name=ORF6;gbkey=Gene;gene=ORF6;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	27197	27382	.	+	0	ID=cds-QKD20864.1;Parent=gene-ORF6;Dbxref=NCBI_GP:QKD20864.1;Name=QKD20864.1;gbkey=CDS;gene=ORF6;product=ORF6 protein;protein_id=QKD20864.1
+MT513758.1	Genbank	gene	27389	27754	.	+	.	ID=gene-ORF7a;Name=ORF7a;gbkey=Gene;gene=ORF7a;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	27389	27754	.	+	0	ID=cds-QKD20865.1;Parent=gene-ORF7a;Dbxref=NCBI_GP:QKD20865.1;Name=QKD20865.1;gbkey=CDS;gene=ORF7a;product=ORF7a protein;protein_id=QKD20865.1
+MT513758.1	Genbank	gene	27751	27882	.	+	.	ID=gene-ORF7b;Name=ORF7b;gbkey=Gene;gene=ORF7b;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	27751	27882	.	+	0	ID=cds-QKD20866.1;Parent=gene-ORF7b;Dbxref=NCBI_GP:QKD20866.1;Name=QKD20866.1;gbkey=CDS;gene=ORF7b;product=ORF7b;protein_id=QKD20866.1
+MT513758.1	Genbank	gene	27889	28254	.	+	.	ID=gene-ORF8;Name=ORF8;gbkey=Gene;gene=ORF8;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	27889	28254	.	+	0	ID=cds-QKD20867.1;Parent=gene-ORF8;Dbxref=NCBI_GP:QKD20867.1;Name=QKD20867.1;gbkey=CDS;gene=ORF8;product=ORF8 protein;protein_id=QKD20867.1
+MT513758.1	Genbank	gene	28269	29528	.	+	.	ID=gene-N;Name=N;gbkey=Gene;gene=N;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	28269	29528	.	+	0	ID=cds-QKD20868.1;Parent=gene-N;Dbxref=NCBI_GP:QKD20868.1;Name=QKD20868.1;gbkey=CDS;gene=N;product=nucleocapsid phosphoprotein;protein_id=QKD20868.1
+MT513758.1	Genbank	gene	29553	29669	.	+	.	ID=gene-ORF10;Name=ORF10;gbkey=Gene;gene=ORF10;gene_biotype=protein_coding
+MT513758.1	Genbank	CDS	29553	29669	.	+	0	ID=cds-QKD20869.1;Parent=gene-ORF10;Dbxref=NCBI_GP:QKD20869.1;Name=QKD20869.1;gbkey=CDS;gene=ORF10;product=ORF10 protein;protein_id=QKD20869.1
+MT513758.1	Genbank	stem_loop	29604	29639	.	+	.	ID=id-ORF10;Note=Coronavirus 3' UTR pseudoknot stem-loop 1;gbkey=stem_loop;gene=ORF10
+MT513758.1	Genbank	stem_loop	29624	29652	.	+	.	ID=id-ORF10-2;Note=Coronavirus 3' UTR pseudoknot stem-loop 2;gbkey=stem_loop;gene=ORF10
+MT513758.1	Genbank	stem_loop	29723	29763	.	+	.	ID=id-MT513758.1:29723..29763;Note=Coronavirus 3' stem-loop II-like motif (s2m);gbkey=stem_loop
+

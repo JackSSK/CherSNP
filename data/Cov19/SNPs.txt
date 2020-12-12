@@ -1,0 +1,19 @@
+g.241C>T		NONE
+g.3037C>T		p.F105F
+g.8782C>T		p.S75S
+g.11083G>T		p.L37F
+g.14408C>T		p.P323L
+g.17747C>T		p.P504L
+g.17858A>G		p.Y541C
+g.18060C>T		p.L6L
+g.23403A>G		p.D614G
+g.26144G>T		p.G251V
+g.27046C>T		p.T175M
+g.28144T>C		p.L84S
+g.28881G>A		p.R203K
+g.28882G>A		p.R202R
+g.28883G>C		p.G204R
+
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7184998/
+g.14408C>T		p.P323L

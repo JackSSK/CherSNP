@@ -14,6 +14,7 @@ class HGVS:
     def __init__(self, anno):
         prefix = anno.split('.')[0]
         change = anno.split('.')[1]
+        self.origin = anno
         if prefix == 'g': self.prefix = 'Genomic'
         elif prefix == 'c': self.prefix = 'coding Gene'
         elif prefix == 'r': self.prefix = 'RNA'

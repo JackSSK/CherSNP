@@ -68,11 +68,12 @@ class Classifiers:
 
 # This class is to train out SVM classifiers using sklearn package
 class Trainer:
-    def __init__(self, seq_file, gff_file, save = True, filenames = "None"):
+    def __init__(self, seq_file, gff_file, save = True,
+        mode = "GRCh38", filenames = "None"):
         print("Trace On!")
-        self.observ = obs.Observer(seq_file, gff_file)
+        self.observ = obs.Observer(seq_file, gff_file, mode)
         # test to see dictionary and observations in a JSON file
-        # t.encode_json([self.observ.dict, self.observ.subj])
+
         print(" I am the bone of my swords")
         # init part
         init_clf = self._fit("init")
@@ -117,7 +118,10 @@ class Trainer:
         notation = [1] * correct + [0] * wrong
         weight = [2] * correct + [1] * wrong
         obser = self.observ.subj[name]["correct"] + self.observ.subj[name]["wrong"]
-        clf.fit(obser,notation,sample_weight=weight)
+        try:
+            clf.fit(obser,notation,sample_weight=weight)
+        except:
+            print(" WARNING: no obervation")
         # clf.fit(obser,notation)
 
         # test here to see accuracy with data just trained with

@@ -7,8 +7,9 @@ class ID_error(Exception):
     pass
 
 class Process:
-    def __init__(self, file):
+    def __init__(self, file, mode):
         self.gff = {}
+        self.mode = mode
         self._allway(file)
         # For test
         # tool.encode_json(self.gff)
@@ -37,6 +38,8 @@ class Process:
                                 'beg':int(entry.beg),
                                 'end':int(entry.end),
                                 'strand':entry.strand,
+                                'name':id,
+                                'cds':[],
                                 'hgvs':hgvs
                             }
                         else:
@@ -83,10 +86,11 @@ class Process:
                     if re.search(r'Parent=',entry.attr):
                         pid = entry.attr.split('Parent=')[1].split(';')[0]
                         # Assuming CDS has to be a feature of a transcript
-                        if re.search('gene', pid):
+                        # Not in Cov19 case
+                        if re.search('gene', pid) and self.mode == "GRCh38":
                             continue
-                        # if int(entry.beg) == int(entry.end):
-                        #     continue
+                        if int(entry.beg) == int(entry.end):
+                            continue
                         if pid not in self.gff[entry.seqid]:
                             unlink_cds.append([entry.seqid, pid,
                                 int(entry.beg),

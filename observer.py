@@ -20,21 +20,21 @@ class ID_error(Exception):
     pass
 
 class Observer:
-    def __init__(self, seq_file, gff_file):
+    def __init__(self, seq_file, gff_file, mode):
         # Test to see how many init / term don't have contest
         self.init_count = 0
         self.term_count = 0
         # Process in GFF file
-        self.gff = gffer.Process(gff_file).gff
+        self.gff = gffer.Process(gff_file,mode).gff
         # Get observations and correspond dictionary
-        self.dict, self.subj = self._observe(seq_file)
+        self.dict, self.subj = self._observe(seq_file,mode)
         self.dict = self._prepare_dict(self.dict)
         self.subj = self._obs_to_numb(self.subj)
 
         # print(self.init_count, self.term_count)
 
 
-    def _observe(self, seq_file):
+    def _observe(self, seq_file,mode):
         #Initiating dicts for stroing correct observations
         dict = {
             "init":{
@@ -80,13 +80,20 @@ class Observer:
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
-                if self.gff[entry.id][trans]["type"] == "mRNA":
+                # For GRCh38 training:
+                if mode == "GRCh38": types = ["mRNA"]
+                # For cov19:
+                elif mode == "Cov19": types = ["mRNA", "Gene"]
+                if self.gff[entry.id][trans]["type"] in types:
                     if re.search(r'X',self.gff[entry.id][trans]["name"]):
                         continue
                     beg = self.gff[entry.id][trans]["beg"]
                     end = self.gff[entry.id][trans]["end"]
                     strand = self.gff[entry.id][trans]["strand"]
-                    seq = entry.seq[beg-1:end]
+                    # does not allow no-utr trecords
+                    if mode == "GRCh38": seq = entry.seq[beg-1:end]
+                    # allow no-utr records
+                    if mode == "Cov19": seq = entry.seq
                     coord = []
                     init = 0
                     ter = 0
@@ -97,76 +104,93 @@ class Observer:
                             w.warn("Warning: "+ trans+ " has cds less than 3bp")
                             qualify = False
                             break
-                        temp = [int(ele[0])-beg, int(ele[1])-beg]
+                        if mode == "GRCh38":
+                            seq = temp = [int(ele[0])-beg, int(ele[1])-beg]
+                        if mode == "Cov19":
+                            temp = [int(ele[0]-1), int(ele[1]-1)]
                         coord.append(temp)
-
                     if not qualify: continue
 
-                    if strand == "+":
-                        coord = sorted(coord, key=lambda x: x[0])
-                        init = coord[0][0]
-                        ter = coord[-1][1]
-                        for ele in coord:
+                    if mode == "Cov19" and len(coord)>1:
+                        for ele1 in coord:
+                            for ele2 in coord:
+                                if ele1[1] == ele2[0]:
+                                    new = [[ele1[0],ele2[1]]]
+                                    coord.remove(ele1)
+                                    coord.remove(ele2)
+                                    if len(coord) > 0:
+                                        self._getUpdates(coord, strand, seq, dict, observ)
+                                    self._getUpdates(new, strand, seq, dict, observ)
+                    else:
+                        self._getUpdates(coord, strand, seq, dict, observ)
 
-                            # Is 5'UTR guranteed or not...
-
-                            inseq = ""
-                            outseq = ""
-                            if ele[0] != init:
-                                inseq = seq[ele[0]-18:ele[0]+4]
-                                self._update_entCDS(dict,observ,inseq)
-                            else:
-                                inseq = seq[ele[0]-7:ele[0]+9]
-                                if len(inseq) < 16:
-                                    self.init_count += 1
-                                    continue
-                                self._update_init(dict,observ,inseq)
-                            if ele[1] != ter:
-                                outseq = seq[ele[1]-4:ele[1]+10]
-                                self._update_outCDS(dict,observ,outseq)
-                            else:
-                                outseq = seq[ele[1]-8:ele[1]+8]
-                                if len(outseq) < 16:
-                                    self.term_count += 1
-                                    continue
-                                # Let's see who has the weird stop codon
-                                # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
-                                #     print(self.gff[entry.id][trans]["name"], coord)
-                                self._update_term(dict, observ, outseq)
-
-                    elif strand == '-':
-                        coord = sorted(coord, key=lambda x: -x[0])
-                        init = coord[0][1]
-                        ter = coord[-1][0]
-                        for ele in coord:
-                            inseq = ""
-                            outseq = ""
-                            if ele[1] != init:
-                                inseq = t.complementary(seq[ele[1]-3:ele[1]+19])
-                                self._update_entCDS(dict,observ,inseq)
-                            else:
-                                inseq = t.complementary(seq[ele[1]-8:ele[1]+8])
-                                if len(inseq) < 16:
-                                    self.init_count += 1
-                                    continue
-                                # Let's see who has the weird start codon
-                                # if inseq[7:10] != 'ATG':
-                                #     print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
-                                self._update_init(dict,observ,inseq)
-                            if ele[0] != ter:
-                                outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
-                                self._update_outCDS(dict,observ,outseq)
-                            else:
-                                outseq = t.complementary(seq[ele[0]-7:ele[0]+9])
-                                if len(outseq) < 16:
-                                    self.term_count += 1
-                                    continue
-                                # Let's see who has the weird stop codon
-                                # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
-                                #     print(outseq[3:-3][3:6])
-                                self._update_term(dict, observ, outseq)
         fas_read.close()
         return dict, observ
+
+    def _getUpdates(self, coord, strand, seq, dict, observ):
+        if strand == "+":
+            coord = sorted(coord, key=lambda x: x[0])
+            init = coord[0][0]
+            ter = coord[-1][1]
+            for ele in coord:
+
+                # Is 5'UTR guranteed or not...
+
+                inseq = ""
+                outseq = ""
+                if ele[0] != init:
+                    inseq = seq[ele[0]-18:ele[0]+4]
+                    self._update_entCDS(dict,observ,inseq)
+                else:
+                    inseq = seq[ele[0]-7:ele[0]+9]
+                    if len(inseq) < 16:
+                        self.init_count += 1
+                        continue
+                    self._update_init(dict,observ,inseq)
+                if ele[1] != ter:
+                    outseq = seq[ele[1]-4:ele[1]+10]
+                    self._update_outCDS(dict,observ,outseq)
+                else:
+                    outseq = seq[ele[1]-8:ele[1]+8]
+                    if len(outseq) < 16:
+                        self.term_count += 1
+                        continue
+                    # Let's see who has the weird stop codon
+                    # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
+                    #     print(self.gff[entry.id][trans]["name"], coord)
+                    self._update_term(dict, observ, outseq)
+
+        elif strand == '-':
+            coord = sorted(coord, key=lambda x: -x[0])
+            init = coord[0][1]
+            ter = coord[-1][0]
+            for ele in coord:
+                inseq = ""
+                outseq = ""
+                if ele[1] != init:
+                    inseq = t.complementary(seq[ele[1]-3:ele[1]+19])
+                    self._update_entCDS(dict,observ,inseq)
+                else:
+                    inseq = t.complementary(seq[ele[1]-8:ele[1]+8])
+                    if len(inseq) < 16:
+                        self.init_count += 1
+                        continue
+                    # Let's see who has the weird start codon
+                    # if inseq[7:10] != 'ATG':
+                    #     print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
+                    self._update_init(dict,observ,inseq)
+                if ele[0] != ter:
+                    outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
+                    self._update_outCDS(dict,observ,outseq)
+                else:
+                    outseq = t.complementary(seq[ele[0]-7:ele[0]+9])
+                    if len(outseq) < 16:
+                        self.term_count += 1
+                        continue
+                    # Let's see who has the weird stop codon
+                    # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
+                    #     print(outseq[3:-3][3:6])
+                    self._update_term(dict, observ, outseq)
 
     # This is to store observations of how transcript initiated
     # Stuffs and Start Codon

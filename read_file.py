@@ -106,6 +106,7 @@ class GFF:
             if line == '': break
             content = line.split("\t")
             if len(content) < 8:
+                if content == ["\n"]: continue
                 raise Read_error('Bad GFF Format')
             id = content[0]
 

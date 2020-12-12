@@ -1,0 +1,31 @@
+##sequence-region LC593801.1 1 29901
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=2697049
+LC593801.1	DDBJ	region	1	29901	.	+	.	ID=LC593801.1:1..29901;Dbxref=taxon:2697049;collection-date=2020-07;country=Japan;gb-acronym=SARS-CoV-2;gbkey=Src;isolate=TKYT22342_2020;mol_type=genomic RNA;nat-host=Homo sapiens
+LC593801.1	DDBJ	five_prime_UTR	1	263	.	+	.	ID=id-LC593801.1:1..263;gbkey=5'UTR;partial=true;start_range=.,1
+LC593801.1	DDBJ	gene	264	21553	.	+	.	ID=gene-ORF1ab;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	264	13466	.	+	0	ID=cds-BCN28095.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:BCN28095.1;Name=BCN28095.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=BCN28095.1
+LC593801.1	DDBJ	CDS	13466	21553	.	+	0	ID=cds-BCN28095.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:BCN28095.1;Name=BCN28095.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=BCN28095.1
+LC593801.1	DDBJ	gene	264	13481	.	+	.	ID=gene-ORF1a;Name=ORF1a;gbkey=Gene;gene=ORF1a;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	264	13481	.	+	0	ID=cds-BCN28096.1;Parent=gene-ORF1a;Dbxref=NCBI_GP:BCN28096.1;Name=BCN28096.1;gbkey=CDS;gene=ORF1a;product=ORF1a polyprotein;protein_id=BCN28096.1
+LC593801.1	DDBJ	gene	21561	25382	.	+	.	ID=gene-S;Name=S;gbkey=Gene;gene=S;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	21561	25382	.	+	0	ID=cds-BCN28097.1;Parent=gene-S;Dbxref=NCBI_GP:BCN28097.1;Name=BCN28097.1;gbkey=CDS;gene=S;product=surface glycoprotein;protein_id=BCN28097.1
+LC593801.1	DDBJ	gene	25391	26218	.	+	.	ID=gene-ORF3a;Name=ORF3a;gbkey=Gene;gene=ORF3a;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	25391	26218	.	+	0	ID=cds-BCN28098.1;Parent=gene-ORF3a;Dbxref=NCBI_GP:BCN28098.1;Name=BCN28098.1;gbkey=CDS;gene=ORF3a;product=ORF3a protein;protein_id=BCN28098.1
+LC593801.1	DDBJ	gene	26243	26470	.	+	.	ID=gene-E;Name=E;gbkey=Gene;gene=E;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	26243	26470	.	+	0	ID=cds-BCN28099.1;Parent=gene-E;Dbxref=NCBI_GP:BCN28099.1;Name=BCN28099.1;gbkey=CDS;gene=E;product=envelope protein;protein_id=BCN28099.1
+LC593801.1	DDBJ	gene	26521	27189	.	+	.	ID=gene-M;Name=M;gbkey=Gene;gene=M;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	26521	27189	.	+	0	ID=cds-BCN28100.1;Parent=gene-M;Dbxref=NCBI_GP:BCN28100.1;Name=BCN28100.1;gbkey=CDS;gene=M;product=membrane glycoprotein;protein_id=BCN28100.1
+LC593801.1	DDBJ	gene	27200	27385	.	+	.	ID=gene-ORF6;Name=ORF6;gbkey=Gene;gene=ORF6;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	27200	27385	.	+	0	ID=cds-BCN28101.1;Parent=gene-ORF6;Dbxref=NCBI_GP:BCN28101.1;Name=BCN28101.1;gbkey=CDS;gene=ORF6;product=ORF6 protein;protein_id=BCN28101.1
+LC593801.1	DDBJ	gene	27392	27757	.	+	.	ID=gene-ORF7a;Name=ORF7a;gbkey=Gene;gene=ORF7a;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	27392	27757	.	+	0	ID=cds-BCN28102.1;Parent=gene-ORF7a;Dbxref=NCBI_GP:BCN28102.1;Name=BCN28102.1;gbkey=CDS;gene=ORF7a;product=ORF7a protein;protein_id=BCN28102.1
+LC593801.1	DDBJ	gene	27754	27885	.	+	.	ID=gene-ORF7b;Name=ORF7b;gbkey=Gene;gene=ORF7b;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	27754	27885	.	+	0	ID=cds-BCN28103.1;Parent=gene-ORF7b;Dbxref=NCBI_GP:BCN28103.1;Name=BCN28103.1;gbkey=CDS;gene=ORF7b;product=ORF7b protein;protein_id=BCN28103.1
+LC593801.1	DDBJ	gene	27892	28257	.	+	.	ID=gene-ORF8;Name=ORF8;gbkey=Gene;gene=ORF8;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	27892	28257	.	+	0	ID=cds-BCN28104.1;Parent=gene-ORF8;Dbxref=NCBI_GP:BCN28104.1;Name=BCN28104.1;gbkey=CDS;gene=ORF8;product=ORF8 protein;protein_id=BCN28104.1
+LC593801.1	DDBJ	gene	28272	29531	.	+	.	ID=gene-N;Name=N;gbkey=Gene;gene=N;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	28272	29531	.	+	0	ID=cds-BCN28105.1;Parent=gene-N;Dbxref=NCBI_GP:BCN28105.1;Name=BCN28105.1;gbkey=CDS;gene=N;product=nucleocapsid phosphoprotein;protein_id=BCN28105.1
+LC593801.1	DDBJ	gene	29556	29672	.	+	.	ID=gene-ORF10;Name=ORF10;gbkey=Gene;gene=ORF10;gene_biotype=protein_coding
+LC593801.1	DDBJ	CDS	29556	29672	.	+	0	ID=cds-BCN28106.1;Parent=gene-ORF10;Dbxref=NCBI_GP:BCN28106.1;Name=BCN28106.1;gbkey=CDS;gene=ORF10;product=ORF10 protein;protein_id=BCN28106.1
+LC593801.1	DDBJ	three_prime_UTR	29673	29901	.	+	.	ID=id-LC593801.1:29673..29901;gbkey=3'UTR
+
