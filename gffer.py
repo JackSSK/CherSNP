@@ -89,6 +89,7 @@ class Process:
                         # Not in Cov19 case
                         if re.search('gene', pid) and self.mode == "GRCh38":
                             continue
+                        # Ignore single nucleotide entry
                         if int(entry.beg) == int(entry.end):
                             continue
                         if pid not in self.gff[entry.seqid]:

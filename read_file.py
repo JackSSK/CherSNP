@@ -1,7 +1,6 @@
 """
 Classes for read in files
 """
-
 import os
 import gzip
 import re
@@ -10,14 +9,128 @@ class Read_error(Exception):
     pass
 
 class BioSeq:
-    def __init__(self, id, desc, seq):
+    def __init__(self, id, description, seq):
         self.id = id
-        self.desc = desc
+        self.description = description
         self.seq = seq
     def hgvsMod(self, hgvs=''):
         # Return a bioseq object after modification based on
         # hgvs annotation
         return self.seq
+
+# Class to read in a FASTA sequence file
+class FASTA:
+    def __init__(self, file):
+        self.filename = file
+        # Open as .gz file
+        if re.search(r'\.gz$', self.filename):
+            self.file = gzip.open(file)
+        # Open directly
+        else:
+            self.file = open(self.filename, 'r')
+        self.entries = []
+        self.iteration = 0
+        self.entryStartCoordinates = {}
+        # Read through lines
+        while (True):
+            line = self.file.readline()
+            if line == '': break
+            # Detect an entry
+            if line[0:1] == '>':
+                # Get ID
+                id = re.search(r'>\s*(\S+)', line)[1]
+                if id in self.entries:
+                    raise Read_error('Duplicate id: ' + id)
+                else: self.entries.append(id)
+                self.entryStartCoordinates[id] = self.file.tell() - len(line)
+        if len(self.entries) == 0:
+            raise Read_error('You sure this is FASTA?')
+    # Get specific sequence
+    def get(self, id):
+        self.file.seek(self.entryStartCoordinates[id])
+        header = self.file.readline()
+        description = header.split(id)[1].rstrip('\n')
+        seq = []
+        # Iterate through lines till next entry
+        # or enconter an empty line
+        while(True):
+            line = self.file.readline()
+            if line[0:1] == '>': break
+            if line == '': break
+            line = line.replace(' ', '')
+            seq.append(line.strip())
+        seq = ''.join(seq)
+        return BioSeq(id, description, seq)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.iteration == len(self.entries):
+            raise StopIteration
+        else:
+            id = self.entries[self.iteration]
+            self.iteration += 1
+            return FASTA.get(self, id)
+
+    def close(self):
+        self.file.close()
+
+# May need to revise based on expect input format
+# Class to read in a GFF file
+class GFF:
+    def __init__(self, file):
+        self.filename = file
+        if re.search(r'\.gz$', self.filename):
+            self.file = gzip.open(file)
+        else:
+            self.file = open(self.filename, 'r')
+        self.seqIDs = []
+        self.iteration = 0
+        self.entryStartCoordinates = {}
+        while (True):
+            line = self.file.readline()
+            if line[0:1]=='#': continue
+            if line == '': break
+            content = line.split("\t")
+            if len(content) < 8:
+                if content == ["\n"]: continue
+                raise Read_error('Bad GFF Format')
+            id = content[0]
+
+            # Something goes wrong here when test with TTC5.gff or Chr14.gff
+            # -1 work with TTC5, and no - 1 wokrs with Chr14
+            coordinate = self.file.tell() - len(line)
+
+            if id not in self.seqIDs:
+                self.seqIDs.append(id)
+                self.entryStartCoordinates[id] = [coordinate]
+            else:
+                self.entryStartCoordinates[id].append(coordinate)
+        if len(self.seqIDs) == 0:
+            raise Read_error('You sure this is GFF?')
+
+    def get(self, id):
+        info = []
+        for coordinate in self.entryStartCoordinates[id]:
+            self.file.seek(coordinate)
+            entry = self.file.readline()
+            info.append(GFF_entry(entry))
+        return info
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.iteration == len(self.seqIDs):
+            raise StopIteration
+        else:
+            id = self.seqIDs[self.iteration]
+            self.iteration += 1
+            return GFF.get(self, id)
+
+    def close(self):
+        self.file.close()
 
 class GFF_entry:
     def __init__(self, line):
@@ -37,112 +150,3 @@ class GFF_entry:
             self.attr = content[8]
         else:
             self.attr = ''
-
-class FASTA:
-    def __init__(self, file):
-        self.filename = file
-        if re.search(r'\.gz$', self.filename):
-            self._fas = gzip.open(file)
-        else:
-            self._fas = open(self.filename, 'r')
-        self.entries = []
-        self.itr_mark = 0
-        self.sta_coords = {}
-        while (True):
-            line = self._fas.readline()
-            if line == '': break
-            if line[0:1] == '>':
-                m = re.search(r'>\s*(\S+)', line)
-                id = m[1]
-                if id in self.entries:
-                    raise Read_error('duplicate id: ' + id)
-                else: self.entries.append(id)
-                self.sta_coords[id] = self._fas.tell() - len(line)
-        if len(self.entries) == 0:
-            raise Read_error('You sure this is FASTA?')
-
-    def get(self, id):
-        self._fas.seek(self.sta_coords[id])
-        header = self._fas.readline()
-        desc = header.split(id)[1].rstrip('\n')
-        seq = []
-        while(True):
-            line = self._fas.readline()
-            if line[0:1] == '>': break
-            if line == '': break
-            line = line.replace(' ', '')
-            seq.append(line.strip())
-        seq = ''.join(seq)
-        return BioSeq(id, desc, seq)
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if self.itr_mark == len(self.entries):
-            raise StopIteration
-        else:
-            id = self.entries[self.itr_mark]
-            self.itr_mark += 1
-            return FASTA.get(self, id)
-
-    def close(self):
-        self._fas.close()
-
-# May need to revise based on expect input format
-class GFF:
-    def __init__(self, file):
-        self.filename = file
-        if re.search(r'\.gz$', self.filename):
-            self._gff = gzip.open(file)
-        else:
-            self._gff = open(self.filename, 'r')
-        self.seqids = []
-        self.itr_mark = 0
-        self.sta_coords = {}
-        while (True):
-            line = self._gff.readline()
-            if line[0:1]=='#': continue
-            if line == '': break
-            content = line.split("\t")
-            if len(content) < 8:
-                if content == ["\n"]: continue
-                raise Read_error('Bad GFF Format')
-            id = content[0]
-
-            # Something goes wrong here when test with TTC%.gff or Chr14.gff
-            # -1 work with TTC5, and no - 1 wokrs with Chr14
-
-            coord = self._gff.tell() - len(line)
-
-
-
-            if id not in self.seqids:
-                self.seqids.append(id)
-                self.sta_coords[id] = [coord]
-            else:
-                self.sta_coords[id].append(coord)
-        if len(self.seqids) == 0:
-            raise Read_error('You sure this is GFF?')
-
-    def get(self, id):
-        info = []
-        for coord in self.sta_coords[id]:
-            self._gff.seek(coord)
-            entry = self._gff.readline()
-            info.append(GFF_entry(entry))
-        return info
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if self.itr_mark == len(self.seqids):
-            raise StopIteration
-        else:
-            id = self.seqids[self.itr_mark]
-            self.itr_mark += 1
-            return GFF.get(self, id)
-
-    def close(self):
-        self._gff.close()

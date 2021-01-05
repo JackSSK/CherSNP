@@ -62,7 +62,7 @@ class insertion:
         poss = temp[0].split('_')
         pos1 = poss[0]
         pos2 = poss[1]
-        if pos2 == pos1 += 1: self.pos=pos1
+        if pos2 == pos1 + 1: self.pos=pos1
         else:
             raise Change_error('Unqualified insertion variant')
 
