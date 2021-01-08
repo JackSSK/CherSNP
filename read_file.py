@@ -4,6 +4,7 @@ Classes for read in files
 import os
 import gzip
 import re
+import numpy as np
 
 class Read_error(Exception):
     pass
@@ -100,6 +101,7 @@ class GFF:
 
             # Something goes wrong here when test with TTC5.gff or Chr14.gff
             # -1 work with TTC5, and no - 1 wokrs with Chr14
+            # It seems like no -1 is the standard way
             coordinate = self.file.tell() - len(line)
 
             if id not in self.seqIDs:

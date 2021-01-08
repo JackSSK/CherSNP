@@ -24,8 +24,8 @@ parser.add_argument('--entCDS', required=False, type=str,default='Nadeshiko.pkl'
 parser.add_argument('--outCDS', required=False, type=str,default='Juliet.pkl',
     metavar='<path>', help='path to outCDS classifier (.pkl) file')
 # mode for cov19 training
-parser.add_argument('--mode', required=False, type=str,default='GRCh38',
-    metavar='<path>', help='GRCh38 or Cov19')
+parser.add_argument('--mode', required=False, type=str,default='hasRNA',
+    metavar='<path>', help='hasRNA or noRNA')
 
 arg = parser.parse_args()
 seq_file = arg.fasta

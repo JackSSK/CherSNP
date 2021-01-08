@@ -81,9 +81,9 @@ class Observer:
         for entry in fas_read:
             for trans in self.gff[entry.id]:
                 # For GRCh38 training:
-                if mode == "GRCh38": types = ["mRNA"]
+                if mode == 'hasRNA': types = ["mRNA"]
                 # For cov19:
-                elif mode == "Cov19": types = ["mRNA", "Gene"]
+                elif mode == 'noRNA': types = ["mRNA", "Gene"]
                 if self.gff[entry.id][trans]["type"] in types:
                     if re.search(r'X',self.gff[entry.id][trans]["name"]):
                         continue
@@ -91,9 +91,9 @@ class Observer:
                     end = self.gff[entry.id][trans]["end"]
                     strand = self.gff[entry.id][trans]["strand"]
                     # does not allow no-utr trecords
-                    if mode == "GRCh38": seq = entry.seq[beg-1:end]
+                    if mode == 'hasRNA': seq = entry.seq[beg-1:end]
                     # allow no-utr records
-                    if mode == "Cov19": seq = entry.seq
+                    if mode == 'noRNA': seq = entry.seq
                     coord = []
                     init = 0
                     ter = 0
@@ -104,14 +104,14 @@ class Observer:
                             w.warn("Warning: "+ trans+ " has cds less than 3bp")
                             qualify = False
                             break
-                        if mode == "GRCh38":
-                            seq = temp = [int(ele[0])-beg, int(ele[1])-beg]
-                        if mode == "Cov19":
+                        if mode == 'hasRNA':
+                            temp = [int(ele[0])-beg, int(ele[1])-beg]
+                        if mode == 'noRNA':
                             temp = [int(ele[0]-1), int(ele[1]-1)]
                         coord.append(temp)
                     if not qualify: continue
 
-                    if mode == "Cov19" and len(coord)>1:
+                    if mode == 'noRNA' and len(coord)>1:
                         for ele1 in coord:
                             for ele2 in coord:
                                 if ele1[1] == ele2[0]:
