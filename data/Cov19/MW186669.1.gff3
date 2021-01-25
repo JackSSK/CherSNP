@@ -1,9 +1,9 @@
 ##sequence-region MW186669.1 1 29855
 ##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=2697049
 MW186669.1	Genbank	region	1	29855	.	+	.	ID=MW186669.1:1..29855;Dbxref=taxon:2697049;collection-date=2020-03-13;country=Egypt;gb-acronym=SARS-CoV-2;gbkey=Src;isolate=SARS-CoV-2/human/EGY/Cairo-sample 19 MOH/2020;isolation-source=Oral-pharyngeal;mol_type=genomic RNA;nat-host=Homo sapiens
-MW186669.1	Genbank	gene	259	21548	.	+	.	ID=gene-ORF1ab;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding
 MW186669.1	Genbank	CDS	259	13461	.	+	0	ID=cds-QOU08642.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:QOU08642.1;Name=QOU08642.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=QOU08642.1
 MW186669.1	Genbank	CDS	13461	21548	.	+	0	ID=cds-QOU08642.1;Parent=gene-ORF1ab;Dbxref=NCBI_GP:QOU08642.1;Name=QOU08642.1;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;product=ORF1ab polyprotein;protein_id=QOU08642.1
+MW186669.1	Genbank	gene	259	21548	.	+	.	ID=gene-ORF1ab;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding
 MW186669.1	Genbank	mature_protein_region_of_CDS	259	798	.	+	.	ID=id-QOU08642.1:1..180;Parent=cds-QOU08642.1;gbkey=Prot;product=leader protein
 MW186669.1	Genbank	mature_protein_region_of_CDS	799	2712	.	+	.	ID=id-QOU08642.1:181..818;Parent=cds-QOU08642.1;gbkey=Prot;product=nsp2
 MW186669.1	Genbank	mature_protein_region_of_CDS	2713	8547	.	+	.	ID=id-QOU08642.1:819..2763;Parent=cds-QOU08642.1;gbkey=Prot;product=nsp3
@@ -57,4 +57,3 @@ MW186669.1	Genbank	CDS	29551	29667	.	+	0	ID=cds-QOU08653.1;Parent=gene-ORF10;Dbx
 MW186669.1	Genbank	stem_loop	29602	29637	.	+	.	ID=id-ORF10;Note=Coronavirus 3' UTR pseudoknot stem-loop 1;gbkey=stem_loop;gene=ORF10
 MW186669.1	Genbank	stem_loop	29622	29650	.	+	.	ID=id-ORF10-2;Note=Coronavirus 3' UTR pseudoknot stem-loop 2;gbkey=stem_loop;gene=ORF10
 MW186669.1	Genbank	stem_loop	29721	29761	.	+	.	ID=id-MW186669.1:29721..29761;Note=Coronavirus 3' stem-loop II-like motif (s2m);gbkey=stem_loop
-

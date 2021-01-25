@@ -48,12 +48,12 @@ if "None" in filenames:
 
 clfs = train.Classifiers(filenames = filenames)
 results = pattern.Finder(seq_file, clfs)
+
 a = p.cov19_Processer(results.patterns)
 
 for ele in a.patterns:
     id = ele["id"]
     pattern = ele["patterns"]
-    print(pattern)
     gff = "data/Cov19/" + id +".gff3"
     gff = gffer.Process(gff, "Cov19").gff
     ref = []

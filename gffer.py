@@ -13,11 +13,11 @@ class Process:
         self.mode = mode
         self._allway(file)
         # For test
-        # tool.encode_json(self.gff)
+        tool.encode_json(self.gff)
 
     def _allway(self, file):
         gff_read = read.GFF(file)
-        unlinkCDS = np.array([])
+        unlinkCDS = []
         for srcseq in gff_read:
             for entry in srcseq:
                 if entry.seqid not in self.gff:
@@ -107,7 +107,7 @@ class Process:
             if pid not in self.gff[entry.seqid]:
                 cds = [entry.seqid, pid, int(entry.beg),
                     int(entry.end)]
-                unlinkCDS = np.append(unlinkCDS, cds)
+                unlinkCDS.append(cds)
             else:
                 ele = [int(entry.beg), int(entry.end)]
                 if ele not in self.gff[entry.seqid][pid]['cds']:

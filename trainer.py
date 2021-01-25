@@ -6,21 +6,6 @@ import observer as obs
 
 import numpy as np
 
-def unique(list1):
-
-    # intilize a null list
-    unique_list = []
-
-    # traverse for all elements
-    for x in list1:
-        # check if exists in unique_list or not
-        if x not in unique_list:
-            unique_list.append(x)
-    # print list
-    for x in unique_list:
-        print(x)
-
-
 # For sklearn < 0.23 versions joblib is there
 try:
     from sklearn.externals import joblib
@@ -69,7 +54,7 @@ class Classifiers:
 # This class is to train out SVM classifiers using sklearn package
 class Trainer:
     def __init__(self, seq_file, gff_file, save = True,
-        mode = "GRCh38", filenames = "None"):
+        mode = "hasRNA", filenames = "None"):
         print("Trace On!")
         self.observ = obs.Observer(seq_file, gff_file, mode)
         # test to see dictionary and observations in a JSON file
@@ -112,7 +97,7 @@ class Trainer:
         print(" So as I pray, Unlimited Blade Works!")
     # This function is to build classifier
     def _fit(self, name):
-        clf = svm.SVC(kernel='rbf')
+        clf = svm.SVC(kernel='rbf',class_weight={0: 10})
         correct = len(self.observ.subj[name]["correct"])
         wrong = len(self.observ.subj[name]["wrong"])
         notation = [1] * correct + [0] * wrong
@@ -121,16 +106,7 @@ class Trainer:
         try:
             clf.fit(obser,notation,sample_weight=weight)
         except:
-            print(" WARNING: no obervation")
-        # clf.fit(obser,notation)
-
-        # test here to see accuracy with data just trained with
-        # answer = clf.predict(obser)
-        # correct = 0
-        # for i in range(len(answer)):
-        #     if answer[i] == notation[i]:
-        #         correct += 1
-        # print(name, ': ', correct/len(answer))
+            print("\nWARNING: no obervation\n")
 
         return clf
 

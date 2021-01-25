@@ -102,6 +102,7 @@ class GFF:
             # Something goes wrong here when test with TTC5.gff or Chr14.gff
             # -1 work with TTC5, and no - 1 wokrs with Chr14
             # It seems like no -1 is the standard way
+            # coordinate = self.file.tell() - len(line) -1
             coordinate = self.file.tell() - len(line)
 
             if id not in self.seqIDs:
@@ -111,7 +112,6 @@ class GFF:
                 self.entryStartCoordinates[id].append(coordinate)
         if len(self.seqIDs) == 0:
             raise Read_error('You sure this is GFF?')
-
     def get(self, id):
         info = []
         for coordinate in self.entryStartCoordinates[id]:

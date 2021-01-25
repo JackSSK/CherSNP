@@ -33,7 +33,6 @@ class Finder:
         outCDS = []
         entCDS = []
         term = []
-        patterns = []
 
         # Preprocess seq to U->T lower to upper
         while pos < len(entry.seq):
@@ -70,11 +69,48 @@ class Finder:
         term = self._partial(term, ratio)
         entCDS = self._partial(entCDS, ratio)
         outCDS = self._partial(outCDS, ratio)
+        print(len(init), len(term), len(entCDS), len(outCDS))
+        return self._getPatterns(entry, init, term, entCDS, outCDS)
 
-        # Also get potential combinations of start and stop sites
-        # and try to find possible CDS patterns with these locations
+    # Anze
+    # Also get potential combinations of start and stop sites
+    # and try to find possible CDS patterns with these locations
+
+    def _getSet(self, start, end, outCDS, entCDS):
+        entCDS = self._getSites(start[0], end[0], entCDS)
+        outCDS = self._getSites(start[0], end[0], outCDS)
+        patterns = []
+        self._getSetDfs(0, 0, entCDS, outCDS, len(entCDS), len(outCDS), [], patterns)
+        return patterns
+
+    def _getSetDfs(self, entCDS_index, outCDS_index, entCDS, outCDS, entCDSLen, outCDSLen, ans, ansSet):
+        if entCDS_index >= entCDSLen or outCDS_index >= outCDSLen:
+            ansSet.append(ans)
+            # print(len(ansSet), ans)
+            return
+        for i in range(outCDS_index, outCDSLen):
+            if outCDS[i][0] > entCDS[entCDS_index][0]:
+                nextOutCDSIndex = self._getNextA(entCDS, outCDS, entCDS_index, i)
+                self._getSetDfs(nextOutCDSIndex, i+1, entCDS, outCDS, entCDSLen,
+                    outCDSLen, ans + [[entCDS[entCDS_index][0],
+                    outCDS[i][0]]], ansSet)
+        self._getSetDfs(entCDS_index+1, outCDS_index, entCDS, outCDS, entCDSLen,
+            outCDSLen, ans, ansSet)
+
+    def _getNextA(self, listA, listB, indexA, indexB):
+        while(listA[indexA] <= listB[indexB]):
+            indexA = indexA + 1
+            if(indexA >= len(listA)):
+                break
+        return indexA
+
+
+    def _getPatterns(self, entry, init, term, entCDS, outCDS):
+        patterns = []
         for start in init:
             for end in term:
+                start = [161, -12312]
+                end = [3912, -12312]
                 if start[0] < end[0]:
                     score = start[1] + end[1]
                     # If it does not surely need an intron to be validated
@@ -86,24 +122,22 @@ class Finder:
                             'introns':[],
                             'score':score
                         })
-
-                    donors = self._getSites(start[0], end[0], outCDS)
-                    acceptors = self._getSites(start[0], end[0], entCDS)
-                    # get possible intron combinations
-                    introns = self._getPotentialIntrons(donors, acceptors)
-                    if len(introns) == 0: continue
-                    else:
-                        intervals = self._getIntervals(introns)
-                        for l in range(1,len(intervals)+1):
-                            temp = set(itertools.combinations(range(len(intervals)),l))
-                            for c in temp:
-                                while True:
-                                    guess = []
-                                    break
-
-
-
+                    print("Trace On!")
+                    temp = self._getSet(start, end, outCDS, outCDS)
+                    print("Unlimited Blade Works!")
+                    for introns in temp:
+                        patterns.append({
+                          'start':start[0],
+                          'end':end[0],
+                          'introns':introns,
+                          'score':score
+                        })
+                break
+        for ele in patterns:
+            if ele['start'] == 161:
+                print(ele)
         return patterns
+
     # Get intron intervals which have containing introns overlap with each other
     def _getIntervals(self, introns):
         intervals = []
