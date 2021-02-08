@@ -45,9 +45,9 @@ class Finder:
             if len(seq_len10) < 10: break
 
             # Make predicions
-            init_result = self._isInit(seq_len10)
-            term_result = self._isTerm(seq_len10)
-            outCDS_result = self._isOutCDS(seq_len8)
+            init_result = self._isSite(seq_len10, "init", 4,3,3,self.clfs.init)
+            term_result = self._isSite(seq_len10, "term", 3,3,4,self.clfs.term)
+            outCDS_result = self._isSite(seq_len8, "outCDS", 2,2,4,self.clfs.outCDS)
             entCDS_result = self._isEntCDS(seq_len16)
             # Check predictions
             if init_result[0] == 1:
@@ -109,8 +109,8 @@ class Finder:
         patterns = []
         for start in init:
             for end in term:
-                start = [161, -12312]
-                end = [3912, -12312]
+                # start = [161, -12312]
+                # end = [3912, -12312]
                 if start[0] < end[0]:
                     score = start[1] + end[1]
                     # If it does not surely need an intron to be validated
@@ -122,9 +122,9 @@ class Finder:
                             'introns':[],
                             'score':score
                         })
-                    print("Trace On!")
+                    # print("Trace On!")
                     temp = self._getSet(start, end, outCDS, outCDS)
-                    print("Unlimited Blade Works!")
+                    # print("Unlimited Blade Works!")
                     for introns in temp:
                         patterns.append({
                           'start':start[0],
@@ -132,10 +132,10 @@ class Finder:
                           'introns':introns,
                           'score':score
                         })
-                break
-        for ele in patterns:
-            if ele['start'] == 161:
-                print(ele)
+                # break
+        # for ele in patterns:
+        #     if ele['start'] == 161:
+        #         print(ele)
         return patterns
 
     # Get intron intervals which have containing introns overlap with each other
@@ -208,87 +208,27 @@ class Finder:
         return sorted(set, key = lambda x: x[1],
             reverse=True)[:int(len(set)*ratio)]
 
-
     # Check whether a potential init site exist or not
-    def _isInit(self, seq):
-        fea = f.Initiate_Site(seq)
-
+    def _isSite(self, seq, name, preLen, keyLen, suffLen, clf):
+        fea = f.Site(seq, preLen, keyLen, suffLen)
         # Get according numbs from dict
-        if fea.pre in self.clfs.dict["init"]["pre"]:
-            pre = self.clfs.dict["init"]["pre"][fea.pre]
+        if fea.pre in self.clfs.dict[name]["pre"]:
+            pre = self.clfs.dict[name]["pre"][fea.pre]
         else: return [False]
 
-        if fea.start in self.clfs.dict["init"]["start"]:
-            start = self.clfs.dict["init"]["start"][fea.start]
+        if fea.key in self.clfs.dict[name]["key"]:
+            key = self.clfs.dict[name]["key"][fea.key]
         else: return [False]
 
-        if fea.first in self.clfs.dict["init"]["aa1"]:
-            first = self.clfs.dict["init"]["aa1"][fea.first]
+        if fea.suff in self.clfs.dict[name]["suff"]:
+            suff = self.clfs.dict[name]["suff"][fea.suff]
         else: return [False]
 
-        obs = [pre, start, first]
+        obs = [pre, key, suff]
 
         # Do prediction only if observations are all valid
         if sys.float_info.min not in obs:
-            pred = self.clfs.init.predict([obs])
-        else:
-            pred = [0]
-
-        # Check predicions
-        if pred[0] == 1: return [True,sum(obs)]
-        else: return [False]
-
-    # Check whether a potential term site exist or not
-    def _isTerm(self, seq):
-        fea = f.Term_Site(seq)
-
-        # Get according numbs from dict
-        if fea.last1 in self.clfs.dict["term"]["last1"]:
-            last1 = self.clfs.dict["term"]["last1"][fea.last1]
-        else: return [False]
-
-        if fea.stop in self.clfs.dict["term"]["stop"]:
-            stop = self.clfs.dict["term"]["stop"][fea.stop]
-        else: return [False]
-
-        if fea.next4 in self.clfs.dict["term"]["next4"]:
-            next4 = self.clfs.dict["term"]["next4"][fea.next4]
-        else: return [False]
-
-        obs = [last1, stop, next4]
-
-        # Do prediction only if observations are all valid
-        if sys.float_info.min not in obs:
-            pred = self.clfs.term.predict([obs])
-        else:
-            pred = [0]
-
-        # Check predicions
-        if pred[0] == 1: return [True,sum(obs)]
-        else: return [False]
-
-    # Check whether a potential donor site exist or not
-    def _isOutCDS(self, seq):
-        fea = f.Out_CDS(seq)
-
-        # Get according numbs from dict
-        if fea.pre2 in self.clfs.dict["outCDS"]["pre2"]:
-            pre2 = self.clfs.dict["outCDS"]["pre2"][fea.pre2]
-        else: return [False]
-
-        if fea.first2 in self.clfs.dict["outCDS"]["first2"]:
-            first2 = self.clfs.dict["outCDS"]["first2"][fea.first2]
-        else: return [False]
-
-        if fea.next4 in self.clfs.dict["outCDS"]["next4"]:
-            next4 = self.clfs.dict["outCDS"]["next4"][fea.next4]
-        else: return [False]
-
-        obs = [pre2, first2, next4]
-
-        # Do prediction only if observations are all valid
-        if sys.float_info.min not in obs:
-            pred = self.clfs.outCDS.predict([obs])
+            pred = clf.predict([obs])
         else:
             pred = [0]
 

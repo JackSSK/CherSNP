@@ -1,0 +1,62 @@
+##sequence-region NC_004718.3 1 29751
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=227984
+NC_004718.3	RefSeq	region	1	29751	.	+	.	ID=NC_004718.3:1..29751;Dbxref=taxon:227984;country=Canada: Toronto;gbkey=Src;genome=genomic;isolate=Tor2;mol_type=genomic RNA;nat-host=Homo sapiens%3B patient #2 with severe acute respiratory syndrome (SARS)
+NC_004718.3	RefSeq	five_prime_UTR	1	264	.	+	.	ID=id-NC_004718.3:1..264;gbkey=5'UTR
+NC_004718.3	RefSeq	gene	265	21485	.	+	.	ID=gene-sarsp1;Dbxref=GeneID:1489680;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding;locus_tag=sarsp1
+NC_004718.3	RefSeq	CDS	265	13392	.	+	0	ID=cds-NP_828849.7;Parent=gene-sarsp1;Dbxref=Genbank:NP_828849.7,GeneID:1489680;Name=NP_828849.7;Note=ORF1ab polyprotein is cleaved to yield the RNA-dependent RNA polymerase and other nonstructural proteins;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;locus_tag=sarsp1;part=1;product=ORF1ab polyprotein;protein_id=NP_828849.7
+NC_004718.3	RefSeq	CDS	13392	21485	.	+	0	ID=cds-NP_828849.7;Parent=gene-sarsp1;Dbxref=Genbank:NP_828849.7,GeneID:1489680;Name=NP_828849.7;Note=ORF1ab polyprotein is cleaved to yield the RNA-dependent RNA polymerase and other nonstructural proteins;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;locus_tag=sarsp1;part=2;product=ORF1ab polyprotein;protein_id=NP_828849.7
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	265	804	.	+	.	ID=id-NP_828849.7:1..180;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp1;protein_id=NP_828860.2
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	805	2718	.	+	.	ID=id-NP_828849.7:181..818;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp2;protein_id=NP_828861.2
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	2719	8484	.	+	.	ID=id-NP_828849.7:819..2740;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp3;protein_id=NP_828862.2
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	8485	9984	.	+	.	ID=id-NP_828849.7:2741..3240;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp4;protein_id=NP_904322.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	9985	10902	.	+	.	ID=id-NP_828849.7:3241..3546;Parent=cds-NP_828849.7;gbkey=Prot;product=3C-like protease;protein_id=NP_828863.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	10903	11772	.	+	.	ID=id-NP_828849.7:3547..3836;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp6;protein_id=NP_828864.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	11773	12021	.	+	.	ID=id-NP_828849.7:3837..3919;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp7;protein_id=NP_828865.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12022	12615	.	+	.	ID=id-NP_828849.7:3920..4117;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp8;protein_id=NP_828866.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12616	12954	.	+	.	ID=id-NP_828849.7:4118..4230;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp9;protein_id=NP_828867.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12955	13371	.	+	.	ID=id-NP_828849.7:4231..4369;Parent=cds-NP_828849.7;gbkey=Prot;product=nsp10;protein_id=NP_828868.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	13372	13392	.	+	.	ID=id-NP_828849.7:4370..4377;Parent=cds-NP_828849.7;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009924301.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	13392	13394	.	+	.	ID=id-NP_828849.7:4370..4377;Parent=cds-NP_828849.7;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009924301.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	16167	17969	.	+	.	ID=id-NP_828849.7:5302..5902;Parent=cds-NP_828849.7;gbkey=Prot;product=helicase/NTPase;protein_id=NP_828870.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	17970	19550	.	+	.	ID=id-NP_828849.7:5903..6429;Parent=cds-NP_828849.7;gbkey=Prot;product=3' to 5' exonuclease;protein_id=NP_828871.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	19551	20588	.	+	.	ID=id-NP_828849.7:6430..6775;Parent=cds-NP_828849.7;gbkey=Prot;product=endoribonuclease;protein_id=NP_828872.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	20589	21482	.	+	.	ID=id-NP_828849.7:6776..7073;Parent=cds-NP_828849.7;gbkey=Prot;product=2'-O-MTase;protein_id=NP_828873.2
+NC_004718.3	RefSeq	CDS	265	13413	.	+	0	ID=cds-YP_009944365.1;Parent=gene-sarsp1;Dbxref=Genbank:YP_009944365.1,GeneID:1489680;Name=YP_009944365.1;Note=ORF1a polyprotein is cleaved to yield nonstructural proteins;gbkey=CDS;gene=ORF1ab;locus_tag=sarsp1;product=ORF1a polyprotein;protein_id=YP_009944365.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	265	804	.	+	.	ID=id-YP_009944365.1:1..180;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp1;protein_id=YP_009944366.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	805	2718	.	+	.	ID=id-YP_009944365.1:181..818;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp2;protein_id=YP_009944367.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	2719	8484	.	+	.	ID=id-YP_009944365.1:819..2740;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp3;protein_id=YP_009944368.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	8485	9984	.	+	.	ID=id-YP_009944365.1:2741..3240;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp4;protein_id=YP_009944369.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	9985	10902	.	+	.	ID=id-YP_009944365.1:3241..3546;Parent=cds-YP_009944365.1;gbkey=Prot;product=3C-like protease;protein_id=YP_009944370.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	10903	11772	.	+	.	ID=id-YP_009944365.1:3547..3836;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp6;protein_id=YP_009944371.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	11773	12021	.	+	.	ID=id-YP_009944365.1:3837..3919;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp7;protein_id=YP_009944372.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12022	12615	.	+	.	ID=id-YP_009944365.1:3920..4117;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp8;protein_id=YP_009944373.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12616	12954	.	+	.	ID=id-YP_009944365.1:4118..4230;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp9;protein_id=YP_009944374.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	12955	13371	.	+	.	ID=id-YP_009944365.1:4231..4369;Parent=cds-YP_009944365.1;gbkey=Prot;product=nsp10;protein_id=YP_009944375.1
+NC_004718.3	RefSeq	mature_protein_region_of_CDS	13372	13410	.	+	.	ID=id-YP_009944365.1:4370..4382;Parent=cds-YP_009944365.1;gbkey=Prot;product=ndp11;protein_id=YP_009944376.1
+NC_004718.3	RefSeq	gene	21492	25259	.	+	.	ID=gene-sars2;Dbxref=GeneID:1489668;Name=S;gbkey=Gene;gene=S;gene_biotype=protein_coding;gene_synonym=E2;locus_tag=sars2
+NC_004718.3	RefSeq	CDS	21492	25259	.	+	0	ID=cds-YP_009825051.1;Parent=gene-sars2;Dbxref=Genbank:YP_009825051.1,GeneID:1489668;Name=YP_009825051.1;gbkey=CDS;gene=S;locus_tag=sars2;product=spike glycoprotein;protein_id=YP_009825051.1
+NC_004718.3	RefSeq	gene	25268	26092	.	+	.	ID=gene-sars3a;Dbxref=GeneID:1489669;Name=ORF3a;gbkey=Gene;gene=ORF3a;gene_biotype=protein_coding;locus_tag=sars3a
+NC_004718.3	RefSeq	CDS	25268	26092	.	+	0	ID=cds-YP_009825052.1;Parent=gene-sars3a;Dbxref=Genbank:YP_009825052.1,GeneID:1489669;Name=YP_009825052.1;gbkey=CDS;gene=ORF3a;locus_tag=sars3a;product=ORF3a protein;protein_id=YP_009825052.1
+NC_004718.3	RefSeq	gene	25689	26153	.	+	.	ID=gene-sars3b;Dbxref=GeneID:1489670;Name=ORF3b;gbkey=Gene;gene=ORF3b;gene_biotype=protein_coding;locus_tag=sars3b
+NC_004718.3	RefSeq	CDS	25689	26153	.	+	0	ID=cds-YP_009825053.1;Parent=gene-sars3b;Dbxref=Genbank:YP_009825053.1,GeneID:1489670;Name=YP_009825053.1;gbkey=CDS;gene=ORF3b;locus_tag=sars3b;product=ORF3b protein;protein_id=YP_009825053.1
+NC_004718.3	RefSeq	gene	26117	26347	.	+	.	ID=gene-sars4;Dbxref=GeneID:1489671;Name=E;gbkey=Gene;gene=E;gene_biotype=protein_coding;locus_tag=sars4
+NC_004718.3	RefSeq	CDS	26117	26347	.	+	0	ID=cds-YP_009825054.1;Parent=gene-sars4;Dbxref=Genbank:YP_009825054.1,GeneID:1489671;Name=YP_009825054.1;gbkey=CDS;gene=E;locus_tag=sars4;product=small envelope protein;protein_id=YP_009825054.1
+NC_004718.3	RefSeq	gene	26398	27063	.	+	.	ID=gene-sars5;Dbxref=GeneID:1489672;Name=M;gbkey=Gene;gene=M;gene_biotype=protein_coding;locus_tag=sars5
+NC_004718.3	RefSeq	CDS	26398	27063	.	+	0	ID=cds-YP_009825055.1;Parent=gene-sars5;Dbxref=Genbank:YP_009825055.1,GeneID:1489672;Name=YP_009825055.1;gbkey=CDS;gene=M;locus_tag=sars5;product=membrane glycoprotein M;protein_id=YP_009825055.1
+NC_004718.3	RefSeq	gene	26913	27265	.	+	.	ID=gene-sars6;Dbxref=GeneID:1489673;Name=ORF6;gbkey=Gene;gene=ORF6;gene_biotype=protein_coding;locus_tag=sars6
+NC_004718.3	RefSeq	CDS	27074	27265	.	+	0	ID=cds-YP_009825056.1;Parent=gene-sars6;Dbxref=Genbank:YP_009825056.1,GeneID:1489673;Name=YP_009825056.1;gbkey=CDS;gene=ORF6;locus_tag=sars6;product=ORF6 protein;protein_id=YP_009825056.1
+NC_004718.3	RefSeq	gene	27273	27641	.	+	.	ID=gene-sars7a;Dbxref=GeneID:1489674;Name=ORF7a;gbkey=Gene;gene=ORF7a;gene_biotype=protein_coding;locus_tag=sars7a
+NC_004718.3	RefSeq	CDS	27273	27641	.	+	0	ID=cds-YP_009825057.1;Parent=gene-sars7a;Dbxref=Genbank:YP_009825057.1,GeneID:1489674;Name=YP_009825057.1;gbkey=CDS;gene=ORF7a;locus_tag=sars7a;product=ORF7a protein;protein_id=YP_009825057.1
+NC_004718.3	RefSeq	gene	27638	27772	.	+	.	ID=gene-sars7b;Dbxref=GeneID:1489675;Name=ORF7b;gbkey=Gene;gene=ORF7b;gene_biotype=protein_coding;locus_tag=sars7b
+NC_004718.3	RefSeq	CDS	27638	27772	.	+	0	ID=cds-YP_009825058.1;Parent=gene-sars7b;Dbxref=Genbank:YP_009825058.1,GeneID:1489675;Name=YP_009825058.1;gbkey=CDS;gene=ORF7b;locus_tag=sars7b;product=ORF7b protein;protein_id=YP_009825058.1
+NC_004718.3	RefSeq	gene	27779	27898	.	+	.	ID=gene-sars8a;Dbxref=GeneID:1489676;Name=ORF8a;gbkey=Gene;gene=ORF8a;gene_biotype=protein_coding;locus_tag=sars8a
+NC_004718.3	RefSeq	CDS	27779	27898	.	+	0	ID=cds-YP_009825059.1;Parent=gene-sars8a;Dbxref=Genbank:YP_009825059.1,GeneID:1489676;Name=YP_009825059.1;gbkey=CDS;gene=ORF8a;locus_tag=sars8a;product=ORF8a protein;protein_id=YP_009825059.1
+NC_004718.3	RefSeq	gene	27864	28118	.	+	.	ID=gene-sars8b;Dbxref=GeneID:1489677;Name=ORF8b;gbkey=Gene;gene=ORF8b;gene_biotype=protein_coding;locus_tag=sars8b
+NC_004718.3	RefSeq	CDS	27864	28118	.	+	0	ID=cds-YP_009825060.1;Parent=gene-sars8b;Dbxref=Genbank:YP_009825060.1,GeneID:1489677;Name=YP_009825060.1;gbkey=CDS;gene=ORF8b;locus_tag=sars8b;product=ORF8b protein;protein_id=YP_009825060.1
+NC_004718.3	RefSeq	gene	28120	29388	.	+	.	ID=gene-sars9a;Dbxref=GeneID:1489678;Name=N;gbkey=Gene;gene=N;gene_biotype=protein_coding;locus_tag=sars9a
+NC_004718.3	RefSeq	CDS	28120	29388	.	+	0	ID=cds-YP_009825061.1;Parent=gene-sars9a;Dbxref=Genbank:YP_009825061.1,GeneID:1489678;Name=YP_009825061.1;gbkey=CDS;gene=N;locus_tag=sars9a;product=nucleocapsid protein;protein_id=YP_009825061.1
+NC_004718.3	RefSeq	CDS	28583	28795	.	+	0	ID=cds-YP_009825063.1;Parent=gene-sars9a;Dbxref=Genbank:YP_009825063.1,GeneID:1489678;Name=YP_009825063.1;gbkey=CDS;gene=N;locus_tag=sars9a;product=ORF9a protein;protein_id=YP_009825063.1
+NC_004718.3	RefSeq	gene	28130	28426	.	+	.	ID=gene-sars9b;Dbxref=GeneID:1489679;Name=sars9b;gbkey=Gene;gene_biotype=protein_coding;locus_tag=sars9b
+NC_004718.3	RefSeq	CDS	28130	28426	.	+	0	ID=cds-YP_009825062.1;Parent=gene-sars9b;Dbxref=Genbank:YP_009825062.1,GeneID:1489679;Name=YP_009825062.1;gbkey=CDS;locus_tag=sars9b;product=ORF9b protein;protein_id=YP_009825062.1
+NC_004718.3	RefSeq	three_prime_UTR	28796	29751	.	+	.	ID=id-NC_004718.3:28796..29751;gbkey=3'UTR
+

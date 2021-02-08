@@ -45,3 +45,16 @@ class Term_Site:
         self.next4 = seq[6:]
     def out(self):
         return [self.last1, self.stop, self.next4]
+
+class Site_error(Exception):
+    pass
+
+class Site:
+    def __init__(self, seq, preLen, keyLen, suffLen):
+        if len(seq) != preLen + keyLen + suffLen:
+            raise Site_error("Incorrect Length")
+        self.pre = seq[:preLen]
+        self.key = seq[preLen:preLen+keyLen]
+        self.suff = seq[preLen+keyLen:preLen+keyLen+suffLen]
+    def out(self):
+        return [self.pre, self.key, self.suff]

@@ -69,15 +69,20 @@ class Trainer:
 
         print(" I haved created over thousands blades")
         # entCDS part
-        entCDS_clf = self._fit("entCDS")
+        if mode == "hasRNA":
+            entCDS_clf = self._fit("entCDS")
 
         print(" Unknown to death, nor known to life")
         # outCDS part
-        outCDS_clf = self._fit("outCDS")
+        if mode == "hasRNA":
+            outCDS_clf = self._fit("outCDS")
 
         print(" Have withstood pain to creat many weapons")
-        self.clfs = Classifiers(init_clf, term_clf, entCDS_clf, outCDS_clf,
-            self.observ.dict)
+        if mode == "hasRNA":
+            self.clfs = Classifiers(init_clf, term_clf, entCDS_clf, outCDS_clf,
+                self.observ.dict)
+        elif mode == "noRNA":
+            self.clfs = Classifiers(init_clf, term_clf,self.observ.dict)
 
         print(" Yet, those hands will never hold anything")
         if filenames == "None":

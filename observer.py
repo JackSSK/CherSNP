@@ -21,62 +21,53 @@ class ID_error(Exception):
 
 class Observer:
     def __init__(self, seq_file, gff_file, mode):
+
+        # if mode == "noRNA":
+        #     sites = [["init", 4, 3, 3], ["term", 3, 3, 4]]
+        # elif mode == "hasRNA":
+        #     sites = [["init", 4, 3, 3], ["term", 3, 3, 4], ["outCDS", 2,2,4], ["entCDS"]]
+
+        sites = [["init", 4, 3, 3], ["term", 3, 3, 4], ["outCDS", 2,2,4], ["entCDS"]]
+
+        self.dict, self.subj = self._initJeanne(sites)
         # Test to see how many init / term don't have contest
         self.init_count = 0
         self.term_count = 0
         # Process in GFF file
         self.gff = gffer.Process(gff_file,mode).gff
         # Get observations and correspond dictionary
-        self.dict, self.subj = self._observe(seq_file,mode)
+        self.dict, self.subj = self._observe(seq_file,self.dict, self.subj, mode)
         self.dict = self._prepare_dict(self.dict)
         self.subj = self._obs_to_numb(self.subj)
 
         # print(self.init_count, self.term_count)
 
+    def _initJeanne(self, sites):
+        dict = {}
+        observ = {}
+        for site in sites:
+            name = site[0]
+            observ[name] = {
+                "correct":[],
+                "wrong":[]
+            }
+            if name == "entCDS":
+                dict[name]= {
+                    "end2":t.generate(k=2, type='dict'),
+                    "first1":t.generate(k=1, type='dict')
+                }
+            else:
+                dict[name] = {
+                    "pre":t.generate(k=site[1], type='dict'),
+                    "key":t.generate(k=site[2], type='dict'),
+                    "suff":t.generate(k=site[3], type='dict')
+                }
 
-    def _observe(self, seq_file,mode):
+        return dict, observ
+
+
+    def _observe(self, seq_file, dict, observ, mode):
         #Initiating dicts for stroing correct observations
-        dict = {
-            "init":{
-                "pre":t.generate(k=4, type='dict'),
-                "start":t.generate(k=3, type='dict'),
-                "aa1":t.generate(k=3, type='dict')
-            },
-            "term":{
-                "last1":t.generate(k=3, type='dict'),
-                "stop":t.generate(k=3, type='dict'),
-                "next4":t.generate(k=4, type='dict'),
-            },
-            "entCDS":{
-                "end2":t.generate(k=2, type='dict'),
-                "first1":t.generate(k=1, type='dict'),
-            },
-            "outCDS":{
-                "pre2":t.generate(k=2, type='dict'),
-                "first2":t.generate(k=2, type='dict'),
-                "next4":t.generate(k=4, type='dict'),
-            }
-        }
-
-        observ = {
-            "init":{
-                "correct":[],
-                "wrong":[]
-            },
-            "term":{
-                "correct":[],
-                "wrong":[]
-            },
-            "entCDS":{
-                "correct":[],
-                "wrong":[]
-            },
-            "outCDS":{
-                "correct":[],
-                "wrong":[]
-            }
-        }
-
         fas_read = read.FASTA(seq_file)
         for entry in fas_read:
             for trans in self.gff[entry.id]:
@@ -146,10 +137,10 @@ class Observer:
                     if len(inseq) < 16:
                         self.init_count += 1
                         continue
-                    self._update_init(dict,observ,inseq)
+                    self._update_site(dict,observ,inseq, "init", 4,3,3)
                 if ele[1] != ter:
                     outseq = seq[ele[1]-4:ele[1]+10]
-                    self._update_outCDS(dict,observ,outseq)
+                    self._update_site(dict,observ,outseq, "outCDS", 2,2,4)
                 else:
                     outseq = seq[ele[1]-8:ele[1]+8]
                     if len(outseq) < 16:
@@ -158,7 +149,7 @@ class Observer:
                     # Let's see who has the weird stop codon
                     # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
                     #     print(self.gff[entry.id][trans]["name"], coord)
-                    self._update_term(dict, observ, outseq)
+                    self._update_site(dict, observ, outseq, "term", 3,3,4)
 
         elif strand == '-':
             coord = sorted(coord, key=lambda x: -x[0])
@@ -178,10 +169,10 @@ class Observer:
                     # Let's see who has the weird start codon
                     # if inseq[7:10] != 'ATG':
                     #     print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
-                    self._update_init(dict,observ,inseq)
+                    self._update_site(dict,observ,inseq, "init", 4,3,3)
                 if ele[0] != ter:
                     outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
-                    self._update_outCDS(dict,observ,outseq)
+                    self._update_site(dict,observ,outseq, "outCDS", 2,2,4)
                 else:
                     outseq = t.complementary(seq[ele[0]-7:ele[0]+9])
                     if len(outseq) < 16:
@@ -190,28 +181,12 @@ class Observer:
                     # Let's see who has the weird stop codon
                     # if outseq[3:-3][3:6] not in ['TAA','TGA','TAG']:
                     #     print(outseq[3:-3][3:6])
-                    self._update_term(dict, observ, outseq)
+                    self._update_site(dict, observ, outseq, "term", 3,3,4)
 
     # This is to store observations of how transcript initiated
     # Stuffs and Start Codon
     # Now wrong cases are gained by shift 1bp,
     # Maybe shift 3bp instead of 1? Yes it is better wth 3bp
-    def _update_init(self, dict, observ, contest, prefix=True):
-        if prefix:
-            wrong1 = feature.Initiate_Site(contest[:-6])
-            wrong2 = feature.Initiate_Site(contest[6:])
-            correct = feature.Initiate_Site(contest[3:-3])
-            observ["init"]["correct"].append(correct.out())
-            observ["init"]["wrong"].append(wrong1.out())
-            observ["init"]["wrong"].append(wrong2.out())
-            try:
-                dict["init"]["start"][correct.start]+=1
-                dict["init"]["aa1"][correct.first]+=1
-                dict["init"]["pre"][correct.pre]+=1
-            except Exception as e:
-                print(contest)
-                raise Read_error('What the Hell is ' +
-                    correct.start + ' or ' + correct.first)
 
     def _update_entCDS(self, dict, observ, contest):
         wrong1 = feature.Enter_CDS(contest[:-6])
@@ -227,34 +202,22 @@ class Observer:
             raise Read_error('What the Hell is ' +
                 correct.end2 + ' or ' + correct.first1)
 
-    def _update_outCDS(self, dict, observ, contest):
-        wrong1 = feature.Out_CDS(contest[:-6])
-        wrong2 = feature.Out_CDS(contest[6:])
-        correct = feature.Out_CDS(contest[3:-3])
-        observ["outCDS"]["correct"].append(correct.out())
-        observ["outCDS"]["wrong"].append(wrong1.out())
-        observ["outCDS"]["wrong"].append(wrong2.out())
-        try:
-            dict["outCDS"]["pre2"][correct.pre2]+=1
-            dict["outCDS"]["first2"][correct.first2]+=1
-            dict["outCDS"]["next4"][correct.next4]+=1
-        except Exception as e:
-            raise Read_error(correct.pre2, correct.first2, correct.next4)
-
-    def _update_term(self, dict, observ, contest, suffix=True):
-        if suffix:
-            wrong1 = feature.Term_Site(contest[:-6])
-            wrong2 = feature.Term_Site(contest[6:])
-            correct = feature.Term_Site(contest[3:-3])
-            observ["term"]["correct"].append(correct.out())
-            observ["term"]["wrong"].append(wrong1.out())
-            observ["term"]["wrong"].append(wrong2.out())
+    def _update_site(self, dict, observ, seq, name,
+        preLen, keyLen, suffLen,
+        context = True):
+        if context:
+            wrong1 = feature.Site(seq[:-6] ,preLen, keyLen, suffLen)
+            wrong2 = feature.Site(seq[6:],preLen, keyLen, suffLen)
+            correct = feature.Site(seq[3:-3],preLen, keyLen, suffLen)
+            observ[name]["correct"].append(correct.out())
+            observ[name]["wrong"].append(wrong1.out())
+            observ[name]["wrong"].append(wrong2.out())
             try:
-                dict["term"]["last1"][correct.last1]+=1
-                dict["term"]["stop"][correct.stop]+=1
-                dict["term"]["next4"][correct.next4]+=1
+                dict[name]["pre"][correct.pre]+=1
+                dict[name]["key"][correct.key]+=1
+                dict[name]["suff"][correct.suff]+=1
             except Exception as e:
-                raise Read_error(correct.last1, correct.stop, correct.next4)
+                raise Read_error(correct.pre, correct.key, correct.suff)
 
     # This function will remove elements with 0 observations
     # Also, change # of observations to log(#observed / total observation)
@@ -278,10 +241,8 @@ class Observer:
     # Change observations from chars to doubles by using converted self.dict
     def _obs_to_numb(self,obs):
         for part in obs:
-            if part == "init": names = ["pre", "start", "aa1"]
-            elif part == "term": names = ["last1", "stop", "next4"]
-            elif part == "outCDS": names = ["pre2", "first2", "next4"]
-            elif part == "entCDS": names = ["DONE", "end2", "first1"]
+            if part == "entCDS": names = ["DONE", "end2", "first1"]
+            else: names = ["pre", "key", "suff"]
             for sector in obs[part]:
                 temp1 = []
                 for term in obs[part][sector]:
