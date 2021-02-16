@@ -10,7 +10,9 @@ If you insist:
 
 Compared with ver.0.1, we need 2 major changes
 
-######################################################################
+
+
+
 1st: More generalized frame -Anze
   Have classes and functions only defined like:
     def functionOne (input):
@@ -18,7 +20,9 @@ Compared with ver.0.1, we need 2 major changes
   As the generalized frame defined, we will populate the classes and functions with codes in ver.0.1
 
 
-######################################################################
+
+
+
 2nd: New classifiers
   Someway somehow utilize gapped-kmer method with part of the seq being constrained(if necessary)
   1st question: Do an estimation on required computational power if we use the method:
