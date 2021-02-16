@@ -27,7 +27,6 @@ def compute_num_of_shared_gapped_k_mer(seq1, seq2, k):
     else:
         return int(m.factorial(l_m)/(m.factorial(k)*m.factorial(l_m-k)))
 
-
 # Get fasta sequence and look-up dictionary
 seq_file = arg.fasta
 dict_file = arg.dict
@@ -36,11 +35,24 @@ dict = t.decode_json(dict_file)
 
 # Let's play with start site first
 init = dict["init"]
+
+# Generate dict with much larger k, 10 for example:
+# init = {
+#     "pre":t.generate(k=10, type='dict'),
+#     "start":t.generate(k=10, type='dict'),
+#     "aa1":t.generate(k=10, type='dict')
+# }
+
+# now seq len is hard coded to be 10
+# You could just it here to change the len of sliding window seq
+# Remember to change to preLen, keyLen, suffLen as well!
+L = 10
+
 for entry in fas_read:
     # Generate sliding-window seqs
     vectors = []
-    for i in range(len(entry.seq)-10):
-        seq = entry.seq[i:i+10]
+    for i in range(len(entry.seq)-L):
+        seq = entry.seq[i:i+L]
         # For 10bp start site, the parameters are set as 4,3,3 now
         site = f.Site(seq, preLen=4, keyLen=3, suffLen=3)
         if site.key in init["start"]:
