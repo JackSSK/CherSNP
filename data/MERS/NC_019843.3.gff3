@@ -1,0 +1,55 @@
+##sequence-region NC_019843.3 1 30119
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1335626
+NC_019843.3	RefSeq	region	1	30119	.	+	.	ID=NC_019843.3:1..30119;Dbxref=taxon:1335626;collection-date=13-Jun-2012;gb-acronym=MERS-CoV;gbkey=Src;genome=genomic;isolate=HCoV-EMC/2012;mol_type=genomic RNA;nat-host=Homo sapiens;old-name=Middle East respiratory syndrome coronavirus;strain=HCoV-EMC
+NC_019843.3	RefSeq	five_prime_UTR	1	278	.	+	.	ID=id-NC_019843.3:1..278;gbkey=5'UTR
+NC_019843.3	RefSeq	gene	279	21514	.	+	.	ID=gene-G128_gp01;Dbxref=GeneID:14254602;Name=orf1ab;gbkey=Gene;gene=orf1ab;gene_biotype=protein_coding;locus_tag=G128_gp01
+NC_019843.3	RefSeq	CDS	279	13433	.	+	0	ID=cds-YP_009047202.1;Parent=gene-G128_gp01;Dbxref=Genbank:YP_009047202.1,GeneID:14254602;Name=YP_009047202.1;exception=ribosomal slippage;gbkey=CDS;gene=orf1ab;locus_tag=G128_gp01;part=1;product=1AB polyprotein;protein_id=YP_009047202.1
+NC_019843.3	RefSeq	CDS	13433	21514	.	+	0	ID=cds-YP_009047202.1;Parent=gene-G128_gp01;Dbxref=Genbank:YP_009047202.1,GeneID:14254602;Name=YP_009047202.1;exception=ribosomal slippage;gbkey=CDS;gene=orf1ab;locus_tag=G128_gp01;part=2;product=1AB polyprotein;protein_id=YP_009047202.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	279	857	.	+	.	ID=id-YP_009047202.1:1..193;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp1 protein;protein_id=YP_009047213.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	858	2837	.	+	.	ID=id-YP_009047202.1:194..853;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp2 protein;protein_id=YP_009047214.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	2838	8498	.	+	.	ID=id-YP_009047202.1:854..2740;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp3 protein;protein_id=YP_009047215.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	8499	10019	.	+	.	ID=id-YP_009047202.1:2741..3247;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp4 protein;protein_id=YP_009047216.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	10020	10937	.	+	.	ID=id-YP_009047202.1:3248..3553;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp5 protein;protein_id=YP_009047217.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	10938	11813	.	+	.	ID=id-YP_009047202.1:3554..3845;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp6 protein;protein_id=YP_009047218.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	11814	12062	.	+	.	ID=id-YP_009047202.1:3846..3928;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp7 protein;protein_id=YP_009047219.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12063	12659	.	+	.	ID=id-YP_009047202.1:3929..4127;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp8 protein;protein_id=YP_009047220.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12660	12989	.	+	.	ID=id-YP_009047202.1:4128..4237;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp9 protein;protein_id=YP_009047221.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12990	13409	.	+	.	ID=id-YP_009047202.1:4238..4377;Parent=cds-YP_009047202.1;gbkey=Prot;product=nsp10 protein;protein_id=YP_009047222.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	13410	13433	.	+	.	ID=id-YP_009047202.1:4378..5310;Parent=cds-YP_009047202.1;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009047223.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	13433	16207	.	+	.	ID=id-YP_009047202.1:4378..5310;Parent=cds-YP_009047202.1;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009047223.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	16208	18001	.	+	.	ID=id-YP_009047202.1:5311..5908;Parent=cds-YP_009047202.1;gbkey=Prot;product=Hel;protein_id=YP_009047224.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	18002	19573	.	+	.	ID=id-YP_009047202.1:5909..6432;Parent=cds-YP_009047202.1;gbkey=Prot;product=ExoN;protein_id=YP_009047225.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	19574	20602	.	+	.	ID=id-YP_009047202.1:6433..6775;Parent=cds-YP_009047202.1;gbkey=Prot;product=NendoU;protein_id=YP_009047226.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	20603	21511	.	+	.	ID=id-YP_009047202.1:6776..7078;Parent=cds-YP_009047202.1;gbkey=Prot;product=2'-O-methyltransferase;protein_id=YP_009047227.1
+NC_019843.3	RefSeq	CDS	279	13454	.	+	0	ID=cds-YP_009047203.1;Parent=gene-G128_gp01;Dbxref=Genbank:YP_009047203.1,GeneID:14254602;Name=YP_009047203.1;gbkey=CDS;gene=orf1ab;locus_tag=G128_gp01;product=1A polyprotein;protein_id=YP_009047203.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	279	857	.	+	.	ID=id-YP_009047203.1:1..193;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp1 protein;protein_id=YP_009047229.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	858	2837	.	+	.	ID=id-YP_009047203.1:194..853;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp2 protein;protein_id=YP_009047230.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	2838	8498	.	+	.	ID=id-YP_009047203.1:854..2740;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp3 protein;protein_id=YP_009047231.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	8499	10019	.	+	.	ID=id-YP_009047203.1:2741..3247;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp4 protein;protein_id=YP_009047232.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	10020	10937	.	+	.	ID=id-YP_009047203.1:3248..3553;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp5 protein;protein_id=YP_009047233.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	10938	11813	.	+	.	ID=id-YP_009047203.1:3554..3845;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp6 protein;protein_id=YP_009047234.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	11814	12062	.	+	.	ID=id-YP_009047203.1:3846..3928;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp7 protein;protein_id=YP_009047235.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12063	12659	.	+	.	ID=id-YP_009047203.1:3929..4127;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp8 protein;protein_id=YP_009047236.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12660	12989	.	+	.	ID=id-YP_009047203.1:4128..4237;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp9 protein;protein_id=YP_009047237.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	12990	13409	.	+	.	ID=id-YP_009047203.1:4238..4377;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp10 protein;protein_id=YP_009047238.1
+NC_019843.3	RefSeq	mature_protein_region_of_CDS	13410	13451	.	+	.	ID=id-YP_009047203.1:4378..4391;Parent=cds-YP_009047203.1;gbkey=Prot;product=nsp11 protein;protein_id=YP_009047228.1
+NC_019843.3	RefSeq	gene	21456	25517	.	+	.	ID=gene-G128_gp02;Dbxref=GeneID:14254594;Name=S;gbkey=Gene;gene=S;gene_biotype=protein_coding;locus_tag=G128_gp02
+NC_019843.3	RefSeq	CDS	21456	25517	.	+	0	ID=cds-YP_009047204.1;Parent=gene-G128_gp02;Dbxref=Genbank:YP_009047204.1,GeneID:14254594;Name=YP_009047204.1;gbkey=CDS;gene=S;locus_tag=G128_gp02;product=spike protein;protein_id=YP_009047204.1
+NC_019843.3	RefSeq	gene	25532	25843	.	+	.	ID=gene-G128_gp03;Dbxref=GeneID:14254595;Name=orf3;gbkey=Gene;gene=orf3;gene_biotype=protein_coding;locus_tag=G128_gp03
+NC_019843.3	RefSeq	CDS	25532	25843	.	+	0	ID=cds-YP_009047205.1;Parent=gene-G128_gp03;Dbxref=Genbank:YP_009047205.1,GeneID:14254595;Name=YP_009047205.1;gbkey=CDS;gene=orf3;locus_tag=G128_gp03;product=NS3 protein;protein_id=YP_009047205.1
+NC_019843.3	RefSeq	gene	25852	26181	.	+	.	ID=gene-G128_gp04;Dbxref=GeneID:14254596;Name=orf4a;gbkey=Gene;gene=orf4a;gene_biotype=protein_coding;locus_tag=G128_gp04
+NC_019843.3	RefSeq	CDS	25852	26181	.	+	0	ID=cds-YP_009047206.1;Parent=gene-G128_gp04;Dbxref=Genbank:YP_009047206.1,GeneID:14254596;Name=YP_009047206.1;gbkey=CDS;gene=orf4a;locus_tag=G128_gp04;product=NS4A protein;protein_id=YP_009047206.1
+NC_019843.3	RefSeq	gene	26093	26833	.	+	.	ID=gene-G128_gp05;Dbxref=GeneID:14254597;Name=orf4b;gbkey=Gene;gene=orf4b;gene_biotype=protein_coding;locus_tag=G128_gp05
+NC_019843.3	RefSeq	CDS	26093	26833	.	+	0	ID=cds-YP_009047207.1;Parent=gene-G128_gp05;Dbxref=Genbank:YP_009047207.1,GeneID:14254597;Name=YP_009047207.1;gbkey=CDS;gene=orf4b;locus_tag=G128_gp05;product=NS4B protein;protein_id=YP_009047207.1
+NC_019843.3	RefSeq	gene	26840	27514	.	+	.	ID=gene-G128_gp06;Dbxref=GeneID:14254598;Name=orf5;gbkey=Gene;gene=orf5;gene_biotype=protein_coding;locus_tag=G128_gp06
+NC_019843.3	RefSeq	CDS	26840	27514	.	+	0	ID=cds-YP_009047208.1;Parent=gene-G128_gp06;Dbxref=Genbank:YP_009047208.1,GeneID:14254598;Name=YP_009047208.1;gbkey=CDS;gene=orf5;locus_tag=G128_gp06;product=NS5 protein;protein_id=YP_009047208.1
+NC_019843.3	RefSeq	gene	27590	27838	.	+	.	ID=gene-G128_gp07;Dbxref=GeneID:14254599;Name=E;gbkey=Gene;gene=E;gene_biotype=protein_coding;locus_tag=G128_gp07
+NC_019843.3	RefSeq	CDS	27590	27838	.	+	0	ID=cds-YP_009047209.1;Parent=gene-G128_gp07;Dbxref=Genbank:YP_009047209.1,GeneID:14254599;Name=YP_009047209.1;gbkey=CDS;gene=E;locus_tag=G128_gp07;product=envelope protein;protein_id=YP_009047209.1
+NC_019843.3	RefSeq	gene	27853	28512	.	+	.	ID=gene-G128_gp08;Dbxref=GeneID:14254600;Name=M;gbkey=Gene;gene=M;gene_biotype=protein_coding;locus_tag=G128_gp08
+NC_019843.3	RefSeq	CDS	27853	28512	.	+	0	ID=cds-YP_009047210.1;Parent=gene-G128_gp08;Dbxref=Genbank:YP_009047210.1,GeneID:14254600;Name=YP_009047210.1;gbkey=CDS;gene=M;locus_tag=G128_gp08;product=membrane protein;protein_id=YP_009047210.1
+NC_019843.3	RefSeq	gene	28566	29807	.	+	.	ID=gene-G128_gp09;Dbxref=GeneID:14254601;Name=N;gbkey=Gene;gene=N;gene_biotype=protein_coding;locus_tag=G128_gp09
+NC_019843.3	RefSeq	CDS	28566	29807	.	+	0	ID=cds-YP_009047211.1;Parent=gene-G128_gp09;Dbxref=Genbank:YP_009047211.1,GeneID:14254601;Name=YP_009047211.1;gbkey=CDS;gene=N;locus_tag=G128_gp09;product=nucleocapsid protein;protein_id=YP_009047211.1
+NC_019843.3	RefSeq	gene	28762	29100	.	+	.	ID=gene-G128_gp10;Dbxref=GeneID:19910005;Name=orf8b;gbkey=Gene;gene=orf8b;gene_biotype=protein_coding;locus_tag=G128_gp10
+NC_019843.3	RefSeq	CDS	28762	29100	.	+	0	ID=cds-YP_009047212.1;Parent=gene-G128_gp10;Dbxref=Genbank:YP_009047212.1,GeneID:19910005;Name=YP_009047212.1;gbkey=CDS;gene=orf8b;locus_tag=G128_gp10;product=ORF8b protein;protein_id=YP_009047212.1
+NC_019843.3	RefSeq	three_prime_UTR	29101	30119	.	+	.	ID=id-NC_019843.3:29101..30119;gbkey=3'UTR
+

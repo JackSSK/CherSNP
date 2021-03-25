@@ -1,0 +1,55 @@
+##sequence-region NC_038294.1 1 30111
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1263720
+NC_038294.1	RefSeq	region	1	30111	.	+	.	ID=NC_038294.1:1..30111;Dbxref=taxon:1263720;collection-date=11-Sep-2012;country=United Kingdom;gbkey=Src;genome=genomic;genotype=2c;isolate=H123990006;mol_type=genomic RNA;nat-host=Homo sapiens;strain=England 1
+NC_038294.1	RefSeq	five_prime_UTR	1	277	.	+	.	ID=id-NC_038294.1:1..277;gbkey=5'UTR
+NC_038294.1	RefSeq	gene	278	21513	.	+	.	ID=gene-D1P20_gp01;Dbxref=GeneID:37616440;Name=ORF1ab;gbkey=Gene;gene=ORF1ab;gene_biotype=protein_coding;locus_tag=D1P20_gp01
+NC_038294.1	RefSeq	CDS	278	13431	.	+	0	ID=cds-YP_007188577.3;Parent=gene-D1P20_gp01;Dbxref=Genbank:YP_007188577.3,GeneID:37616440;Name=YP_007188577.3;Note=ORF1ab polyprotein is cleaved to yield the RNA-dependent RNA polymerase and other nonstructural proteins;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;locus_tag=D1P20_gp01;part=1;product=ORF1ab polyprotein;protein_id=YP_007188577.3
+NC_038294.1	RefSeq	CDS	13431	21513	.	+	1	ID=cds-YP_007188577.3;Parent=gene-D1P20_gp01;Dbxref=Genbank:YP_007188577.3,GeneID:37616440;Name=YP_007188577.3;Note=ORF1ab polyprotein is cleaved to yield the RNA-dependent RNA polymerase and other nonstructural proteins;exception=ribosomal slippage;gbkey=CDS;gene=ORF1ab;locus_tag=D1P20_gp01;part=2;product=ORF1ab polyprotein;protein_id=YP_007188577.3
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	278	856	.	+	.	ID=id-YP_007188577.3:1..193;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp1;protein_id=YP_009944292.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	857	2836	.	+	.	ID=id-YP_007188577.3:194..853;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp2;protein_id=YP_009944293.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	2837	8497	.	+	.	ID=id-YP_007188577.3:854..2740;Parent=cds-YP_007188577.3;gbkey=Prot;product=PLpro;protein_id=YP_009944294.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	8498	10018	.	+	.	ID=id-YP_007188577.3:2741..3247;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp4;protein_id=YP_009944295.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	10019	10936	.	+	.	ID=id-YP_007188577.3:3248..3553;Parent=cds-YP_007188577.3;gbkey=Prot;product=3C-like cysteine proteinase;protein_id=YP_009944296.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	10937	11812	.	+	.	ID=id-YP_007188577.3:3554..3845;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp6;protein_id=YP_009944297.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	11813	12061	.	+	.	ID=id-YP_007188577.3:3846..3928;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp7;protein_id=YP_009944298.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12062	12658	.	+	.	ID=id-YP_007188577.3:3929..4127;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp8;protein_id=YP_009944299.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12659	12988	.	+	.	ID=id-YP_007188577.3:4128..4237;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp9;protein_id=YP_009944300.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12989	13408	.	+	.	ID=id-YP_007188577.3:4238..4377;Parent=cds-YP_007188577.3;gbkey=Prot;product=nsp10;protein_id=YP_009944301.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	13409	13431	.	+	.	ID=id-YP_007188577.3:4378..5310;Parent=cds-YP_007188577.3;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009944302.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	13431	16206	.	+	.	ID=id-YP_007188577.3:4378..5310;Parent=cds-YP_007188577.3;gbkey=Prot;product=RNA-dependent RNA polymerase;protein_id=YP_009944302.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	16207	18000	.	+	.	ID=id-YP_007188577.3:5311..5908;Parent=cds-YP_007188577.3;gbkey=Prot;product=Hel;protein_id=YP_009944303.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	18001	19572	.	+	.	ID=id-YP_007188577.3:5909..6432;Parent=cds-YP_007188577.3;gbkey=Prot;product=3' to 5' exonuclease%2C N7-methyltransferase;protein_id=YP_009944304.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	19573	20601	.	+	.	ID=id-YP_007188577.3:6433..6775;Parent=cds-YP_007188577.3;gbkey=Prot;product=NendoU;protein_id=YP_009944305.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	20602	21510	.	+	.	ID=id-YP_007188577.3:6776..7078;Parent=cds-YP_007188577.3;gbkey=Prot;product=2'-O-methyltransferase;protein_id=YP_009944306.1
+NC_038294.1	RefSeq	CDS	278	13453	.	+	0	ID=cds-YP_007188578.1;Parent=gene-D1P20_gp01;Dbxref=Genbank:YP_007188578.1,GeneID:37616440;Name=YP_007188578.1;Note=ORF1a polyprotein is cleaved to yield nonstructural proteins;gbkey=CDS;gene=ORF1ab;locus_tag=D1P20_gp01;product=ORF1a polyprotein;protein_id=YP_007188578.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	278	856	.	+	.	ID=id-YP_007188578.1:1..193;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp1;protein_id=YP_009944281.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	857	2836	.	+	.	ID=id-YP_007188578.1:194..853;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp2;protein_id=YP_009944282.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	2837	8497	.	+	.	ID=id-YP_007188578.1:854..2740;Parent=cds-YP_007188578.1;gbkey=Prot;product=PLpro;protein_id=YP_009944283.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	8498	10018	.	+	.	ID=id-YP_007188578.1:2741..3247;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp4;protein_id=YP_009944284.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	10019	10936	.	+	.	ID=id-YP_007188578.1:3248..3553;Parent=cds-YP_007188578.1;gbkey=Prot;product=3C-like cysteine proteinase;protein_id=YP_009944285.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	10937	11812	.	+	.	ID=id-YP_007188578.1:3554..3845;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp6;protein_id=YP_009944286.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	11813	12061	.	+	.	ID=id-YP_007188578.1:3846..3928;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp7;protein_id=YP_009944287.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12062	12658	.	+	.	ID=id-YP_007188578.1:3929..4127;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp8;protein_id=YP_009944288.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12659	12988	.	+	.	ID=id-YP_007188578.1:4128..4237;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp9;protein_id=YP_009944289.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	12989	13408	.	+	.	ID=id-YP_007188578.1:4238..4377;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp10;protein_id=YP_009944290.1
+NC_038294.1	RefSeq	mature_protein_region_of_CDS	13409	13450	.	+	.	ID=id-YP_007188578.1:4378..4391;Parent=cds-YP_007188578.1;gbkey=Prot;product=nsp11;protein_id=YP_009944291.1
+NC_038294.1	RefSeq	gene	21455	25516	.	+	.	ID=gene-D1P20_gp02;Dbxref=GeneID:37616432;Name=S;gbkey=Gene;gene=S;gene_biotype=protein_coding;locus_tag=D1P20_gp02
+NC_038294.1	RefSeq	CDS	21455	25516	.	+	0	ID=cds-YP_007188579.1;Parent=gene-D1P20_gp02;Dbxref=Genbank:YP_007188579.1,GeneID:37616432;Name=YP_007188579.1;gbkey=CDS;gene=S;locus_tag=D1P20_gp02;product=spike protein;protein_id=YP_007188579.1
+NC_038294.1	RefSeq	gene	25531	25842	.	+	.	ID=gene-D1P20_gp03;Dbxref=GeneID:37616433;Name=ORF3;gbkey=Gene;gene=ORF3;gene_biotype=protein_coding;locus_tag=D1P20_gp03
+NC_038294.1	RefSeq	CDS	25531	25842	.	+	0	ID=cds-YP_007188580.1;Parent=gene-D1P20_gp03;Dbxref=Genbank:YP_007188580.1,GeneID:37616433;Name=YP_007188580.1;gbkey=CDS;gene=ORF3;locus_tag=D1P20_gp03;product=NS3A protein;protein_id=YP_007188580.1
+NC_038294.1	RefSeq	gene	25851	26180	.	+	.	ID=gene-D1P20_gp04;Dbxref=GeneID:37616434;Name=ORF4a;gbkey=Gene;gene=ORF4a;gene_biotype=protein_coding;locus_tag=D1P20_gp04
+NC_038294.1	RefSeq	CDS	25851	26180	.	+	0	ID=cds-YP_007188581.1;Parent=gene-D1P20_gp04;Dbxref=Genbank:YP_007188581.1,GeneID:37616434;Name=YP_007188581.1;gbkey=CDS;gene=ORF4a;locus_tag=D1P20_gp04;product=NS3B protein;protein_id=YP_007188581.1
+NC_038294.1	RefSeq	gene	26092	26832	.	+	.	ID=gene-D1P20_gp05;Dbxref=GeneID:37616435;Name=ORF4b;gbkey=Gene;gene=ORF4b;gene_biotype=protein_coding;locus_tag=D1P20_gp05
+NC_038294.1	RefSeq	CDS	26092	26832	.	+	0	ID=cds-YP_007188582.1;Parent=gene-D1P20_gp05;Dbxref=Genbank:YP_007188582.1,GeneID:37616435;Name=YP_007188582.1;gbkey=CDS;gene=ORF4b;locus_tag=D1P20_gp05;product=NS3C protein;protein_id=YP_007188582.1
+NC_038294.1	RefSeq	gene	26839	27513	.	+	.	ID=gene-D1P20_gp06;Dbxref=GeneID:37616436;Name=ORF5;gbkey=Gene;gene=ORF5;gene_biotype=protein_coding;locus_tag=D1P20_gp06
+NC_038294.1	RefSeq	CDS	26839	27513	.	+	0	ID=cds-YP_007188583.1;Parent=gene-D1P20_gp06;Dbxref=Genbank:YP_007188583.1,GeneID:37616436;Name=YP_007188583.1;gbkey=CDS;gene=ORF5;locus_tag=D1P20_gp06;product=NS3D protein;protein_id=YP_007188583.1
+NC_038294.1	RefSeq	gene	27589	27837	.	+	.	ID=gene-D1P20_gp07;Dbxref=GeneID:37616437;Name=E;gbkey=Gene;gene=E;gene_biotype=protein_coding;locus_tag=D1P20_gp07
+NC_038294.1	RefSeq	CDS	27589	27837	.	+	0	ID=cds-YP_007188584.1;Parent=gene-D1P20_gp07;Dbxref=Genbank:YP_007188584.1,GeneID:37616437;Name=YP_007188584.1;gbkey=CDS;gene=E;locus_tag=D1P20_gp07;product=envelope protein;protein_id=YP_007188584.1
+NC_038294.1	RefSeq	gene	27852	28511	.	+	.	ID=gene-D1P20_gp08;Dbxref=GeneID:37616438;Name=M;gbkey=Gene;gene=M;gene_biotype=protein_coding;locus_tag=D1P20_gp08
+NC_038294.1	RefSeq	CDS	27852	28511	.	+	0	ID=cds-YP_007188585.1;Parent=gene-D1P20_gp08;Dbxref=Genbank:YP_007188585.1,GeneID:37616438;Name=YP_007188585.1;gbkey=CDS;gene=M;locus_tag=D1P20_gp08;product=membrane protein;protein_id=YP_007188585.1
+NC_038294.1	RefSeq	gene	28565	29800	.	+	.	ID=gene-D1P20_gp09;Dbxref=GeneID:37616439;Name=N;gbkey=Gene;gene=N;gene_biotype=protein_coding;locus_tag=D1P20_gp09
+NC_038294.1	RefSeq	CDS	28565	29800	.	+	0	ID=cds-YP_007188586.1;Parent=gene-D1P20_gp09;Dbxref=Genbank:YP_007188586.1,GeneID:37616439;Name=YP_007188586.1;gbkey=CDS;gene=N;locus_tag=D1P20_gp09;product=nucleocapsid protein;protein_id=YP_007188586.1
+NC_038294.1	RefSeq	gene	28761	29099	.	+	.	ID=gene-D1P20_gp10;Dbxref=GeneID:60196426;Name=ORF8b;gbkey=Gene;gene=ORF8b;gene_biotype=protein_coding;locus_tag=D1P20_gp10
+NC_038294.1	RefSeq	CDS	28761	29099	.	+	0	ID=cds-YP_009944280.1;Parent=gene-D1P20_gp10;Dbxref=Genbank:YP_009944280.1,GeneID:60196426;Name=YP_009944280.1;gbkey=CDS;gene=ORF8b;locus_tag=D1P20_gp10;product=ORF8b;protein_id=YP_009944280.1
+NC_038294.1	RefSeq	three_prime_UTR	29801	30111	.	+	.	ID=id-NC_038294.1:29801..30111;gbkey=3'UTR
+

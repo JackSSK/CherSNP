@@ -62,9 +62,7 @@ class Observer:
                     "key":t.generate(k=site[2], type='dict'),
                     "suff":t.generate(k=site[3], type='dict')
                 }
-
         return dict, observ
-
 
     def _observe(self, seq_file, dict, observ, mode):
         #Initiating dicts for stroing correct observations
@@ -109,6 +107,8 @@ class Observer:
                                     new = [[ele1[0],ele2[1]]]
                                     coord.remove(ele1)
                                     coord.remove(ele2)
+                                    # print(ele1, ele2)
+                                    # print(entry.seq[ele1[1]-6:ele1[1]+40])
                                     if len(coord) > 0:
                                         self._getUpdates(coord, strand, seq, dict, observ)
                                     self._getUpdates(new, strand, seq, dict, observ)
@@ -170,6 +170,7 @@ class Observer:
                     # if inseq[7:10] != 'ATG':
                     #     print(self.gff[entry.id][trans]["name"], inseq[7:10], coord)
                     self._update_site(dict,observ,inseq, "init", 4,3,3)
+
                 if ele[0] != ter:
                     outseq = t.complementary(seq[ele[0]-9:ele[0]+5])
                     self._update_site(dict,observ,outseq, "outCDS", 2,2,4)
